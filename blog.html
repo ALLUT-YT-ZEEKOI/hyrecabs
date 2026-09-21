@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel Blog & Cab Guides — HyreCabs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-page: #fafafa;
+    --text-primary: #000000;
+    --text-muted: #6b6b6b;
+    --text-light: #A7A7A7;
+    --border-color: #e5e5e5;
+    --brand-accent: #203D4F;
+    --brand-cyan: #5AC4E6;
+    --brand-dark: #000000;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    background:
+      radial-gradient(1200px 500px at 10% -10%, rgba(193, 0, 0, 0.06), transparent 55%),
+      radial-gradient(900px 400px at 100% 0%, rgba(0, 0, 0, 0.04), transparent 50%),
+      var(--bg-page);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  img { max-width: 100%; display: block; }
+
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+  header.site-header {
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .header-wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 86px;
+  }
+  .brand-logo { height: 70px; width: auto; border-radius: 8px; }
+  .nav-links {
+    display: flex; align-items: center; gap: 28px;
+    font-size: 14px; font-weight: 600; color: var(--text-muted);
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+  .header-actions { display: flex; align-items: center; gap: 12px; }
+  .nav-toggle-btn {
+    display: none; width: 40px; height: 40px; border-radius: 10px;
+    border: 1px solid var(--border-color);
+    flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  }
+  .nav-toggle-btn span {
+    display: block; width: 18px; height: 2px;
+    background: var(--text-primary); border-radius: 2px;
+  }
+  .nav-toggle-btn.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav-toggle-btn.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle-btn.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .nav-backdrop {
+    position: fixed; inset: 86px 0 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 98; opacity: 0; visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s;
+  }
+  .nav-backdrop.show { opacity: 1; visibility: visible; }
+
+  /* Editorial masthead */
+  .blog-masthead {
+    padding: 56px 0 36px;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 40px;
+    align-items: end;
+    border-bottom: 2px solid #000;
+    margin-bottom: 36px;
+  }
+  .mast-kicker {
+    font-family: 'Copperplate Gothic Light', Copperplate, 'Segoe UI', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brand-accent);
+    margin-bottom: 14px;
+  }
+  .mast-title {
+    font-size: clamp(40px, 6vw, 64px);
+    font-weight: 900;
+    letter-spacing: -1.6px;
+    line-height: 0.98;
+    margin-bottom: 16px;
+  }
+  .mast-title em {
+    font-style: normal;
+    color: var(--brand-accent);
+  }
+  .mast-lead {
+    font-size: 16px;
+    color: var(--text-muted);
+    max-width: 420px;
+    line-height: 1.6;
+  }
+  .mast-aside {
+    text-align: right;
+    padding-bottom: 8px;
+  }
+  .mast-aside strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .mast-aside span {
+    font-size: 12.5px;
+    color: var(--text-muted);
+  }
+
+  /* Featured story */
+  .featured {
+    margin-bottom: 48px;
+  }
+  .featured-body {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 28px;
+    align-items: start;
+    padding: 8px 0 8px;
+  }
+  .featured-date {
+    font-family: 'Copperplate Gothic Light', Copperplate, 'Segoe UI', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    padding-top: 4px;
+  }
+  .featured-copy h2 {
+    font-size: clamp(26px, 3.4vw, 40px);
+    font-weight: 800;
+    letter-spacing: -0.8px;
+    line-height: 1.15;
+    margin-bottom: 12px;
+    max-width: 720px;
+  }
+  .featured-copy p {
+    font-size: 15px;
+    color: var(--text-muted);
+    max-width: 560px;
+    line-height: 1.65;
+  }
+  .featured-cta {
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #fff;
+    background: var(--brand-accent);
+    padding: 14px 22px;
+    border-radius: 999px;
+    white-space: nowrap;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .featured-cta:hover {
+    background: #000;
+    transform: translateY(-2px);
+  }
+
+  /* Story list — rows, not cards */
+  .stories-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 8px 0 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .stories-head h3 {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .stories-head span {
+    font-size: 12.5px;
+    color: var(--text-muted);
+  }
+
+  .story-row {
+    display: grid;
+    grid-template-columns: 160px 1fr auto;
+    gap: 22px;
+    align-items: center;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--border-color);
+    transition: opacity 0.2s ease;
+  }
+  .story-row:hover { opacity: 0.82; }
+  .story-thumb {
+    width: 160px;
+    height: 110px;
+    overflow: hidden;
+    background: #ececec;
+  }
+  .story-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .story-row:hover .story-thumb img { transform: scale(1.06); }
+  .story-meta {
+    font-family: 'Copperplate Gothic Light', Copperplate, 'Segoe UI', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brand-accent);
+    margin-bottom: 6px;
+  }
+  .story-row h4 {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+    margin-bottom: 6px;
+    line-height: 1.25;
+  }
+  .story-row p {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    max-width: 520px;
+  }
+  .story-arrow {
+    font-size: 22px;
+    font-weight: 700;
+    color: #000;
+  }
+
+  .blog-end {
+    padding: 48px 0 64px;
+    text-align: center;
+  }
+  .blog-end p {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+  .blog-end a {
+    display: inline-flex;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--brand-accent);
+    border-bottom: 2px solid var(--brand-accent);
+    padding-bottom: 2px;
+  }
+
+  footer.site-footer {
+    border-top: 1px solid var(--border-color);
+    background: #fff;
+    padding: 28px 0;
+  }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    font-size: 12px; color: var(--text-muted);
+  }
+  .footer-brand-block {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .footer-links {
+    display: flex;
+    gap: 16px;
+    font-weight: 600;
+  }
+  .footer-brand-logo { height: 44px; border-radius: 8px; }
+
+  @media (max-width: 900px) {
+    .nav-toggle-btn { display: flex; }
+    .nav-links {
+      position: fixed; top: 86px; left: 0; right: 0;
+      flex-direction: column; align-items: stretch; gap: 0;
+      padding: 6px 24px 18px; background: #fff;
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.1);
+      max-height: calc(100vh - 86px); overflow-y: auto;
+      transform: translateY(-100%); visibility: hidden;
+      transition: transform 0.32s ease, visibility 0.32s;
+      z-index: 99;
+    }
+    .nav-links.open { transform: translateY(0); visibility: visible; }
+    .nav-links a { padding: 14px 4px; border-bottom: 1px solid #f1f1f1; }
+    .blog-masthead { grid-template-columns: 1fr; gap: 20px; }
+    .mast-aside { text-align: left; }
+    .featured-body { grid-template-columns: 1fr; gap: 14px; }
+    .featured-date {
+      writing-mode: horizontal-tb;
+      transform: none;
+    }
+    .featured-cta { justify-self: start; }
+    .story-row { grid-template-columns: 120px 1fr; }
+    .story-thumb { width: 120px; height: 88px; }
+    .story-arrow { display: none; }
+  }
+  @media (max-width: 640px) {
+    .container { padding: 0 16px; }
+    .brand-logo { height: 52px; }
+    .blog-masthead { padding: 36px 0 28px; }
+    .story-row { grid-template-columns: 1fr; gap: 12px; }
+    .story-thumb { width: 100%; height: 180px; }
+    .footer-bottom {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 14px;
+    }
+    .footer-brand-block {
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-links {
+      justify-content: center;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-wrap">
+    <a href="index.html" class="brand" aria-label="HyreCabs — Home">
+      <img src="images/logo-cars.png" alt="HyreCabs" class="brand-logo" />
+    </a>
+    <nav class="nav-links" id="primaryNav">
+      <a href="index.html">Home</a>
+      <a href="search-results.html">Shop / Vehicles</a>
+      <a href="blog.html" class="active">Blog</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+    <div class="header-actions">
+      <button class="nav-toggle-btn" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="primaryNav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="nav-backdrop" id="navBackdrop"></div>
+
+<main>
+  <div class="container">
+    <header class="blog-masthead">
+      <div>
+        <div class="mast-kicker">HyreCabs Journal</div>
+        <h1 class="mast-title">Stories from<br>the <em>open road</em></h1>
+        <p class="mast-lead">Routes, safety notes and rental know-how for riders exploring Kerala.</p>
+      </div>
+      <aside class="mast-aside">
+        <strong>Updated weekly</strong>
+        <span>Guides · Safety · Weekend plans</span>
+      </aside>
+    </header>
+  </div>
+
+  <!-- Featured story -->
+  <article class="featured">
+    <div class="container featured-body">
+      <div class="featured-date">11 Sep 2026</div>
+      <div class="featured-copy">
+        <h2>Best morning routes around Kottayam for a calm half-day ride</h2>
+        <p>Quiet lake loops, early light and short fuel stops — a practical guide for first-time self-drive rentals.</p>
+      </div>
+      <a href="#" class="featured-cta">Read story →</a>
+    </div>
+  </article>
+
+  <div class="container">
+    <div class="stories-head">
+      <h3>More to read</h3>
+      <span>5 stories</span>
+    </div>
+
+    <a href="#" class="story-row">
+      <div class="story-thumb"><img src="images/car_luxury.png" alt="" /></div>
+      <div>
+        <div class="story-meta">Safety · 4 min</div>
+        <h4>Essential Driving & Safety Tips in Kerala</h4>
+        <p>ISI / DOT basics and how to pick the right fit before you leave the hub.</p>
+      </div>
+      <div class="story-arrow">→</div>
+    </a>
+
+    <a href="#" class="story-row">
+      <div class="story-thumb"><img src="images/car_ev.png" alt="" /></div>
+      <div>
+        <div class="story-meta">Weekend · 6 min</div>
+        <h4>Kochi to Kollam in a day</h4>
+        <p>Coastal timing, depot options and a flexible return plan that actually works.</p>
+      </div>
+      <div class="story-arrow">→</div>
+    </a>
+
+    <a href="#" class="story-row">
+      <div class="story-thumb"><img src="images/car_sedan.png" alt="" /></div>
+      <div>
+        <div class="story-meta">Beginners · 3 min</div>
+        <h4>First-time rental checklist</h4>
+        <p>Documents, deposit notes and a quick car walkaround before handover.</p>
+      </div>
+      <div class="story-arrow">→</div>
+    </a>
+
+    <a href="#" class="story-row">
+      <div class="story-thumb"><img src="images/car_hatchback.png" alt="" /></div>
+      <div>
+        <div class="story-meta">Season · 5 min</div>
+        <h4>Riding smart in Kerala monsoon</h4>
+        <p>Grip, gear and departure windows for safer wet-weather city commuting.</p>
+      </div>
+      <div class="story-arrow">→</div>
+    </a>
+
+    <a href="#" class="story-row">
+      <div class="story-thumb"><img src="images/car_luxury.png" alt="" /></div>
+      <div>
+        <div class="story-meta">Travel · 4 min</div>
+        <h4>Airport pickup, made simple</h4>
+        <p>How Cochin Airport express handovers work when you book ahead of landing.</p>
+      </div>
+      <div class="story-arrow">→</div>
+    </a>
+
+    <div class="blog-end">
+      <p>Need a car for your next route?</p>
+      <a href="search-results.html">Browse available vehicles →</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-bottom">
+    <div class="footer-brand-block">
+      <a href="index.html"><img src="images/logo-cars.png" alt="HyreCabs" class="footer-brand-logo" /></a>
+      <span>© 2026 HyreCabs. All Rights Reserved. Powered by Zeekoi Enterprise Solutions</span>
+    </div>
+    <div class="footer-links">
+      <a href="contact.html">Contact</a>
+      <a href="index.html#policies">Policies</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    const toggle = document.getElementById('navToggle');
+    const nav = document.getElementById('primaryNav');
+    const backdrop = document.getElementById('navBackdrop');
+    if (!toggle || !nav) return;
+    function setOpen(open) {
+      nav.classList.toggle('open', open);
+      toggle.classList.toggle('open', open);
+      if (backdrop) backdrop.classList.toggle('show', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    toggle.addEventListener('click', () => setOpen(!nav.classList.contains('open')));
+    if (backdrop) backdrop.addEventListener('click', () => setOpen(false));
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+    window.addEventListener('resize', () => { if (window.innerWidth > 900) setOpen(false); });
+  })();
+</script>
+</body>
+</html>

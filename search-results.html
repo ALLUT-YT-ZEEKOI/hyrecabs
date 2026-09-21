@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Select Your Cab — HyreCabs Kerala</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-page: #ffffff;
+    --bg-card: #ffffff;
+    --bg-thumb: #f5f5f5;
+    --text-primary: #000000;
+    --text-muted: #6b6b6b;
+    --text-light: #A7A7A7;
+    --border-color: #e5e5e5;
+    --brand-accent: #203D4F;
+    --brand-cyan: #5AC4E6;
+    --brand-yellow: #5AC4E6; /* Signal Amber */
+    --brand-dark: #000000;
+    --brand-blue: #5AC4E6; /* Petrol Blue */
+    --brand-grey: #A7A7A7; /* Road Dust Grey */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
+    --shadow-xl: 0 20px 40px -10px rgba(18, 21, 26, 0.12);
+    --radius-card: 18px;
+    --radius-pill: 30px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+  }
+
+  .font-brand-secondary,
+  .card-cat,
+  .badge-yellow,
+  .vendor-badge {
+    font-family: 'Copperplate Gothic Light', Copperplate, 'Segoe UI', sans-serif;
+    letter-spacing: 0.05em;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  img { max-width: 100%; display: block; }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* HEADER */
+  header.site-header {
+    background: #ffffff;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 86px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .brand-logo {
+    height: 70px;
+    width: auto;
+    display: block;
+    border-radius: 8px;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+  .nav-links a {
+    transition: color 0.2s ease;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--text-primary);
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .lang-select {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+  .icon-circle-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+  }
+  .icon-circle-btn:hover {
+    background: #f1f3f6;
+  }
+
+  /* MOBILE NAV TOGGLE (HAMBURGER) */
+  .nav-toggle-btn {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .nav-toggle-btn span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--text-primary);
+    transition: transform 0.28s ease, opacity 0.18s ease;
+  }
+  .nav-toggle-btn.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav-toggle-btn.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle-btn.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  .nav-backdrop {
+    position: fixed;
+    inset: 86px 0 0;
+    background: rgba(18, 21, 26, 0.45);
+    z-index: 98;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+  }
+  .nav-backdrop.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* SEARCH RESULTS PAGE HEADER */
+  .results-header-section {
+    padding: 36px 0 20px;
+  }
+  .results-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .badge-yellow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #F0F9FC;
+    border: 1.5px solid #fecaca;
+    color: #203D4F;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 30px;
+    letter-spacing: 0.2px;
+  }
+  .btn-modify-search {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+    border: 1.5px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 18px;
+    border-radius: 24px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    transition: all 0.2s ease;
+  }
+  .btn-modify-search:hover {
+    background: #1e232a;
+    color: #ffffff;
+    border-color: #1e232a;
+  }
+
+  .results-title {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+    margin-bottom: 24px;
+  }
+  .results-title span {
+    color: var(--brand-accent);
+  }
+
+  /* ACTIVE SEARCH SUMMARY CARD */
+  .search-summary-card {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1.5px solid var(--border-color);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.03);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 32px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+  }
+  .summary-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .summary-item .label {
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  .summary-item .value {
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+  .summary-divider {
+    width: 1px;
+    height: 24px;
+    background: var(--border-color);
+  }
+
+  /* EDIT SEARCH EXPANDABLE DRAWER */
+  .edit-search-drawer {
+    display: none;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.08);
+    border: 1.5px solid var(--border-color);
+    padding: 20px 24px;
+    margin-bottom: 32px;
+  }
+  .edit-search-drawer.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .edit-search-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr) auto;
+    gap: 16px;
+    align-items: end;
+  }
+  .edit-field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-light);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .edit-field input, .edit-field select {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border-color);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    outline: none;
+  }
+  .btn-update-search {
+    background: var(--brand-dark);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 13px;
+    padding: 12px 24px;
+    border-radius: 10px;
+    transition: background 0.2s ease;
+  }
+  .btn-update-search:hover {
+    background: var(--brand-yellow);
+    color: #12151a;
+  }
+
+  /* CATEGORY FILTER CHIPS */
+  .filter-chips-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scroll-behavior: smooth;
+    /* Swipe to scroll — the native bar is noise on a tab strip */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    /* Fade the trailing edge so it reads as "there is more this way".
+       The .at-end class removes it once there is nothing left to scroll,
+       which also covers wide screens where every chip already fits. */
+    mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 34px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 34px), transparent 100%);
+  }
+  .filter-chips-row::-webkit-scrollbar {
+    display: none;
+  }
+  .filter-chips-row.at-end {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+  .filter-chip {
+    padding: 8px 18px;
+    border-radius: 24px;
+    border: 1.5px solid var(--border-color);
+    background: #ffffff;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--text-muted);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .filter-chip:hover, .filter-chip.active {
+    background: var(--brand-dark);
+    color: #ffffff;
+    border-color: var(--brand-dark);
+  }
+
+  /* VEHICLE CARDS GRID (4-COLUMN RESPONSIVE GRID) */
+  .grid-4col {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 60px;
+  }
+
+  /* CAR CARD DESIGN */
+  .car-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    border: 1.5px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+    transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: flex;
+    flex-direction: column;
+  }
+  .car-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-xl);
+    border-color: rgba(0, 0, 0, 0.15);
+  }
+
+  .card-thumb {
+    background: radial-gradient(circle at 50% 65%, #ffffff 0%, #edf2f7 100%);
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    position: relative;
+  }
+  .card-thumb img {
+    max-height: 85%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 14px rgba(0,0,0,0.12));
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .car-card:hover .card-thumb img {
+    transform: scale(1.06) translateY(-4px);
+  }
+
+  .card-top-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(0,0,0,0.06);
+    color: var(--text-primary);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  }
+
+  .vendor-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #f1f5f9;
+    color: #64748b;
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .card-cat {
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    color: var(--accent-red);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-specs-box {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 10px 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #f1f5f9;
+  }
+  .spec-chip {
+    font-size: 11px;
+    font-weight: 600;
+    color: #475569;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .card-footer-row {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+  }
+  .price-box {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    min-width: 0;
+  }
+  .price-main {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.2;
+    white-space: nowrap;
+    letter-spacing: -0.02em;
+  }
+  .price-unit {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .btn-select-vehicle {
+    background: #203D4F;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 10px 12px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(193, 0, 0, 0.25);
+  }
+  .btn-select-vehicle:hover {
+    background: #0a0a0a;
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+    transform: translateY(-1px);
+  }
+
+  /* MODAL FOR BOOKING CONFIRMATION */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(18, 21, 26, 0.6);
+    backdrop-filter: blur(6px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.active {
+    display: flex;
+  }
+  .modal-card {
+    background: #ffffff;
+    border-radius: 24px;
+    max-width: 520px;
+    width: 100%;
+    padding: 32px;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.2);
+    position: relative;
+    animation: modalPop 0.3s ease;
+  }
+  @keyframes modalPop {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .modal-close {
+    position: absolute;
+    top: 16px; right: 16px;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: #f1f5f9;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700; cursor: pointer;
+  }
+  .modal-title { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+  .modal-img { max-height: 180px; margin: 16px auto; object-fit: contain; }
+  .modal-summary-box {
+    background: #f8fafc;
+    border-radius: 14px;
+    padding: 16px;
+    border: 1.5px solid #e2e8f0;
+    margin-bottom: 20px;
+    font-size: 13px;
+  }
+  .modal-summary-row {
+    display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 600;
+  }
+  .modal-summary-row:last-child { margin-bottom: 0; border-top: 1px solid #e2e8f0; padding-top: 8px; font-weight: 800; font-size: 15px; }
+
+  .btn-confirm-booking {
+    width: 100%;
+    background: #203D4F;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+    padding: 14px;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+  }
+  .btn-confirm-booking:hover {
+    background: #0a0a0a;
+    color: #ffffff;
+  }
+
+  /* FOOTER */
+  footer.site-footer {
+    background: #ffffff;
+    border-top: 1px solid var(--border-color);
+    padding: 56px 0 24px;
+  }
+  .footer-bottom {
+    border-top: 1px solid var(--border-color);
+    padding-top: 20px;
+    margin-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .footer-brand-block {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .footer-links {
+    display: flex;
+    gap: 16px;
+    font-weight: 600;
+  }
+  .footer-brand-logo {
+    height: 44px;
+    width: auto;
+    display: block;
+    border-radius: 8px;
+  }
+
+  /* =========================================================
+     RESPONSIVE BREAKPOINTS
+     ========================================================= */
+
+  @media (max-width: 1100px) {
+    .grid-4col { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  }
+
+  /* --- Tablet: swap the nav for a slide-down drawer --- */
+  @media (max-width: 900px) {
+    .nav-toggle-btn { display: flex; }
+    .lang-select { display: none; }
+
+    .nav-links {
+      position: fixed;
+      top: 86px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 6px 24px 18px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.10);
+      font-size: 15px;
+      max-height: calc(100vh - 86px);
+      overflow-y: auto;
+      transform: translateY(-100%);
+      visibility: hidden;
+      transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.32s;
+      z-index: 99;
+    }
+    .nav-links.open {
+      transform: translateY(0);
+      visibility: visible;
+    }
+    .nav-links a {
+      padding: 15px 4px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .nav-links a:last-child { border-bottom: none; }
+
+    .grid-4col { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .edit-search-grid { grid-template-columns: 1fr 1fr; }
+    .search-summary-card { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .summary-divider { display: none; }
+    .results-header-section { padding: 24px 0 16px; }
+    .results-title { font-size: 26px; }
+  }
+
+  /* --- Phone --- */
+  @media (max-width: 640px) {
+    .container { padding: 0 16px; }
+    .nav-links { padding: 6px 16px 18px; }
+
+    .grid-4col { grid-template-columns: 1fr; gap: 18px; margin-bottom: 40px; }
+    .results-title { font-size: 23px; }
+
+    /* Stack the badge and modify button instead of squeezing them */
+    .results-top-bar {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+    }
+    .btn-modify-search { justify-content: center; }
+
+    .edit-search-drawer { padding: 18px 16px; }
+    .edit-search-grid { grid-template-columns: 1fr; gap: 14px; }
+    .btn-update-search { width: 100%; padding: 14px; }
+
+    .search-summary-card { padding: 16px 18px; gap: 12px; }
+    .filter-chips-row {
+      margin-bottom: 22px;
+      /* Let chips scroll edge-to-edge instead of clipping */
+      margin-inline: -16px;
+      padding-inline: 16px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .filter-chip { padding: 10px 18px; font-size: 13px; }
+
+    .card-thumb { height: 190px; }
+    .card-footer-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+    .btn-select-vehicle { justify-content: center; padding: 13px 16px; }
+
+    .modal-card { padding: 24px 20px; border-radius: 20px; }
+    .modal-title { font-size: 19px; }
+    .modal-img { max-height: 140px; }
+
+    footer.site-footer { padding: 44px 0 20px; }
+    .footer-bottom {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 14px;
+    }
+    .footer-brand-block {
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-links {
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .brand-logo { height: 52px; }
+    .header-actions { gap: 8px; }
+    .icon-circle-btn { width: 34px; height: 34px; }
+    .results-title { font-size: 21px; }
+    .card-thumb { height: 170px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container header-wrap">
+    <a href="index.html" class="brand" aria-label="SachCarz Rent a Car — Home">
+      <img src="images/logo-cars.png" alt="HYRECABS" class="brand-logo" />
+    </a>
+
+    <nav class="nav-links" id="primaryNav">
+      <a href="index.html">Home</a>
+      <a href="search-results.html" class="active">Shop / Vehicles</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+
+    <div class="header-actions">
+      <div class="lang-select">us EN ▾</div>
+      <button class="icon-circle-btn" title="Search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+      <button class="icon-circle-btn" title="Cart">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      </button>
+      <button class="nav-toggle-btn" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="primaryNav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="nav-backdrop" id="navBackdrop"></div>
+
+<!-- MAIN SEARCH RESULTS PAGE -->
+<main class="container">
+  
+  <section class="results-header-section">
+    <!-- Top Action Row -->
+    <div class="results-top-bar">
+      <div class="badge-yellow">
+        <span>●</span> Available Vehicles
+      </div>
+      <button class="btn-modify-search" onclick="toggleEditDrawer()">
+        ← Modify Search
+      </button>
+    </div>
+
+    <!-- Main Title -->
+    <h1 class="results-title">Choose Your <span>Vehicle</span></h1>
+
+    <!-- Expandable Edit Search Drawer -->
+    <div class="edit-search-drawer" id="editDrawer">
+      <form onsubmit="updateSearchSummary(event)">
+        <div class="edit-search-grid">
+          <div class="edit-field">
+            <label>Start Date</label>
+            <input type="date" id="inputStartDate" value="2026-09-10" />
+          </div>
+          <div class="edit-field">
+            <label>Start Time</label>
+            <select id="inputStartTime">
+              <option>09:00 AM</option>
+              <option selected>10:00 AM</option>
+              <option>11:00 AM</option>
+              <option>12:00 PM</option>
+              <option>01:00 PM</option>
+              <option>02:00 PM</option>
+            </select>
+          </div>
+          <div class="edit-field">
+            <label>End Date</label>
+            <input type="date" id="inputEndDate" value="2026-09-13" />
+          </div>
+          <div class="edit-field">
+            <label>End Time</label>
+            <select id="inputEndTime">
+              <option>09:00 AM</option>
+              <option selected>10:00 AM</option>
+              <option>11:00 AM</option>
+              <option>12:00 PM</option>
+              <option>01:00 PM</option>
+              <option>02:00 PM</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-update-search">Update Search</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Active Search Parameters Summary Bar -->
+    <div class="search-summary-card">
+      <div class="summary-item">
+        <span class="label">📍 Pickup:</span>
+        <span class="value" id="valPickup">Main Station (pickup)</span>
+      </div>
+      <div class="summary-divider"></div>
+      <div class="summary-item">
+        <span class="label">🏁 Drop-off:</span>
+        <span class="value" id="valDropoff">Main Station (dropoff)</span>
+      </div>
+      <div class="summary-divider"></div>
+      <div class="summary-item">
+        <span class="label">📅 From:</span>
+        <span class="value" id="valFrom">10 Sept 2026, 10:00 AM</span>
+      </div>
+      <div class="summary-divider"></div>
+      <div class="summary-item">
+        <span class="label">🕒 To:</span>
+        <span class="value" id="valTo">13 Sept 2026, 10:00 AM</span>
+      </div>
+      <div class="summary-divider"></div>
+      <div class="summary-item">
+        <span class="label">⏱️ Duration:</span>
+        <span class="value" id="valDuration" style="color:var(--brand-accent);">3 Days</span>
+      </div>
+    </div>
+
+    <!-- Category Filter Chips -->
+    <div class="filter-chips-row">
+      <button class="filter-chip active" onclick="filterCabs('all', this)">All Cabs</button>
+      <button class="filter-chip" onclick="filterCabs('hatchback', this)">🚗 Hatchbacks</button>
+      <button class="filter-chip" onclick="filterCabs('sedan', this)">🚘 Sedans</button>
+      <button class="filter-chip" onclick="filterCabs('suv', this)">🚙 SUVs</button>
+      <button class="filter-chip" onclick="filterCabs('ev', this)">⚡ EV Cabs</button>
+      <button class="filter-chip" onclick="filterCabs('luxury', this)">⭐ Luxury Cabs</button>
+    </div>
+  </section>
+
+  <!-- VEHICLES GRID (4 CARDS PER ROW WITH PNG CAB CARDS) -->
+  <section class="grid-4col" id="carsGrid">
+    
+    <!-- Car Card 1 -->
+    <div class="car-card" data-category="hatchback">
+      <div class="card-thumb">
+        <span class="card-top-tag">⚡ Electric Sport</span>
+        <span class="vendor-badge">HYRECABS</span>
+        <img src="images/car_hatchback.png" alt="Specialized Rockhopper Elite" />
+      </div>
+      <div class="card-body">
+        <div class="card-cat">URBAN & HIGHWAY</div>
+        <h3 class="card-title">HYRECABS URBAN HATCHBACK</h3>
+        <div class="card-footer-row">
+          <div class="price-box" data-daily-rate="11.00">
+            <div class="price-main">€33.00 <span class="price-unit">total</span></div>
+          </div>
+          <button class="btn-select-vehicle" onclick="openBookingModal('HYRECABS URBAN HATCHBACK', '11.00', 'images/car_hatchback.png')">
+            Select Vehicle →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Car Card 2 -->
+    <div class="car-card" data-category="sedan">
+      <div class="card-thumb">
+        <span class="card-top-tag">🔥 Popular</span>
+        <span class="vendor-badge">HYRECABS</span>
+        <img src="images/car_sedan.png" alt="Norco Fluid FS 4 Black 29" />
+      </div>
+      <div class="card-body">
+        <div class="card-cat">CAFE RACER</div>
+        <h3 class="card-title">HYRECABS EXECUTIVE SEDAN</h3>
+        <div class="card-footer-row">
+          <div class="price-box" data-daily-rate="15.00">
+            <div class="price-main">€45.00 <span class="price-unit">total</span></div>
+          </div>
+          <button class="btn-select-vehicle" onclick="openBookingModal('HYRECABS EXECUTIVE SEDAN', '15.00', 'images/car_sedan.png')">
+            Select Vehicle →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Car Card 3 -->
+    <div class="car-card" data-category="luxury">
+      <div class="card-thumb">
+        <span class="card-top-tag">🏆 Flagship</span>
+        <span class="vendor-badge">HYRECABS</span>
+        <img src="images/car_luxury.png" alt="Ducati Panigale V4 S" />
+      </div>
+      <div class="card-body">
+        <div class="card-cat">TRACK LUXURY CAB</div>
+        <h3 class="card-title">HYRECABS LUXURY CHAUFFEUR</h3>
+        <div class="card-footer-row">
+          <div class="price-box" data-daily-rate="45.00">
+            <div class="price-main">€135.00 <span class="price-unit">total</span></div>
+          </div>
+          <button class="btn-select-vehicle" onclick="openBookingModal('HYRECABS LUXURY CHAUFFEUR', '45.00', 'images/car_luxury.png')">
+            Select Vehicle →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Car Card 4 -->
+    <div class="car-card" data-category="ev">
+      <div class="card-thumb">
+        <span class="card-top-tag">🏁 Sportcar</span>
+        <span class="vendor-badge">HYRECABS</span>
+        <img src="images/car_ev.png" alt="Yamaha YZF-R1M Apex" />
+      </div>
+      <div class="card-body">
+        <div class="card-cat">APEX SERIES</div>
+        <h3 class="card-title">HYRECABS ELECTRIC EV CAB</h3>
+        <div class="card-footer-row">
+          <div class="price-box" data-daily-rate="52.00">
+            <div class="price-main">€156.00 <span class="price-unit">total</span></div>
+          </div>
+          <button class="btn-select-vehicle" onclick="openBookingModal('HYRECABS ELECTRIC EV CAB', '52.00', 'images/car_ev.png')">
+            Select Vehicle →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Car Card 5 -->
+    <div class="car-card" data-category="ev">
+      <div class="card-thumb">
+        <span class="card-top-tag">⭐ Top Rated</span>
+        <span class="vendor-badge">HYRECABS</span>
+        <img src="images/hero_car.png" alt="Yamaha R15 V4 Monster" />
+      </div>
+      <div class="card-body">
+        <div class="card-cat">SPORT TOURING</div>
+        <h3 class="card-title">HYRECABS PREMIUM SUV CAB</h3>
+        <div class="card-footer-row">
+          <div class="price-box" data-daily-rate="22.00">
+            <div class="price-main">€66.00 <span class="price-unit">total</span></div>
+          </div>
+          <button class="btn-select-vehicle" onclick="openBookingModal('HYRECABS PREMIUM SUV CAB', '22.00', 'images/hero_car.png')">
+            Select Vehicle →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Car Card 6 -->
+    <div class="car-card" data-category="luxury">
+      <div class="card-thumb">
+        <span class="card-top-tag">🔥 M Series</span>
+        <span class="vendor-badge">HYRECABS</span>
+        <img src="images/car_ev.png" alt="BMW S1000RR M Package" />
+      </div>
+      <div class="card-body">
+        <div class="card-cat">HYPER LUXURY CAB</div>
+        <h3 class="card-title">HYRECABS CHAUFFEUR EXECUTIVE</h3>
+        <div class="card-footer-row">
+          <div class="price-box" data-daily-rate="55.00">
+            <div class="price-main">€165.00 <span class="price-unit">total</span></div>
+          </div>
+          <button class="btn-select-vehicle" onclick="openBookingModal('HYRECABS CHAUFFEUR EXECUTIVE', '55.00', 'images/car_ev.png')">
+            Select Vehicle →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Car Card 7 -->
+    <div class="car-card" data-category="sedan">
+      <div class="card-thumb">
+        <span class="card-top-tag">🛡️ Adventure</span>
+        <span class="vendor-badge">HYRECABS</span>
+        <img src="images/car_luxury.png" alt="Suzuki V-Strom 1050 XT" />
+      </div>
+      <div class="card-body">
+        <div class="card-cat">TOURING & TRAIL</div>
+        <h3 class="card-title">HYRECABS OUTSTATION SUV</h3>
+        <div class="card-footer-row">
+          <div class="price-box" data-daily-rate="38.00">
+            <div class="price-main">€114.00 <span class="price-unit">total</span></div>
+          </div>
+          <button class="btn-select-vehicle" onclick="openBookingModal('HYRECABS OUTSTATION SUV', '38.00', 'images/car_luxury.png')">
+            Select Vehicle →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Car Card 8 -->
+    <div class="car-card" data-category="hatchback">
+      <div class="card-thumb">
+        <span class="card-top-tag">⚡ Eco Sport</span>
+        <span class="vendor-badge">HYRECABS</span>
+        <img src="images/car_hatchback.png" alt="Zero SR/F Electric Super Naked" />
+      </div>
+      <div class="card-body">
+        <div class="card-cat">ZERO EMISSION</div>
+        <h3 class="card-title">HYRECABS ECO GREEN EV</h3>
+        <div class="card-footer-row">
+          <div class="price-box" data-daily-rate="30.00">
+            <div class="price-main">€90.00 <span class="price-unit">total</span></div>
+          </div>
+          <button class="btn-select-vehicle" onclick="openBookingModal('HYRECABS ECO GREEN EV', '30.00', 'images/car_hatchback.png')">
+            Select Vehicle →
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- BOOKING SELECTION MODAL -->
+<div class="modal-overlay" id="bookingModal">
+  <div class="modal-card">
+    <div class="modal-close" onclick="closeBookingModal()">✕</div>
+    <div class="modal-title" id="modalCarTitle">Vehicle Selection</div>
+    <p style="font-size:13px; color:var(--text-muted);">Review your rental dates and total price</p>
+    
+    <img id="modalCarImg" src="" class="modal-img" alt="Selected Cab" />
+    
+    <div class="modal-summary-box">
+      <div class="modal-summary-row">
+        <span>From Date & Time:</span>
+        <span id="modalFrom">10 Sept 2026, 10:00 AM</span>
+      </div>
+      <div class="modal-summary-row">
+        <span>To Date & Time:</span>
+        <span id="modalTo">13 Sept 2026, 10:00 AM</span>
+      </div>
+      <div class="modal-summary-row">
+        <span>Rental Duration:</span>
+        <span id="modalDays">3 Days</span>
+      </div>
+      <div class="modal-summary-row">
+        <span>Daily Rate:</span>
+        <span id="modalRate">€11.00 / day</span>
+      </div>
+      <div class="modal-summary-row">
+        <span>Est. Total Payable:</span>
+        <span id="modalTotal" style="color:var(--brand-accent);">€33.00</span>
+      </div>
+    </div>
+
+    <button class="btn-confirm-booking" onclick="confirmBooking()">
+      Confirm & Reserve Vehicle
+    </button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <div class="footer-brand-block">
+        <a href="index.html" aria-label="HYRECABS — Home">
+          <img src="images/logo-cars.png" alt="HYRECABS" class="footer-brand-logo" />
+        </a>
+        <span>© 2026 HyreCabs. All Rights Reserved. Powered by Zeekoi Enterprise Solutions</span>
+      </div>
+      <div class="footer-links">
+        <span>Privacy Policy</span>
+        <span>Terms of Service</span>
+        <span>Support</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Global state for duration & rate calculation
+  let currentDurationDays = 3;
+  let selectedCarPrice = 11.00;
+
+  // Parse URL Parameters on page load
+  window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const startDate = params.get('startDate');
+    const startTime = params.get('startTime');
+    const endDate = params.get('endDate');
+    const endTime = params.get('endTime');
+
+    if (startDate && endDate) {
+      document.getElementById('inputStartDate').value = startDate;
+      document.getElementById('inputEndDate').value = endDate;
+      if (startTime) document.getElementById('inputStartTime').value = startTime;
+      if (endTime) document.getElementById('inputEndTime').value = endTime;
+
+      calculateAndRenderSummary(startDate, startTime || '10:00 AM', endDate, endTime || '10:00 AM');
+    } else {
+      calculateAndRenderSummary('2026-09-10', '10:00 AM', '2026-09-13', '10:00 AM');
+    }
+  });
+
+  function formatDateDisplay(dateStr) {
+    if (!dateStr) return '';
+    const parts = dateStr.split('-');
+    if (parts.length === 3) {
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+      const year = parts[0];
+      const monthIdx = parseInt(parts[1], 10) - 1;
+      const day = parseInt(parts[2], 10);
+      return `${day} ${months[monthIdx] || parts[1]} ${year}`;
+    }
+    return dateStr;
+  }
+
+  function calculateAndRenderSummary(startDateStr, startTimeStr, endDateStr, endTimeStr) {
+    const startObj = new Date(startDateStr);
+    const endObj = new Date(endDateStr);
+    let diffDays = 3;
+
+    if (!isNaN(startObj.getTime()) && !isNaN(endObj.getTime())) {
+      const diffTime = Math.abs(endObj - startObj);
+      diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      if (diffDays <= 0) diffDays = 1;
+    }
+    currentDurationDays = diffDays;
+
+    const formattedStart = `${formatDateDisplay(startDateStr)}, ${startTimeStr}`;
+    const formattedEnd = `${formatDateDisplay(endDateStr)}, ${endTimeStr}`;
+
+    document.getElementById('valFrom').textContent = formattedStart;
+    document.getElementById('valTo').textContent = formattedEnd;
+    document.getElementById('valDuration').textContent = `${diffDays} Day${diffDays > 1 ? 's' : ''}`;
+
+    // Update modal defaults
+    document.getElementById('modalFrom').textContent = formattedStart;
+    document.getElementById('modalTo').textContent = formattedEnd;
+    document.getElementById('modalDays').textContent = `${diffDays} Day${diffDays > 1 ? 's' : ''}`;
+
+    // Update est total prices across all cards
+    updateCardEstTotals(diffDays);
+  }
+
+  function updateCardEstTotals(days) {
+    const cards = document.querySelectorAll('.car-card');
+    cards.forEach(card => {
+      const priceBox = card.querySelector('.price-box');
+      const priceElem = card.querySelector('.price-main');
+      if (!priceBox || !priceElem) return;
+      const rate = parseFloat(priceBox.dataset.dailyRate || '0');
+      if (!rate) return;
+      const total = (rate * days).toFixed(2);
+      priceElem.innerHTML = `€${total} <span class="price-unit">total</span>`;
+    });
+  }
+
+  function toggleEditDrawer() {
+    const drawer = document.getElementById('editDrawer');
+    drawer.classList.toggle('active');
+  }
+
+  function updateSearchSummary(e) {
+    e.preventDefault();
+    const sDate = document.getElementById('inputStartDate').value;
+    const sTime = document.getElementById('inputStartTime').value;
+    const eDate = document.getElementById('inputEndDate').value;
+    const eTime = document.getElementById('inputEndTime').value;
+
+    calculateAndRenderSummary(sDate, sTime, eDate, eTime);
+    toggleEditDrawer();
+  }
+
+  // Keep the filter strip's trailing fade in sync with its scroll position
+  (function () {
+    const row = document.querySelector('.filter-chips-row');
+    if (!row) return;
+
+    function updateFade() {
+      const atEnd = row.scrollLeft + row.clientWidth >= row.scrollWidth - 1;
+      row.classList.toggle('at-end', atEnd);
+    }
+
+    row.addEventListener('scroll', updateFade, { passive: true });
+    window.addEventListener('resize', updateFade);
+    updateFade();
+  })();
+
+  function filterCabs(category, btnElem) {
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    btnElem.classList.add('active');
+
+    // Pull a partly off-screen chip fully into view when tapped
+    btnElem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+
+    const cards = document.querySelectorAll('.car-card');
+    cards.forEach(card => {
+      if (category === 'all' || card.dataset.category === category) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // Mobile navigation drawer
+  (function () {
+    const toggle = document.getElementById('navToggle');
+    const nav = document.getElementById('primaryNav');
+    const backdrop = document.getElementById('navBackdrop');
+    if (!toggle || !nav) return;
+
+    function setOpen(open) {
+      nav.classList.toggle('open', open);
+      toggle.classList.toggle('open', open);
+      if (backdrop) backdrop.classList.toggle('show', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    toggle.addEventListener('click', () => setOpen(!nav.classList.contains('open')));
+    if (backdrop) backdrop.addEventListener('click', () => setOpen(false));
+    nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
+    window.addEventListener('resize', () => { if (window.innerWidth > 900) setOpen(false); });
+  })();
+
+  function openBookingModal(title, priceStr, imgPath) {
+    const sDate = document.getElementById('inputStartDate').value || '2026-09-10';
+    const sTime = document.getElementById('inputStartTime').value || '10:00 AM';
+    const eDate = document.getElementById('inputEndDate').value || '2026-09-13';
+    const eTime = document.getElementById('inputEndTime').value || '10:00 AM';
+
+    const url = `booking.html?car=${encodeURIComponent(title)}&price=${encodeURIComponent(priceStr)}&img=${encodeURIComponent(imgPath)}&startDate=${encodeURIComponent(sDate)}&startTime=${encodeURIComponent(sTime)}&endDate=${encodeURIComponent(eDate)}&endTime=${encodeURIComponent(eTime)}`;
+    window.location.href = url;
+  }
+</script>
+</body>
+</html>

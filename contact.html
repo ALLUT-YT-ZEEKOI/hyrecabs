@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — HyreCabs Kerala</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-page: #ffffff;
+    --text-primary: #000000;
+    --text-muted: #6b6b6b;
+    --text-light: #A7A7A7;
+    --border-color: #e5e5e5;
+    --brand-accent: #203D4F;
+    --brand-cyan: #5AC4E6;
+    --brand-dark: #000000;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-page);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  img { max-width: 100%; display: block; }
+
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+
+  header.site-header {
+    background: #fff;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .header-wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 86px;
+  }
+  .brand-logo { height: 70px; width: auto; border-radius: 8px; }
+  .nav-links {
+    display: flex; align-items: center; gap: 28px;
+    font-size: 14px; font-weight: 600; color: var(--text-muted);
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+  .header-actions { display: flex; align-items: center; gap: 12px; }
+  .nav-toggle-btn {
+    display: none; width: 40px; height: 40px; border-radius: 10px;
+    border: 1px solid var(--border-color);
+    flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  }
+  .nav-toggle-btn span {
+    display: block; width: 18px; height: 2px;
+    background: var(--text-primary); border-radius: 2px;
+  }
+  .nav-toggle-btn.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav-toggle-btn.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle-btn.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .nav-backdrop {
+    position: fixed; inset: 86px 0 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 98; opacity: 0; visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s;
+  }
+  .nav-backdrop.show { opacity: 1; visibility: visible; }
+
+  .page-hero {
+    padding: 48px 0 32px;
+    text-align: center;
+  }
+  .page-eyebrow {
+    display: inline-block;
+    font-size: 11px; font-weight: 800;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--brand-accent); margin-bottom: 10px;
+  }
+  .page-hero h1 {
+    font-size: 36px; font-weight: 800; letter-spacing: -0.6px; margin-bottom: 10px;
+  }
+  .page-hero p {
+    font-size: 15px; color: var(--text-muted); max-width: 520px; margin: 0 auto;
+  }
+
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 28px;
+    padding-bottom: 56px;
+  }
+  .contact-card {
+    border: 1.5px solid var(--border-color);
+    border-radius: 20px;
+    padding: 28px;
+    background: #fff;
+  }
+  .contact-card h2 {
+    font-size: 20px; font-weight: 800; margin-bottom: 6px;
+  }
+  .contact-card > p {
+    font-size: 13.5px; color: var(--text-muted); margin-bottom: 22px;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .form-field { display: flex; flex-direction: column; gap: 6px; }
+  .form-field.full { grid-column: 1 / -1; }
+  .form-field label {
+    font-size: 11.5px; font-weight: 700;
+    color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .form-field input,
+  .form-field textarea {
+    border: 1.5px solid var(--border-color);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.2s ease;
+    background: #fff;
+  }
+  .form-field input:focus,
+  .form-field textarea:focus {
+    border-color: var(--brand-accent);
+  }
+  .form-field textarea { min-height: 130px; resize: vertical; }
+
+  /* Custom dropdown */
+  .custom-select {
+    position: relative;
+  }
+  .custom-select-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border: 1.5px solid var(--border-color);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: #fff;
+    text-align: left;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .custom-select-trigger:hover {
+    border-color: #cfcfcf;
+  }
+  .custom-select.open .custom-select-trigger,
+  .custom-select-trigger:focus {
+    border-color: var(--brand-accent);
+    box-shadow: 0 0 0 3px rgba(193, 0, 0, 0.12);
+    outline: none;
+  }
+  .custom-select-trigger .select-caret {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: var(--text-muted);
+    transition: transform 0.22s ease, color 0.2s ease;
+  }
+  .custom-select.open .select-caret {
+    transform: rotate(180deg);
+    color: var(--brand-accent);
+  }
+  .custom-select-menu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 8px);
+    z-index: 40;
+    background: #fff;
+    border: 1.5px solid var(--border-color);
+    border-radius: 14px;
+    padding: 6px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-6px) scale(0.98);
+    transform-origin: top center;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+    max-height: 260px;
+    overflow-y: auto;
+  }
+  .custom-select.open .custom-select-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+  .custom-select-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    padding: 11px 12px;
+    border-radius: 10px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: left;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .custom-select-option:hover,
+  .custom-select-option[aria-selected="true"]:hover {
+    background: #F0F9FC;
+    color: var(--brand-accent);
+  }
+  .custom-select-option[aria-selected="true"] {
+    background: rgba(193, 0, 0, 0.08);
+    color: var(--brand-accent);
+  }
+  .custom-select-option .option-check {
+    width: 16px;
+    height: 16px;
+    opacity: 0;
+    color: var(--brand-accent);
+    flex-shrink: 0;
+  }
+  .custom-select-option[aria-selected="true"] .option-check {
+    opacity: 1;
+  }
+  .btn-send {
+    margin-top: 8px;
+    width: 100%;
+    background: var(--brand-accent);
+    color: #fff;
+    font-size: 14.5px;
+    font-weight: 800;
+    padding: 14px;
+    border-radius: 12px;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .btn-send:hover {
+    background: #000;
+    transform: translateY(-1px);
+  }
+  .form-note {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--text-light);
+  }
+
+  .info-list { display: flex; flex-direction: column; gap: 18px; }
+  .info-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .info-icon {
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    background: #F0F9FC;
+    color: var(--brand-accent);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .info-item strong {
+    display: block; font-size: 14px; font-weight: 800; margin-bottom: 2px;
+  }
+  .info-item span {
+    font-size: 13px; color: var(--text-muted); line-height: 1.5;
+  }
+  .info-item a { color: var(--brand-accent); font-weight: 700; }
+
+  footer.site-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 28px 0;
+  }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    font-size: 12px; color: var(--text-muted);
+  }
+  .footer-brand-block {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .footer-links {
+    display: flex;
+    gap: 16px;
+    font-weight: 600;
+  }
+  .footer-brand-logo { height: 44px; border-radius: 8px; }
+
+  @media (max-width: 900px) {
+    .nav-toggle-btn { display: flex; }
+    .nav-links {
+      position: fixed; top: 86px; left: 0; right: 0;
+      flex-direction: column; align-items: stretch; gap: 0;
+      padding: 6px 24px 18px; background: #fff;
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.1);
+      max-height: calc(100vh - 86px); overflow-y: auto;
+      transform: translateY(-100%); visibility: hidden;
+      transition: transform 0.32s ease, visibility 0.32s;
+      z-index: 99;
+    }
+    .nav-links.open { transform: translateY(0); visibility: visible; }
+    .nav-links a { padding: 14px 4px; border-bottom: 1px solid #f1f1f1; }
+    .contact-layout { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .container { padding: 0 16px; }
+    .brand-logo { height: 52px; }
+    .page-hero h1 { font-size: 28px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .contact-card { padding: 22px 18px; }
+    .footer-bottom {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 14px;
+    }
+    .footer-brand-block {
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-links {
+      justify-content: center;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-wrap">
+    <a href="index.html" class="brand" aria-label="HyreCabs — Home">
+      <img src="images/logo-cars.png" alt="HyreCabs" class="brand-logo" />
+    </a>
+    <nav class="nav-links" id="primaryNav">
+      <a href="index.html">Home</a>
+      <a href="search-results.html">Shop / Vehicles</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html" class="active">Contact Us</a>
+    </nav>
+    <div class="header-actions">
+      <button class="nav-toggle-btn" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="primaryNav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="nav-backdrop" id="navBackdrop"></div>
+
+<main class="container">
+  <section class="page-hero">
+    <div class="page-eyebrow">Get in touch</div>
+    <h1>Contact Us</h1>
+    <p>Questions about bookings, depots or delivery? Send a message — we usually reply within a few hours.</p>
+  </section>
+
+  <section class="contact-layout">
+    <div class="contact-card">
+      <h2>Send a message</h2>
+      <p>Fill in the form and our team will get back to you shortly.</p>
+      <form id="contactForm" onsubmit="handleContactSubmit(event)">
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="contactName">Full Name</label>
+            <input id="contactName" type="text" placeholder="Your name" required />
+          </div>
+          <div class="form-field">
+            <label for="contactPhone">Phone / WhatsApp</label>
+            <input id="contactPhone" type="tel" placeholder="+91 ..." required />
+          </div>
+          <div class="form-field full">
+            <label for="contactEmail">Email</label>
+            <input id="contactEmail" type="email" placeholder="you@email.com" required />
+          </div>
+          <div class="form-field full">
+            <label id="contactTopicLabel">Topic</label>
+            <div class="custom-select" id="contactTopicSelect" data-value="General enquiry">
+              <input type="hidden" id="contactTopic" name="topic" value="General enquiry" />
+              <button
+                type="button"
+                class="custom-select-trigger"
+                id="contactTopicTrigger"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-labelledby="contactTopicLabel contactTopicTrigger"
+              >
+                <span class="select-value">General enquiry</span>
+                <svg class="select-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="custom-select-menu" role="listbox" aria-labelledby="contactTopicLabel">
+                <button type="button" class="custom-select-option" role="option" data-value="General enquiry" aria-selected="true">
+                  <span>General enquiry</span>
+                  <svg class="option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+                </button>
+                <button type="button" class="custom-select-option" role="option" data-value="New booking" aria-selected="false">
+                  <span>New booking</span>
+                  <svg class="option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+                </button>
+                <button type="button" class="custom-select-option" role="option" data-value="Existing reservation" aria-selected="false">
+                  <span>Existing reservation</span>
+                  <svg class="option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+                </button>
+                <button type="button" class="custom-select-option" role="option" data-value="Depot / delivery" aria-selected="false">
+                  <span>Depot / delivery</span>
+                  <svg class="option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+                </button>
+                <button type="button" class="custom-select-option" role="option" data-value="Support" aria-selected="false">
+                  <span>Support</span>
+                  <svg class="option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="form-field full">
+            <label for="contactMessage">Message</label>
+            <textarea id="contactMessage" placeholder="How can we help?" required></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn-send">Send Message</button>
+        <p class="form-note" id="contactFormNote">We never share your details with third parties.</p>
+      </form>
+    </div>
+
+    <div class="contact-card">
+      <h2>HQ &amp; support</h2>
+      <p>Reach HyreCabs through any of these channels.</p>
+      <div class="info-list">
+        <div class="info-item">
+          <div class="info-icon">📍</div>
+          <div>
+            <strong>Headquarters</strong>
+            <span>JNI Stadium Complex, Kaloor, Kochi · Regional hubs in Kollam, Adoor &amp; Kottayam</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">📞</div>
+          <div>
+            <strong>Call / WhatsApp</strong>
+            <span><a href="tel:+917034060000">+91 70340 60000</a></span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">✉️</div>
+          <div>
+            <strong>Email</strong>
+            <span><a href="mailto:info@kottayamrentals.com">info@kottayamrentals.com</a></span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🕒</div>
+          <div>
+            <strong>Support hours</strong>
+            <span>Daily 8:00 AM – 9:00 PM · Airport express by appointment</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-bottom">
+    <div class="footer-brand-block">
+      <a href="index.html"><img src="images/logo-cars.png" alt="HyreCabs" class="footer-brand-logo" /></a>
+      <span>© 2026 HyreCabs. All Rights Reserved. Powered by Zeekoi Enterprise Solutions</span>
+    </div>
+    <div class="footer-links">
+      <a href="blog.html">Blog</a>
+      <a href="index.html#policies">Policies</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    const toggle = document.getElementById('navToggle');
+    const nav = document.getElementById('primaryNav');
+    const backdrop = document.getElementById('navBackdrop');
+    if (!toggle || !nav) return;
+    function setOpen(open) {
+      nav.classList.toggle('open', open);
+      toggle.classList.toggle('open', open);
+      if (backdrop) backdrop.classList.toggle('show', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    toggle.addEventListener('click', () => setOpen(!nav.classList.contains('open')));
+    if (backdrop) backdrop.addEventListener('click', () => setOpen(false));
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+    window.addEventListener('resize', () => { if (window.innerWidth > 900) setOpen(false); });
+  })();
+
+  (function () {
+    const root = document.getElementById('contactTopicSelect');
+    if (!root) return;
+    const trigger = root.querySelector('.custom-select-trigger');
+    const menu = root.querySelector('.custom-select-menu');
+    const valueEl = root.querySelector('.select-value');
+    const hidden = document.getElementById('contactTopic');
+    const options = Array.from(root.querySelectorAll('.custom-select-option'));
+
+    function setOpen(open) {
+      root.classList.toggle('open', open);
+      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+
+    function selectValue(value) {
+      valueEl.textContent = value;
+      hidden.value = value;
+      root.dataset.value = value;
+      options.forEach(opt => {
+        opt.setAttribute('aria-selected', opt.dataset.value === value ? 'true' : 'false');
+      });
+      setOpen(false);
+    }
+
+    window.resetContactTopic = function () {
+      selectValue('General enquiry');
+    };
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setOpen(!root.classList.contains('open'));
+    });
+
+    options.forEach(opt => {
+      opt.addEventListener('click', (e) => {
+        e.stopPropagation();
+        selectValue(opt.dataset.value);
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!root.contains(e.target)) setOpen(false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    });
+  })();
+
+  function handleContactSubmit(e) {
+    e.preventDefault();
+    const note = document.getElementById('contactFormNote');
+    note.textContent = 'Thanks! Your message has been received. We will contact you soon.';
+    note.style.color = '#16a34a';
+    e.target.reset();
+    if (typeof window.resetContactTopic === 'function') window.resetContactTopic();
+  }
+</script>
+</body>
+</html>

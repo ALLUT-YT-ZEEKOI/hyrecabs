@@ -1,0 +1,2583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HyreCabs — Premium Cab & Car Rentals in Kerala</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-page: #ffffff;
+    --bg-card: #ffffff;
+    --text-primary: #000000;
+    --text-muted: #6b6b6b;
+    --text-light: #A7A7A7;
+    --border-color: #e5e5e5;
+    --brand-accent: #203D4F;
+    --brand-cyan: #5AC4E6;
+    --brand-yellow: #5AC4E6; /* Signal Amber */
+    --brand-dark: #000000;
+    --brand-blue: #5AC4E6; /* Petrol Blue */
+    --brand-grey: #A7A7A7; /* Road Dust Grey */
+    /* One rhythm for every section: each pads this much top and bottom,
+       so the gap between any two sections is exactly twice this value. */
+    --section-space: 34px;
+    --radius-card: 20px;
+    --radius-pill: 30px;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 40px -10px rgba(18, 21, 26, 0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Secondary brand typeface (Copperplate Gothic Light) for tags & accents */
+  .font-brand-secondary,
+  .step-badge-pill,
+  .section-badge-aesthetic,
+  .vision-tag,
+  .vision-badge-sub,
+  .depot-city-title,
+  .card-cat,
+  .ticket-brand {
+    font-family: 'Copperplate Gothic Light', Copperplate, 'Segoe UI', sans-serif;
+    letter-spacing: 0.06em;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  img { max-width: 100%; display: block; }
+
+  .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    /* Side gutters only, so section classes keep control of vertical padding */
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  /* HEADER */
+  header.site-header {
+    background: #ffffff;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 86px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .brand-logo {
+    height: 70px;
+    width: auto;
+    display: block;
+    border-radius: 8px;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+  .nav-links a {
+    transition: color 0.2s ease;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--text-primary);
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .lang-select {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+  .icon-circle-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+  }
+  .icon-circle-btn:hover {
+    background: #f1f3f6;
+  }
+
+  /* MOBILE NAV TOGGLE (HAMBURGER) */
+  .nav-toggle-btn {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .nav-toggle-btn span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--text-primary);
+    transition: transform 0.28s ease, opacity 0.18s ease;
+  }
+  .nav-toggle-btn.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav-toggle-btn.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle-btn.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  .nav-backdrop {
+    position: fixed;
+    inset: 86px 0 0;
+    background: rgba(18, 21, 26, 0.45);
+    z-index: 98;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+  }
+  .nav-backdrop.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* HERO SECTION (UNCHANGED PERFECT HERO BANNER) */
+  /* These sections also carry .container, so only ever set vertical padding
+     here — a `padding` shorthand would wipe out the container's side gutters. */
+  .hero-section {
+    padding-top: var(--section-space);
+    padding-bottom: var(--section-space);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-stage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 340px;
+    margin-bottom: 20px;
+  }
+  .hero-bg-text {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(60px, 12vw, 130px);
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1.5px #e2e8f0;
+    letter-spacing: -2px;
+    white-space: nowrap;
+    user-select: none;
+    z-index: 1;
+    opacity: 0;
+  }
+
+  .hero-side-car {
+    position: absolute;
+    width: 280px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    z-index: 2;
+    transition: opacity 0.3s ease;
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.1));
+    pointer-events: none;
+  }
+  .hero-side-car.left { left: -80px; }
+  .hero-side-car.right { right: -80px; }
+
+  .hero-main-img-wrap {
+    position: relative;
+    z-index: 3;
+    width: min(520px, 85vw);
+    margin: 0 auto;
+    filter: drop-shadow(0 18px 24px rgba(0,0,0,0.15));
+    opacity: 0;
+    transform: translateY(28px) scale(0.94);
+  }
+  .hero-main-img-wrap img {
+    width: 100%;
+    display: block;
+  }
+
+  /* Sleek Floating Horizontal Search Bar */
+  .search-card {
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.06);
+    border: 1.5px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    max-width: 860px;
+    margin: 24px auto 32px;
+    padding: 8px 12px;
+    position: relative;
+    z-index: 10;
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  .search-field {
+    flex: 1;
+    padding: 6px 14px;
+    text-align: left;
+    border-right: 1px solid var(--border-color);
+  }
+  .search-field:last-of-type {
+    border-right: none;
+  }
+  .search-field label {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .input-inline {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .input-inline input, .input-inline select {
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    width: 100%;
+    outline: none;
+    cursor: pointer;
+  }
+
+  /* Custom date + time pickers */
+  .search-field {
+    position: relative;
+  }
+  .picker-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+  }
+  .picker-trigger .picker-icon {
+    font-size: 14px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .picker-trigger .picker-value {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .picker-trigger .picker-caret {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    color: #737373;
+    transition: transform 0.2s ease;
+  }
+  .picker-trigger[aria-expanded="true"] .picker-caret {
+    transform: rotate(180deg);
+    color: var(--brand-accent);
+  }
+
+  .picker-panel {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+    z-index: 80;
+    background: #ffffff;
+    border: 1.5px solid #e5e5e5;
+    border-radius: 16px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+    padding: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+    pointer-events: none;
+  }
+  .picker-panel.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .picker-panel.time-panel {
+    min-width: 168px;
+    max-height: 260px;
+    overflow-y: auto;
+    padding: 8px;
+  }
+  .picker-panel.date-panel {
+    width: 292px;
+    padding: 14px;
+  }
+
+  .time-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    color: #0a0a0a;
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .time-option:hover {
+    background: #f5f5f5;
+  }
+  .time-option.active {
+    background: #0a0a0a;
+    color: #ffffff;
+  }
+
+  .cal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .cal-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: #0a0a0a;
+  }
+  .cal-nav {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    border: 1.5px solid #e5e5e5;
+    background: #ffffff;
+    color: #0a0a0a;
+    font-size: 16px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+  .cal-nav:hover {
+    background: #0a0a0a;
+    border-color: #0a0a0a;
+    color: #ffffff;
+  }
+  .cal-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: 6px;
+  }
+  .cal-weekdays span {
+    text-align: center;
+    font-size: 10.5px;
+    font-weight: 800;
+    color: #a3a3a3;
+    text-transform: uppercase;
+    padding: 4px 0;
+  }
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+  }
+  .cal-day {
+    aspect-ratio: 1;
+    border: none;
+    background: transparent;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #0a0a0a;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .cal-day:hover:not(:disabled):not(.selected) {
+    background: #f5f5f5;
+  }
+  .cal-day.muted {
+    color: #d4d4d4;
+  }
+  .cal-day.today {
+    box-shadow: inset 0 0 0 1.5px #203D4F;
+    color: #203D4F;
+  }
+  .cal-day.selected {
+    background: #203D4F;
+    color: #ffffff;
+    box-shadow: none;
+  }
+  .cal-day:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  /* Keep picker menus above clipped hero edges */
+  .hero-section {
+    overflow: visible;
+  }
+  .hero-stage {
+    overflow: hidden;
+  }
+  .search-card {
+    overflow: visible;
+    z-index: 40;
+  }
+
+  .btn-search {
+    background: #0a0a0a;
+    color: #ffffff;
+    font-size: 13.5px;
+    font-weight: 800;
+    padding: 12px 30px;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    border: none;
+    white-space: nowrap;
+    margin-left: 8px;
+  }
+  .btn-search:hover {
+    background: #203D4F;
+    box-shadow: 0 4px 14px rgba(193, 0, 0, 0.3);
+  }
+
+  .hero-title-box h1 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .hero-title-box p {
+    font-size: 14px;
+    color: var(--text-muted);
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .hero-title-box,
+  .carousel-dots {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  .carousel-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+  }
+  .dot {
+    width: 24px;
+    height: 3px;
+    background: #e2e8f0;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .dot.active {
+    background: var(--text-primary);
+    width: 36px;
+  }
+
+  /* ---------- Hero pure animations ---------- */
+  @keyframes heroBgIn {
+    from { opacity: 0; transform: translate(-50%, -46%) scale(0.96); }
+    to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  }
+  @keyframes heroBgPulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    50%      { transform: translate(-50%, -52%) scale(1.015); opacity: 0.85; }
+  }
+  @keyframes heroSideInL {
+    from { opacity: 0; transform: translate(-48px, -50%); }
+    to   { opacity: 0.5; transform: translate(0, -50%); }
+  }
+  @keyframes heroSideInR {
+    from { opacity: 0; transform: translate(48px, -50%); }
+    to   { opacity: 0.5; transform: translate(0, -50%); }
+  }
+  @keyframes heroSideDriftL {
+    0%, 100% { transform: translate(0, -50%); }
+    50%      { transform: translate(6px, calc(-50% - 6px)); }
+  }
+  @keyframes heroSideDriftR {
+    0%, 100% { transform: translate(0, -50%); }
+    50%      { transform: translate(-6px, calc(-50% - 6px)); }
+  }
+  @keyframes heroMainIn {
+    from { opacity: 0; transform: translateY(32px) scale(0.92); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes heroFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-12px); }
+  }
+  @keyframes heroSwap {
+    0%   { opacity: 0; transform: translateY(18px) scale(0.96); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes heroRiseIn {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes heroDotPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(10, 10, 10, 0.2); }
+    50%      { box-shadow: 0 0 0 4px rgba(10, 10, 10, 0); }
+  }
+
+  .hero-section.is-animated .hero-bg-text {
+    animation:
+      heroBgIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both,
+      heroBgPulse 6s ease-in-out 1.2s infinite;
+  }
+  .hero-section.is-animated .hero-side-car.left {
+    animation:
+      heroSideInL 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both,
+      heroSideDriftL 5.5s ease-in-out 1.2s infinite;
+  }
+  .hero-section.is-animated .hero-side-car.right {
+    animation:
+      heroSideInR 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both,
+      heroSideDriftR 5.5s ease-in-out 1.3s infinite;
+  }
+  .hero-section.is-animated .hero-main-img-wrap {
+    animation: heroMainIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+  }
+  .hero-section.is-animated .hero-main-img-wrap img {
+    animation: heroFloat 4.2s ease-in-out 1.2s infinite;
+  }
+  .hero-section.is-animated .hero-main-img-wrap.is-swapping img {
+    animation: heroSwap 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .hero-section.is-animated .search-card {
+    animation: heroRiseIn 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.55s both;
+  }
+  .hero-section.is-animated .hero-title-box {
+    animation: heroRiseIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.7s both;
+  }
+  .hero-section.is-animated .carousel-dots {
+    animation: heroRiseIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.85s both;
+  }
+  .hero-section.is-animated .dot.active {
+    background: var(--brand-accent);
+    animation: heroDotPulse 2.2s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg-text,
+    .hero-side-car,
+    .hero-main-img-wrap,
+    .search-card,
+    .hero-title-box,
+    .carousel-dots {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+    }
+    .hero-bg-text { transform: translate(-50%, -50%) !important; }
+    .hero-side-car { opacity: 0.5 !important; transform: translateY(-50%) !important; }
+  }
+
+  /* AESTHETIC ELEVATED DESIGN SYSTEM */
+  .section-badge-aesthetic {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border: 1.5px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 11.5px;
+    font-weight: 800;
+    padding: 6px 18px;
+    border-radius: 30px;
+    margin-bottom: 14px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+  }
+  .section-main-heading {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+  .section-main-heading span {
+    color: var(--brand-accent);
+  }
+  .section-subtext {
+    font-size: 14px;
+    color: var(--text-muted);
+    max-width: 560px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+
+  /* =========================================================
+     SECTION 1: HOW IT WORKS & VISION MISSION (AESTHETIC LIGHT UI)
+     ========================================================= */
+  .how-it-works-section {
+    padding-top: var(--section-space);
+    padding-bottom: var(--section-space);
+    text-align: center;
+  }
+
+  .step-badge-pill {
+    background: #ffffff;
+    border: 1.5px solid #e5e7eb;
+    color: #4b5563;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 7px 22px;
+    border-radius: 50px;
+    display: inline-block;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+  }
+
+  /* Universal Aesthetic Car Watermark Tint Backdrop */
+  /* Fills the card and scales the car down to fit, so the whole vehicle
+     stays inside the container instead of being cropped at the edges.
+     object-position decides which corner it hugs. */
+  .card-car-watermark {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 18px;
+    object-fit: contain;
+    object-position: center;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    opacity: 0.07;
+    filter: grayscale(100%) contrast(110%);
+    transition: opacity 0.35s ease;
+  }
+
+  /* Giant Section Watermark Backdrop */
+  .how-it-works-section,
+  .policy-section,
+  .depots-section,
+  .faq-section {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-bg-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1100px;
+    max-width: 95%;
+    opacity: 0.055;
+    filter: grayscale(100%) contrast(120%) brightness(0.9);
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+
+  .how-it-works-section > *:not(.section-bg-watermark),
+  .policy-section > *:not(.section-bg-watermark),
+  .depots-section > *:not(.section-bg-watermark),
+  .faq-section > *:not(.section-bg-watermark) {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Vision & Mission Aesthetic Card */
+  .vision-mission-card {
+    background: #ffffff;
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-card);
+    padding: 26px 32px 28px;
+    text-align: left;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  }
+  .vision-mission-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--brand-yellow), var(--brand-accent));
+  }
+  /* Opacity only — a hover scale would push the car past the card edge */
+  .policy-hero-card:hover .card-car-watermark {
+    opacity: 0.15;
+  }
+
+  /* Lift the real card content above the watermark so text stays crisp */
+  .policy-hero-card > *:not(.card-car-watermark) {
+    position: relative;
+    z-index: 1;
+  }
+  .vision-mission-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: #cbd5e1;
+    transform: translateY(-2px);
+  }
+  .vision-header-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-bottom: 18px;
+    margin-bottom: 18px;
+    border-bottom: 1px dashed var(--border-color);
+  }
+  .vision-icon-halo {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    font-size: 19px;
+    background: linear-gradient(140deg, #fff7e6, #ffedd5);
+    border: 1px solid #fde3b0;
+  }
+  .vision-title-block {
+    flex: 1;
+    min-width: 0;
+  }
+  .vision-tag {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+  .vision-title-sub {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-top: 3px;
+  }
+  .vision-badge-sub {
+    flex-shrink: 0;
+    background: #f1f5f9;
+    border: 1px solid var(--border-color);
+    color: #475569;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+  }
+  .vision-text {
+    font-size: 14px;
+    color: #4b5563;
+    line-height: 1.8;
+    font-weight: 450;
+    max-width: 900px;
+  }
+  .vision-text strong {
+    color: var(--text-primary);
+    font-weight: 800;
+  }
+  .vision-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 22px;
+  }
+  .vision-pillar {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    background: #f8fafc;
+    border: 1px solid #eef2f7;
+    border-radius: 14px;
+    padding: 12px 14px;
+    transition: background 0.25s ease, border-color 0.25s ease;
+  }
+  .vision-pillar:hover {
+    background: #fffdf6;
+    border-color: #fde3b0;
+  }
+  .vision-pillar .vp-icon {
+    font-size: 16px;
+    line-height: 1;
+  }
+  .vision-pillar strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--text-primary);
+  }
+  .vision-pillar small {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* 4 Step Cards Aesthetic Horizontal Grid */
+  .steps-4grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    position: relative;
+  }
+
+  .step-card-box {
+    background: #ffffff;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 28px 24px;
+    text-align: left;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.025);
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .step-card-box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.06);
+    border-color: #cbd5e1;
+  }
+
+  .step-card-header-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .step-card-num {
+    font-size: 26px;
+    font-weight: 900;
+    color: #111827;
+    line-height: 1;
+    letter-spacing: -0.5px;
+  }
+
+  .step-icon-aesthetic {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .icon-bg-blue { background: #eff6ff; color: #2563eb; }
+  .icon-bg-amber { background: #F0F9FC; color: #203D4F; }
+  .icon-bg-green { background: #f0fdf4; color: #16a34a; }
+  .icon-bg-rose { background: #f8fafc; color: #475569; }
+
+  .step-card-title {
+    font-size: 15.5px;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 8px;
+  }
+  .step-card-desc {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  /* =========================================================
+     SECTION 2: POLICY & GUIDELINES (AESTHETIC ASYMMETRIC BENTO)
+     ========================================================= */
+  .policy-section {
+    padding-top: var(--section-space);
+    padding-bottom: var(--section-space);
+    text-align: center;
+  }
+
+  .policy-bento-layout {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 24px;
+    align-items: stretch;
+    text-align: left;
+  }
+
+  /* Hero Highlight Card */
+  .policy-hero-card {
+    background: linear-gradient(135deg, #ffffff 0%, #fff1f2 100%);
+    border: 1.5px solid #fecdd3;
+    border-radius: 20px;
+    padding: 32px 28px;
+    box-shadow: 0 8px 28px rgba(225, 29, 72, 0.04);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  .policy-hero-card .card-car-watermark {
+    object-position: center 62%;
+  }
+  .hero-card-badge {
+    font-size: 10.5px;
+    font-weight: 800;
+    background: #ffe4e6;
+    color: #e11d48;
+    padding: 5px 14px;
+    border-radius: 20px;
+    display: inline-block;
+    width: fit-content;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .hero-card-icon-halo {
+    width: 52px;
+    height: 52px;
+    background: #ffffff;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+  }
+  .hero-card-title {
+    font-size: 20px;
+    font-weight: 900;
+    color: #111827;
+    margin-bottom: 10px;
+  }
+  .hero-card-intro {
+    font-size: 13.5px;
+    color: #4b5563;
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+  .hero-card-features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: auto;
+  }
+  .hero-feature-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 12px 16px;
+    border-radius: 14px;
+    border: 1px solid #ffe4e6;
+  }
+  .hero-feature-item .feature-icon {
+    font-size: 18px;
+    margin-top: 2px;
+  }
+  .hero-feature-item strong {
+    font-size: 13px;
+    color: #111827;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .hero-feature-item p {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Sub-Grid for remaining cards */
+  .policy-subgrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .policy-mini-card {
+    background: #ffffff;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 24px 22px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.025);
+    transition: all 0.3s ease;
+  }
+  .policy-mini-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.05);
+    border-color: #cbd5e1;
+  }
+  .mini-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .mini-icon-bubble {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .mini-card-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: #111827;
+    margin: 0;
+    line-height: 1.2;
+  }
+  .mini-card-subtag {
+    font-size: 11px;
+    color: #94a3b8;
+    font-weight: 600;
+  }
+
+  .mini-policy-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .mini-policy-list li {
+    font-size: 12.5px;
+    color: #4b5563;
+    line-height: 1.6;
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 16px;
+  }
+  .mini-policy-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #2563eb;
+    font-weight: 900;
+    font-size: 11px;
+  }
+  .mini-policy-list li strong {
+    color: #111827;
+  }
+
+  .full-span-card {
+    grid-column: span 2;
+  }
+  .cancellation-flex-boxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+    margin-top: 10px;
+  }
+  .cancel-badge-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 10px 18px;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .cancel-time {
+    font-size: 11px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+  }
+  .cancel-val {
+    font-size: 14px;
+    font-weight: 900;
+  }
+  .cancel-val.green { color: #16a34a; }
+  .cancel-val.amber { color: #203D4F; }
+  .cancel-note {
+    font-size: 12px;
+    color: #94a3b8;
+    font-style: italic;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  /* =========================================================
+     SECTION 3: KERALA DEPOTS (COMMAND CENTER DASHBOARD)
+     ========================================================= */
+  .depots-section {
+    padding-top: var(--section-space);
+    padding-bottom: var(--section-space);
+    text-align: center;
+  }
+
+  /* Fleet car image slider */
+  .depot-slider {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+    border: 1.5px solid #e5e7eb;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+    min-height: 380px;
+  }
+  .depot-slider-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+  .depot-slide {
+    position: relative;
+    flex: 0 0 100%;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 36px 72px 28px;
+    box-sizing: border-box;
+  }
+  .depot-slide img {
+    width: min(720px, 100%);
+    height: 260px;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    filter: drop-shadow(0 18px 28px rgba(15, 23, 42, 0.18));
+  }
+  .depot-slide-caption {
+    margin-top: 18px;
+    text-align: center;
+    max-width: 560px;
+  }
+  .depot-slide-caption strong {
+    display: block;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+    color: #0f172a;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .depot-slide-caption span {
+    display: block;
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.5;
+  }
+  .depot-slider-nav {
+    position: absolute;
+    top: 42%;
+    transform: translateY(-50%);
+    z-index: 3;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1.5px solid #e2e8f0;
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  }
+  .depot-slider-nav:hover {
+    background: #0f172a;
+    color: #ffffff;
+    border-color: #0f172a;
+    transform: translateY(-50%) scale(1.05);
+  }
+  .depot-slider-nav.prev { left: 16px; }
+  .depot-slider-nav.next { right: 16px; }
+  .depot-slider-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+  }
+  .depot-slider-dots .depot-dot {
+    width: 24px;
+    height: 3px;
+    border-radius: 2px;
+    border: none;
+    padding: 0;
+    background: #e2e8f0;
+    cursor: pointer;
+    transition: width 0.3s ease, background 0.3s ease;
+  }
+  .depot-slider-dots .depot-dot.active {
+    width: 36px;
+    background: #0f172a;
+  }
+
+  /* =========================================================
+     SECTION 4: RENTAL KNOWLEDGE BASE (AESTHETIC ACCORDION)
+     ========================================================= */
+  .faq-section {
+    padding-top: var(--section-space);
+    padding-bottom: var(--section-space);
+    text-align: center;
+  }
+  .faq-wrap {
+    max-width: 820px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .faq-item-card {
+    background: #ffffff;
+    border: 1.5px solid var(--border-color);
+    border-radius: 18px;
+    overflow: hidden;
+    transition: border-color 0.25s ease;
+    text-align: left;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.02);
+  }
+  .faq-header-btn {
+    width: 100%;
+    padding: 22px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+  .faq-badge-tag {
+    font-size: 11px;
+    font-weight: 900;
+    background: #f1f5f9;
+    color: #475569;
+    padding: 3px 10px;
+    border-radius: 10px;
+    margin-right: 10px;
+  }
+  .faq-toggle-icon {
+    font-size: 18px;
+    color: var(--text-muted);
+    transition: transform 0.3s ease;
+  }
+  .faq-item-card.active .faq-toggle-icon {
+    transform: rotate(45deg);
+    color: var(--text-primary);
+  }
+  .faq-body-text {
+    display: none;
+    padding: 0 28px 24px;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.75;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 18px;
+  }
+  .faq-item-card.active .faq-body-text {
+    display: block;
+  }
+
+  /* KOTTAYAM RENTALS FOOTER */
+  footer.site-footer {
+    background: #ffffff;
+    border-top: 1px solid var(--border-color);
+    padding-top: var(--section-space);
+    padding-bottom: 28px;
+  }
+  .footer-grid-top {
+    display: grid;
+    grid-template-columns: minmax(220px, 1.5fr) repeat(3, minmax(150px, 1fr));
+    gap: 48px;
+    margin-bottom: 40px;
+    align-items: start;
+    text-align: left;
+    justify-items: stretch;
+  }
+  .footer-brand-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .footer-brand-logo {
+    height: 56px;
+    width: auto;
+    display: block;
+    border-radius: 10px;
+    margin-bottom: 14px;
+  }
+  .footer-brand-desc {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text-muted);
+    max-width: 320px;
+  }
+  .footer-col-h {
+    font-size: 13.5px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+  }
+  .footer-links-list {
+    list-style: none;
+  }
+  .footer-links-list li {
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .footer-links-list a {
+    font-size: 13px;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+  }
+  .footer-links-list a:hover {
+    color: var(--text-primary);
+  }
+
+  .footer-bottom-bar {
+    border-top: 1px solid var(--border-color);
+    padding-top: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .footer-copy {
+    margin: 0;
+    line-height: 1.5;
+  }
+  .footer-legal-links {
+    display: flex;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+  .footer-legal-links a {
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .footer-legal-links a:hover {
+    color: var(--text-primary);
+  }
+
+  /* =========================================================
+     RESPONSIVE LAYOUT BREAKPOINTS
+     ========================================================= */
+
+  /* --- Laptop / small desktop --- */
+  @media (max-width: 1100px) {
+    .steps-4grid { grid-template-columns: repeat(2, 1fr); }
+    .policy-6grid { grid-template-columns: repeat(2, 1fr); }
+    .policy-bento-layout { grid-template-columns: 1fr; }
+    .depots-layout-grid { grid-template-columns: 1fr; }
+    .depot-slider { min-height: 340px; }
+    .depot-slide img { height: 220px; }
+    .footer-grid-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .vision-pillars { grid-template-columns: repeat(2, 1fr); }
+    .hero-side-car { width: 210px; }
+    .hero-side-car.left { left: -70px; }
+    .hero-side-car.right { right: -70px; }
+  }
+
+  /* --- Tablet: swap the nav for a slide-down drawer --- */
+  @media (max-width: 900px) {
+    .nav-toggle-btn { display: flex; }
+    .lang-select { display: none; }
+
+    .nav-links {
+      position: fixed;
+      top: 86px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 6px 24px 18px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.10);
+      font-size: 15px;
+      max-height: calc(100vh - 86px);
+      overflow-y: auto;
+      transform: translateY(-100%);
+      visibility: hidden;
+      transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.32s;
+      z-index: 99;
+    }
+    .nav-links.open {
+      transform: translateY(0);
+      visibility: visible;
+    }
+    .nav-links a {
+      padding: 15px 4px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .nav-links a:last-child { border-bottom: none; }
+
+    /* Hero: drop the side previews and stack the car over its price box */
+    .hero-side-car { display: none; }
+    .hero-stage {
+      flex-direction: column;
+      min-height: 0;
+      gap: 4px;
+    }
+    .hero-main-img-wrap { width: min(460px, 92%); }
+  }
+
+  /* --- Large phone / small tablet --- */
+  @media (max-width: 860px) {
+    :root { --section-space: 28px; }
+    .section-main-heading { font-size: 26px; }
+
+    /* Search bar becomes a 2-up card stack */
+    .search-card {
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px;
+      border-radius: 16px;
+    }
+    .search-field {
+      flex: 1 1 calc(50% - 4px);
+      min-width: 140px;
+      border-right: none;
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 10px 14px;
+    }
+    .btn-search {
+      width: 100%;
+      margin-left: 0;
+      padding: 14px;
+      font-size: 14px;
+    }
+
+    .policy-hero-card { padding: 26px 22px; }
+    .depot-slide-caption strong { font-size: 20px; }
+  }
+
+  /* --- Phone --- */
+  @media (max-width: 640px) {
+    :root { --section-space: 24px; }
+    .container { padding-left: 16px; padding-right: 16px; }
+
+    .steps-4grid { grid-template-columns: 1fr; }
+    .policy-6grid { grid-template-columns: 1fr; }
+    .policy-subgrid { grid-template-columns: 1fr; }
+    .full-span-card { grid-column: span 1; }
+    .footer-grid-top {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      text-align: center;
+      justify-items: center;
+    }
+    .footer-brand-logo {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .footer-brand-desc {
+      max-width: none;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .footer-links-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .footer-bottom-bar {
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+    }
+    .footer-legal-links {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .section-bg-watermark { width: 600px; opacity: 0.04; }
+    .cancellation-flex-boxes { flex-direction: column; align-items: stretch; }
+    .cancel-note { min-width: 0; }
+    .vision-mission-card { padding: 22px 20px 24px; }
+    /* Icon + title share row 1; badge gets row 2 at its natural width */
+    .vision-header-row {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px 14px;
+      align-items: center;
+    }
+    .vision-badge-sub {
+      grid-column: 1 / -1;
+      justify-self: start;
+    }
+    .vision-pillars { grid-template-columns: 1fr; }
+
+    .nav-links { padding: 6px 16px 18px; }
+
+    /* Hero typography scales down */
+    .hero-bg-text { -webkit-text-stroke-width: 1px; }
+    .hero-stage { margin-bottom: 12px; }
+    .hero-title-box h1 { font-size: 22px; }
+    .hero-title-box p { font-size: 13px; }
+
+    .section-main-heading { font-size: 23px; letter-spacing: -0.4px; }
+    .section-subtext { font-size: 13.5px; margin-bottom: 26px; }
+    .step-badge-pill,
+    .section-badge-aesthetic { font-size: 10.5px; padding: 6px 16px; }
+
+    .step-card-box { padding: 22px 20px; }
+    .policy-mini-card { padding: 20px 18px; }
+    .hero-card-title { font-size: 18px; }
+
+    .depot-slider { min-height: 300px; }
+    .depot-slide { padding: 28px 52px 22px; }
+    .depot-slide img { height: 180px; }
+    .depot-slider-nav { width: 36px; height: 36px; font-size: 17px; top: 38%; }
+    .depot-slider-nav.prev { left: 10px; }
+    .depot-slider-nav.next { right: 10px; }
+    .depot-slide-caption strong { font-size: 17px; }
+    .depot-slide-caption span { font-size: 13px; }
+
+    .faq-header-btn { padding: 18px 18px; font-size: 14px; gap: 12px; }
+    .faq-body-text { padding: 0 18px 20px; padding-top: 16px; }
+  }
+
+  /* --- Small phone --- */
+  @media (max-width: 420px) {
+    .brand-logo { height: 52px; }
+    .header-actions { gap: 8px; }
+    .icon-circle-btn { width: 34px; height: 34px; }
+
+    .search-field { flex: 1 1 100%; }
+    .picker-panel.date-panel { width: min(292px, calc(100vw - 48px)); }
+    .section-main-heading { font-size: 21px; }
+    .vision-icon-halo { width: 38px; height: 38px; border-radius: 12px; font-size: 17px; }
+    .faq-badge-tag { display: none; }
+    .depot-slide { padding: 24px 44px 18px; }
+    .depot-slide img { height: 150px; }
+  }
+
+  /* =========================================================
+     SCROLL REVEAL (standard fade-up)
+     ========================================================= */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.08s; }
+  .reveal-delay-2 { transition-delay: 0.16s; }
+  .reveal-delay-3 { transition-delay: 0.24s; }
+  .reveal-delay-4 { transition-delay: 0.32s; }
+  .reveal-delay-5 { transition-delay: 0.40s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container header-wrap">
+    <a href="index.html" class="brand" aria-label="HYRECABS — Home">
+      <img src="images/logo-cars.png" alt="HYRECABS" class="brand-logo" />
+    </a>
+
+    <nav class="nav-links" id="primaryNav">
+      <a href="index.html" class="active">Home</a>
+      <a href="search-results.html">Shop / Vehicles</a>
+      <a href="#howitworks">How it Works</a>
+      <a href="#faq">FAQ</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+
+    <div class="header-actions">
+      <div class="lang-select">
+        <span>🇺🇸 EN</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <button class="icon-circle-btn" aria-label="Search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      </button>
+      <button class="icon-circle-btn" aria-label="Shopping Cart">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      </button>
+      <button class="nav-toggle-btn" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="primaryNav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="nav-backdrop" id="navBackdrop"></div>
+
+<!-- MAIN CONTENT -->
+<main>
+  
+  <!-- HERO SECTION (PERFECT UNCHANGED HERO BANNER) -->
+  <section class="hero-section container">
+
+    <!-- Hero Display Stage -->
+    <div class="hero-stage">
+      <div class="hero-bg-text" id="heroBgText">HYRECABS EXECUTIVE SEDAN</div>
+      
+      <!-- Side preview cars -->
+      <img src="images/car_hatchback.png" class="hero-side-car left" alt="Preview Car Left" />
+      <img src="images/car_sedan.png" class="hero-side-car right" alt="Preview Car Right" />
+
+      <!-- Main Center Cab PNG -->
+      <div class="hero-main-img-wrap">
+        <img id="heroMainImg" src="images/hero_car.png" alt="Norco Fluid HT 1 Cab" />
+      </div>
+
+    </div>
+
+    <!-- Sleek Floating Horizontal Search Form -->
+    <form action="search-results.html" method="GET" class="search-card" id="heroSearchForm">
+      <div class="search-field" data-picker="date">
+        <label>Start Date</label>
+        <button type="button" class="picker-trigger" aria-haspopup="dialog" aria-expanded="false">
+          <span class="picker-icon" aria-hidden="true">📅</span>
+          <span class="picker-value" data-display>10 Sep 2026</span>
+          <svg class="picker-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <input type="hidden" name="startDate" value="2026-09-10" data-hidden />
+        <div class="picker-panel date-panel" role="dialog" aria-label="Choose start date"></div>
+      </div>
+
+      <div class="search-field" data-picker="time">
+        <label>Start Time</label>
+        <button type="button" class="picker-trigger" aria-haspopup="listbox" aria-expanded="false">
+          <span class="picker-icon" aria-hidden="true">🕒</span>
+          <span class="picker-value" data-display>10:00 AM</span>
+          <svg class="picker-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <input type="hidden" name="startTime" value="10:00 AM" data-hidden />
+        <div class="picker-panel time-panel" role="listbox" aria-label="Choose start time"></div>
+      </div>
+
+      <div class="search-field" data-picker="date">
+        <label>End Date</label>
+        <button type="button" class="picker-trigger" aria-haspopup="dialog" aria-expanded="false">
+          <span class="picker-icon" aria-hidden="true">📅</span>
+          <span class="picker-value" data-display>13 Sep 2026</span>
+          <svg class="picker-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <input type="hidden" name="endDate" value="2026-09-13" data-hidden />
+        <div class="picker-panel date-panel" role="dialog" aria-label="Choose end date"></div>
+      </div>
+
+      <div class="search-field" data-picker="time">
+        <label>End Time</label>
+        <button type="button" class="picker-trigger" aria-haspopup="listbox" aria-expanded="false">
+          <span class="picker-icon" aria-hidden="true">🕒</span>
+          <span class="picker-value" data-display>10:00 AM</span>
+          <svg class="picker-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <input type="hidden" name="endTime" value="10:00 AM" data-hidden />
+        <div class="picker-panel time-panel" role="listbox" aria-label="Choose end time"></div>
+      </div>
+
+      <button type="submit" class="btn-search">Search</button>
+    </form>
+
+    <!-- Hero Title & Subtitle -->
+    <div class="hero-title-box">
+      <h1 id="heroTitle">HYRECABS EXECUTIVE SEDAN</h1>
+      <p id="heroDesc">The HyreCabs Executive Sedan offers executive comfort, powerful performance, and smooth highway cruising across Kerala.</p>
+    </div>
+
+    <!-- Carousel Dots -->
+    <div class="carousel-dots">
+      <div class="dot active" onclick="switchHero(0)"></div>
+      <div class="dot" onclick="switchHero(1)"></div>
+      <div class="dot" onclick="switchHero(2)"></div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SECTION 1: HOW IT WORKS & VISION MISSION (AESTHETIC LIGHT UI)
+       ========================================================= -->
+  <section class="how-it-works-section container" id="howitworks">
+    <img src="images/car_luxury.png" class="section-bg-watermark" alt="" />
+    <div class="step-badge-pill">SIMPLE 4-STEP PROCESS</div>
+    <h2 class="section-main-heading">How It Works</h2>
+    <p class="section-subtext">Rent your dream cab in 4 effortless steps with HyreCabs.</p>
+
+    <!-- Vision & Mission Card -->
+    <div class="vision-mission-card">
+      <div class="vision-header-row">
+        <div class="vision-icon-halo">🎯</div>
+        <div class="vision-title-block">
+          <div class="vision-tag">Our Vision &amp; Mission</div>
+          <div class="vision-title-sub">What drives HyreCabs across Kerala</div>
+        </div>
+        <div class="vision-badge-sub">Excellence &amp; Integrity</div>
+      </div>
+      <p class="vision-text">
+        To be the leading provider of affordable and reliable cab rental solutions, enabling customers to <strong>rent a cab and car in Kerala</strong> seamlessly. As a trusted platform, we focus on delivering exceptional customer service, transparency, and innovation.
+      </p>
+      <div class="vision-pillars">
+        <div class="vision-pillar">
+          <span class="vp-icon">🤝</span>
+          <div>
+            <strong>Customer Service</strong>
+            <small>Support at every step</small>
+          </div>
+        </div>
+        <div class="vision-pillar">
+          <span class="vp-icon">🔍</span>
+          <div>
+            <strong>Transparency</strong>
+            <small>No hidden charges</small>
+          </div>
+        </div>
+        <div class="vision-pillar">
+          <span class="vp-icon">⚡</span>
+          <div>
+            <strong>Innovation</strong>
+            <small>Fast, modern booking</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 Step Cards Grid -->
+    <div class="steps-4grid">
+      <!-- Step 01 -->
+      <div class="step-card-box">
+        <div class="step-card-header-flex">
+          <span class="step-card-num">01</span>
+          <div class="step-icon-aesthetic icon-bg-blue">🔍</div>
+        </div>
+        <h3 class="step-card-title">Search & Book</h3>
+        <p class="step-card-desc">
+          Use our website to search and book cabs or cars that suit your budget and travel needs.
+        </p>
+      </div>
+
+      <!-- Step 02 -->
+      <div class="step-card-box">
+        <div class="step-card-header-flex">
+          <span class="step-card-num">02</span>
+          <div class="step-icon-aesthetic icon-bg-amber">🔑</div>
+        </div>
+        <h3 class="step-card-title">Pick Up Your Vehicle</h3>
+        <p class="step-card-desc">
+          Collect from doorstep delivery or any of our conveniently located depots around your city.
+        </p>
+      </div>
+
+      <!-- Step 03 -->
+      <div class="step-card-box">
+        <div class="step-card-header-flex">
+          <span class="step-card-num">03</span>
+          <div class="step-icon-aesthetic icon-bg-green">🏍️</div>
+        </div>
+        <h3 class="step-card-title">Ride Your Vehicle</h3>
+        <p class="step-card-desc">
+          Explore wherever you want with your loved ones across Kerala's scenic routes and beyond.
+        </p>
+      </div>
+
+      <!-- Step 04 -->
+      <div class="step-card-box">
+        <div class="step-card-header-flex">
+          <span class="step-card-num">04</span>
+          <div class="step-icon-aesthetic icon-bg-rose">🏁</div>
+        </div>
+        <h3 class="step-card-title">Return Your Vehicle</h3>
+        <p class="step-card-desc">
+          Drop the cab at your preferred return location, and we will take it from there.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SECTION 2: POLICY & GUIDELINES (AESTHETIC ASYMMETRIC BENTO)
+       ========================================================= -->
+  <section class="policy-section container" id="policies">
+    <div class="step-badge-pill">OFFICIAL RENTAL TERMS</div>
+    <h2 class="section-main-heading">Policy &amp; Guidelines</h2>
+    <p class="section-subtext">Transparent, fair, and hassle-free rental terms for your trip across Kerala.</p>
+
+    <div class="policy-bento-layout">
+      <!-- Hero Highlight Feature Card (Speed Advisory & Safety) -->
+      <div class="policy-hero-card">
+        <img src="images/car_sedan.png" class="card-car-watermark" alt="" />
+        <div class="hero-card-badge">🚨 KERALA MVD SAFETY COMPLIANT</div>
+        <div class="hero-card-icon-halo">🚨</div>
+        <h3 class="hero-card-title">Speed Advisory (80 km/h)</h3>
+        <p class="hero-card-intro">
+          All HyreCabs cabs and cars are monitored via GPS with an <strong>80 km/h speed limit advisory</strong> in accordance with Kerala MVD road safety rules.
+        </p>
+        
+        <div class="hero-card-features-list">
+          <div class="hero-feature-item">
+            <span class="feature-icon">🛰️</span>
+            <div>
+              <strong>Active GPS Tracking</strong>
+              <p>Monitored for rider security across Kerala highways and mountain terrain.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side 4-Card Bento Sub-Grid -->
+      <div class="policy-subgrid">
+        <!-- Card 1: Required Documents -->
+        <div class="policy-mini-card">
+          <div class="mini-card-header">
+            <div class="mini-icon-bubble icon-bg-blue">📄</div>
+            <div>
+              <h4 class="mini-card-title">Required Documents</h4>
+              <span class="mini-card-subtag">Mandatory ID Check</span>
+            </div>
+          </div>
+          <ul class="mini-policy-list">
+            <li><strong>Indian Nationals:</strong> Original DL (1+ yr old) & Aadhaar / Passport.</li>
+            <li><strong>Foreign Nationals:</strong> Valid International Driving Permit (IDP) + Passport.</li>
+            <li>Digital A4 sheets or expired licenses strictly not accepted.</li>
+          </ul>
+        </div>
+
+        <!-- Card 2: Rental & Hours -->
+        <div class="policy-mini-card">
+          <div class="mini-card-header">
+            <div class="mini-icon-bubble icon-bg-amber">⏰</div>
+            <div>
+              <h4 class="mini-card-title">Rental & Hours</h4>
+              <span class="mini-card-subtag">Trip Hours & Grace</span>
+            </div>
+          </div>
+          <ul class="mini-policy-list">
+            <li><strong>Minimum Rental:</strong> 12 Hours for local / round trips (>30 days monthly).</li>
+            <li><strong>Operating Hours:</strong> Pickups & drops closed 12:00 AM Midnight - 5:00 AM.</li>
+            <li><strong>Grace Period:</strong> 1 Hour grace period provided; late return fees apply.</li>
+          </ul>
+        </div>
+
+        <!-- Card 3: Security Deposit Refund -->
+        <div class="policy-mini-card">
+          <div class="mini-card-header">
+            <div class="mini-icon-bubble icon-bg-green">💳</div>
+            <div>
+              <h4 class="mini-card-title">Security Deposit Refund</h4>
+              <span class="mini-card-subtag">7-Day Refund Window</span>
+            </div>
+          </div>
+          <ul class="mini-policy-list">
+            <li>Refundable security deposit collected at delivery.</li>
+            <li>Processed & refunded within <strong>7 working days</strong> post return.</li>
+            <li>FASTag toll charges, speed advisories, & damage inspection deducted if applicable.</li>
+          </ul>
+        </div>
+
+        <!-- Card 4: Doorstep & Airport Delivery -->
+        <div class="policy-mini-card">
+          <div class="mini-card-header">
+            <div class="mini-icon-bubble icon-bg-blue">🚚</div>
+            <div>
+              <h4 class="mini-card-title">Doorstep & Airport Delivery</h4>
+              <span class="mini-card-subtag">Statewide Pickup</span>
+            </div>
+          </div>
+          <ul class="mini-policy-list">
+            <li><strong>Free Delivery:</strong> Within 5 km radius of HyreCabs depots.</li>
+            <li><strong>Cochin Airport (COK):</strong> Flat ₹300 one-way terminal pickup/drop.</li>
+            <li><strong>One-Way Drop:</strong> Multi-location drops across Kerala supported.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SECTION 3: KERALA DEPOTS (COMMAND CENTER DASHBOARD)
+       ========================================================= -->
+  <section class="depots-section container" id="depots">
+    <div class="step-badge-pill">FLEET SHOWCASE</div>
+    <h2 class="section-main-heading">Our Rental Cabs</h2>
+    <p class="section-subtext">Browse the cars available across our Kerala depots — tap through the gallery to explore the fleet.</p>
+
+    <div class="depot-slider" id="depotSlider" aria-roledescription="carousel" aria-label="Car fleet gallery">
+      <div class="depot-slider-track" id="depotSliderTrack">
+        <div class="depot-slide">
+          <img src="images/hero_car.png" alt="Norco Fluid HT 1" />
+          <div class="depot-slide-caption">
+            <strong>Norco Fluid HT 1</strong>
+            <span>Versatile high-performance cab for city rides and highway cruising.</span>
+          </div>
+        </div>
+        <div class="depot-slide">
+          <img src="images/car_luxury.png" alt="Suzuki V-Strom" />
+          <div class="depot-slide-caption">
+            <strong>Suzuki V-Strom</strong>
+            <span>Adventure-ready touring car built for long Kerala road trips.</span>
+          </div>
+        </div>
+        <div class="depot-slide">
+          <img src="images/car_ev.png" alt="E-EV Green Cruiser" />
+          <div class="depot-slide-caption">
+            <strong>E-EV Green Cruiser</strong>
+            <span>Quiet electric ride with smooth torque for everyday city travel.</span>
+          </div>
+        </div>
+        <div class="depot-slide">
+          <img src="images/car_sedan.png" alt="Honda CBR" />
+          <div class="depot-slide-caption">
+            <strong>Honda CBR</strong>
+            <span>Sportcar performance with comfortable ergonomics for daily riding.</span>
+          </div>
+        </div>
+        <div class="depot-slide">
+          <img src="images/car_hatchback.png" alt="Norco Fluid FS 4" />
+          <div class="depot-slide-caption">
+            <strong>Norco Fluid FS 4</strong>
+            <span>Full-suspension trail machine ready for mountain and coastal routes.</span>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="depot-slider-nav prev" onclick="moveDepotSlide(-1)" aria-label="Previous car">‹</button>
+      <button type="button" class="depot-slider-nav next" onclick="moveDepotSlide(1)" aria-label="Next car">›</button>
+    </div>
+
+    <div class="depot-slider-dots" id="depotSliderDots">
+      <button type="button" class="depot-dot active" onclick="goDepotSlide(0)" aria-label="Show car 1"></button>
+      <button type="button" class="depot-dot" onclick="goDepotSlide(1)" aria-label="Show car 2"></button>
+      <button type="button" class="depot-dot" onclick="goDepotSlide(2)" aria-label="Show car 3"></button>
+      <button type="button" class="depot-dot" onclick="goDepotSlide(3)" aria-label="Show car 4"></button>
+      <button type="button" class="depot-dot" onclick="goDepotSlide(4)" aria-label="Show car 5"></button>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SECTION 4: RENTAL KNOWLEDGE BASE (AESTHETIC ACCORDION)
+       ========================================================= -->
+  <section class="faq-section container" id="faq">
+    <div class="section-badge-aesthetic">❓ Frequently Asked Questions</div>
+    <h2 class="section-main-heading">Rental <span>Knowledge Base</span></h2>
+    <p class="section-subtext">Everything you need to know about renting with HyreCabs.</p>
+
+    <div class="faq-wrap">
+      <!-- FAQ 1 -->
+      <div class="faq-item-card active">
+        <div class="faq-header-btn" onclick="toggleFaq(this)">
+          <div>
+            <span class="faq-badge-tag">Q1</span>
+            <span>What documents are required to rent a self-drive car/vehicle?</span>
+          </div>
+          <span class="faq-toggle-icon">✕</span>
+        </div>
+        <div class="faq-body-text">
+          Indian Nationals require an Original Driving License (held for at least 1 year) and an Aadhaar Card or Passport. Foreign Nationals require an International Driving Permit (IDP), country driving license, and passport copy.
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="faq-item-card">
+        <div class="faq-header-btn" onclick="toggleFaq(this)">
+          <div>
+            <span class="faq-badge-tag">Q2</span>
+            <span>When and how is the security deposit refunded?</span>
+          </div>
+          <span class="faq-toggle-icon">+</span>
+        </div>
+        <div class="faq-body-text">
+          The security deposit is refunded back to your original bank account/UPI within 7 working days after returning the vehicle cleanly.
+        </div>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="faq-item-card">
+        <div class="faq-header-btn" onclick="toggleFaq(this)">
+          <div>
+            <span class="faq-badge-tag">Q3</span>
+            <span>What is the speed limit policy in Kerala?</span>
+          </div>
+          <span class="faq-toggle-icon">+</span>
+        </div>
+        <div class="faq-body-text">
+          All our vehicles are equipped with GPS monitoring with an 80 km/h speed limit advisory in accordance with Kerala MVD road safety rules.
+        </div>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="faq-item-card">
+        <div class="faq-header-btn" onclick="toggleFaq(this)">
+          <div>
+            <span class="faq-badge-tag">Q4</span>
+            <span>What is the cancellation policy?</span>
+          </div>
+          <span class="faq-toggle-icon">+</span>
+        </div>
+        <div class="faq-body-text">
+          Cancellations made more than 24 hours prior to trip start receive a 100% full booking refund. Cancellations under 24 hours receive a 50% refund.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- KOTTAYAM RENTALS FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid-top">
+      <div>
+        <a href="index.html" aria-label="HYRECABS — Home">
+          <img src="images/logo-cars.png" alt="HYRECABS" class="footer-brand-logo" />
+        </a>
+        <p class="footer-brand-desc">
+          HyreCabs | Kerala's premier self-drive cab &amp; car rental network.
+        </p>
+      </div>
+
+      <div>
+        <div class="footer-col-h">Navigation</div>
+        <ul class="footer-links-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="search-results.html">Book Now</a></li>
+          <li><a href="#policies">Rental Policies</a></li>
+          <li><a href="#depots">Kerala Depots</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-h">Popular Rentals</div>
+        <ul class="footer-links-list">
+          <li><a href="search-results.html">Specialized Rockhopper</a></li>
+          <li><a href="search-results.html">Norco Fluid FS 4</a></li>
+          <li><a href="search-results.html">Ducati Panigale V4 S</a></li>
+          <li><a href="search-results.html">Yamaha YZF-R1M Luxury Cab</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-h">Contact HQ</div>
+        <ul class="footer-links-list">
+          <li>📍 JNI Stadium, Kaloor, Kochi</li>
+          <li>📞 +91 70340 60000</li>
+          <li>✉️ info@kottayamrentals.com</li>
+          <li>🌐 www.kottayamrentals.com</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      <p class="footer-copy">© 2026 HyreCabs. All Rights Reserved. Powered by Zeekoi Enterprise Solutions</p>
+      <div class="footer-legal-links">
+        <a href="#policies">Privacy Policy</a>
+        <a href="#policies">Terms of Service</a>
+        <a href="#policies">Rental Guidelines</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile navigation drawer
+  (function () {
+    const toggle = document.getElementById('navToggle');
+    const nav = document.getElementById('primaryNav');
+    const backdrop = document.getElementById('navBackdrop');
+    if (!toggle || !nav) return;
+
+    function setOpen(open) {
+      nav.classList.toggle('open', open);
+      toggle.classList.toggle('open', open);
+      if (backdrop) backdrop.classList.toggle('show', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    toggle.addEventListener('click', () => setOpen(!nav.classList.contains('open')));
+    if (backdrop) backdrop.addEventListener('click', () => setOpen(false));
+    nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
+    window.addEventListener('resize', () => { if (window.innerWidth > 900) setOpen(false); });
+  })();
+
+  // Custom date calendar + time dropdown for hero search
+  (function initSearchPickers() {
+    const TIMES = [
+      '09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
+      '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM', '06:00 PM'
+    ];
+    const WEEKDAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+    const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'];
+
+    function parseISO(iso) {
+      const [y, m, d] = iso.split('-').map(Number);
+      return new Date(y, m - 1, d);
+    }
+    function toISO(date) {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const d = String(date.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
+    function formatDisplay(iso) {
+      const dt = parseISO(iso);
+      const mon = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][dt.getMonth()];
+      return `${dt.getDate()} ${mon} ${dt.getFullYear()}`;
+    }
+    function sameDay(a, b) {
+      return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+    }
+
+    function closeAll(except) {
+      document.querySelectorAll('.search-field[data-picker]').forEach((field) => {
+        if (field === except) return;
+        const trigger = field.querySelector('.picker-trigger');
+        const panel = field.querySelector('.picker-panel');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        if (panel) panel.classList.remove('open');
+      });
+    }
+
+    function placePanel(field) {
+      const panel = field.querySelector('.picker-panel');
+      if (!panel) return;
+      panel.style.left = '0';
+      panel.style.right = 'auto';
+      requestAnimationFrame(() => {
+        const rect = panel.getBoundingClientRect();
+        if (rect.right > window.innerWidth - 12) {
+          panel.style.left = 'auto';
+          panel.style.right = '0';
+        }
+      });
+    }
+
+    function buildTimePanel(field) {
+      const panel = field.querySelector('.picker-panel');
+      const hidden = field.querySelector('[data-hidden]');
+      const display = field.querySelector('[data-display]');
+      panel.innerHTML = '';
+      TIMES.forEach((t) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'time-option' + (hidden.value === t ? ' active' : '');
+        btn.setAttribute('role', 'option');
+        btn.setAttribute('aria-selected', hidden.value === t ? 'true' : 'false');
+        btn.textContent = t;
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          hidden.value = t;
+          display.textContent = t;
+          closeAll();
+        });
+        panel.appendChild(btn);
+      });
+    }
+
+    function buildDatePanel(field, viewDate) {
+      const panel = field.querySelector('.picker-panel');
+      const hidden = field.querySelector('[data-hidden]');
+      const display = field.querySelector('[data-display]');
+      const selected = parseISO(hidden.value);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const view = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1);
+
+      panel.innerHTML = '';
+
+      const header = document.createElement('div');
+      header.className = 'cal-header';
+      const prev = document.createElement('button');
+      prev.type = 'button';
+      prev.className = 'cal-nav';
+      prev.setAttribute('aria-label', 'Previous month');
+      prev.textContent = '‹';
+      const title = document.createElement('div');
+      title.className = 'cal-title';
+      title.textContent = `${MONTHS[view.getMonth()]} ${view.getFullYear()}`;
+      const next = document.createElement('button');
+      next.type = 'button';
+      next.className = 'cal-nav';
+      next.setAttribute('aria-label', 'Next month');
+      next.textContent = '›';
+      prev.addEventListener('click', (e) => {
+        e.stopPropagation();
+        buildDatePanel(field, new Date(view.getFullYear(), view.getMonth() - 1, 1));
+      });
+      next.addEventListener('click', (e) => {
+        e.stopPropagation();
+        buildDatePanel(field, new Date(view.getFullYear(), view.getMonth() + 1, 1));
+      });
+      header.append(prev, title, next);
+      panel.appendChild(header);
+
+      const weekdays = document.createElement('div');
+      weekdays.className = 'cal-weekdays';
+      WEEKDAYS.forEach((w) => {
+        const span = document.createElement('span');
+        span.textContent = w;
+        weekdays.appendChild(span);
+      });
+      panel.appendChild(weekdays);
+
+      const grid = document.createElement('div');
+      grid.className = 'cal-grid';
+      const startPad = view.getDay();
+      const daysInMonth = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
+      const prevMonthDays = new Date(view.getFullYear(), view.getMonth(), 0).getDate();
+
+      for (let i = 0; i < 42; i++) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'cal-day';
+        let dayNum, cellDate, muted = false;
+
+        if (i < startPad) {
+          dayNum = prevMonthDays - startPad + i + 1;
+          cellDate = new Date(view.getFullYear(), view.getMonth() - 1, dayNum);
+          muted = true;
+        } else if (i >= startPad + daysInMonth) {
+          dayNum = i - startPad - daysInMonth + 1;
+          cellDate = new Date(view.getFullYear(), view.getMonth() + 1, dayNum);
+          muted = true;
+        } else {
+          dayNum = i - startPad + 1;
+          cellDate = new Date(view.getFullYear(), view.getMonth(), dayNum);
+        }
+
+        btn.textContent = String(dayNum);
+        if (muted) btn.classList.add('muted');
+        if (sameDay(cellDate, today)) btn.classList.add('today');
+        if (sameDay(cellDate, selected)) btn.classList.add('selected');
+
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          hidden.value = toISO(cellDate);
+          display.textContent = formatDisplay(hidden.value);
+          closeAll();
+        });
+        grid.appendChild(btn);
+      }
+      panel.appendChild(grid);
+    }
+
+    document.querySelectorAll('.search-field[data-picker]').forEach((field) => {
+      const type = field.getAttribute('data-picker');
+      const trigger = field.querySelector('.picker-trigger');
+      const panel = field.querySelector('.picker-panel');
+      const hidden = field.querySelector('[data-hidden]');
+      const display = field.querySelector('[data-display]');
+      if (!trigger || !panel || !hidden) return;
+
+      if (type === 'time') {
+        display.textContent = hidden.value;
+        buildTimePanel(field);
+      } else {
+        display.textContent = formatDisplay(hidden.value);
+        buildDatePanel(field, parseISO(hidden.value));
+      }
+
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = panel.classList.contains('open');
+        closeAll();
+        if (!isOpen) {
+          if (type === 'time') buildTimePanel(field);
+          else buildDatePanel(field, parseISO(hidden.value));
+          panel.classList.add('open');
+          trigger.setAttribute('aria-expanded', 'true');
+          placePanel(field);
+        }
+      });
+
+      panel.addEventListener('click', (e) => e.stopPropagation());
+    });
+
+    document.addEventListener('click', () => closeAll());
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeAll();
+    });
+  })();
+
+  // Hero Carousel logic
+  const heroes = [
+    {
+      title: "NORCO FLUID HT 1",
+      bgText: "NORCO FLUID HT 1",
+      price: "11.00 €",
+      size: "Medium",
+      weight: "195 KG",
+      img: "images/hero_car.png",
+      desc: "The HyreCabs Executive Sedan offers executive comfort, powerful performance, and smooth highway cruising across Kerala."
+    },
+    {
+      title: "SUZUKI V-STROM DL 1050RR",
+      bgText: "V-STROM 1050",
+      price: "100.55 €",
+      size: "Large",
+      weight: "247 KG",
+      img: "images/car_luxury.png",
+      desc: "The Suzuki V-Strom DL 1050RR brings master touring ability, long-travel suspension, and ultimate adventure comfort."
+    },
+    {
+      title: "HONDA CBR650R",
+      bgText: "HONDA CBR650R",
+      price: "84.28 €",
+      size: "Medium",
+      weight: "208 KG",
+      img: "images/car_sedan.png",
+      desc: "High-revving inline four-cylinder sportcar performance with comfortable ergonomic handlebars for everyday riding."
+    }
+  ];
+
+  let currentHero = 0;
+  let heroAutoTimer = null;
+
+  function switchHero(index, fromAuto) {
+    if (index === currentHero && fromAuto !== true) {
+      // still allow re-trigger animation if clicking same? skip
+    }
+    currentHero = index;
+    const h = heroes[index];
+    const wrap = document.querySelector('.hero-main-img-wrap');
+    const img = document.getElementById('heroMainImg');
+    const title = document.getElementById('heroTitle');
+    const desc = document.getElementById('heroDesc');
+    const bg = document.getElementById('heroBgText');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const applyCopy = () => {
+      title.innerText = h.title;
+      bg.innerText = h.bgText;
+      img.src = h.img;
+      desc.innerText = h.desc;
+      document.querySelectorAll('.carousel-dots .dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    };
+
+    if (reduceMotion || !wrap) {
+      applyCopy();
+    } else {
+      wrap.classList.remove('is-swapping');
+      // force reflow so the swap animation restarts
+      void wrap.offsetWidth;
+      wrap.classList.add('is-swapping');
+      applyCopy();
+      window.setTimeout(() => wrap.classList.remove('is-swapping'), 600);
+    }
+
+    if (!fromAuto) restartHeroAutoplay();
+  }
+
+  function restartHeroAutoplay() {
+    if (heroAutoTimer) clearInterval(heroAutoTimer);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    heroAutoTimer = setInterval(() => {
+      switchHero((currentHero + 1) % heroes.length, true);
+    }, 5000);
+  }
+
+  // Kick off hero entrance animations + auto-rotate
+  (function initHeroMotion() {
+    const hero = document.querySelector('.hero-section');
+    if (!hero) return;
+    requestAnimationFrame(() => {
+      hero.classList.add('is-animated');
+    });
+    restartHeroAutoplay();
+    hero.addEventListener('mouseenter', () => {
+      if (heroAutoTimer) clearInterval(heroAutoTimer);
+    });
+    hero.addEventListener('mouseleave', restartHeroAutoplay);
+  })();
+
+  // Fleet car image slider
+  let depotSlideIndex = 0;
+  let depotAutoTimer = null;
+  const depotSlideCount = 5;
+
+  function goDepotSlide(index) {
+    depotSlideIndex = ((index % depotSlideCount) + depotSlideCount) % depotSlideCount;
+
+    const track = document.getElementById('depotSliderTrack');
+    if (track) track.style.transform = `translateX(-${depotSlideIndex * 100}%)`;
+
+    document.querySelectorAll('#depotSliderDots .depot-dot').forEach((dot, i) => {
+      dot.classList.toggle('active', i === depotSlideIndex);
+    });
+
+    restartDepotAutoplay();
+  }
+
+  function moveDepotSlide(step) {
+    goDepotSlide(depotSlideIndex + step);
+  }
+
+  function restartDepotAutoplay() {
+    if (depotAutoTimer) clearInterval(depotAutoTimer);
+    depotAutoTimer = setInterval(() => moveDepotSlide(1), 4500);
+  }
+
+  restartDepotAutoplay();
+
+  const depotSliderEl = document.getElementById('depotSlider');
+  if (depotSliderEl) {
+    depotSliderEl.addEventListener('mouseenter', () => {
+      if (depotAutoTimer) clearInterval(depotAutoTimer);
+    });
+    depotSliderEl.addEventListener('mouseleave', restartDepotAutoplay);
+  }
+
+  // FAQ Accordion Logic
+  function toggleFaq(elem) {
+    const card = elem.parentElement;
+    const isActive = card.classList.contains('active');
+    
+    document.querySelectorAll('.faq-item-card').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.faq-toggle-icon').forEach(i => i.textContent = '+');
+
+    if (!isActive) {
+      card.classList.add('active');
+      elem.querySelector('.faq-toggle-icon').textContent = '✕';
+    }
+  }
+
+  // Standard scroll-reveal animations (fade-up as elements enter view)
+  (function initScrollReveal() {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const targets = document.querySelectorAll([
+      '.how-it-works-section .step-badge-pill',
+      '.how-it-works-section .section-main-heading',
+      '.how-it-works-section .section-subtext',
+      '.vision-mission-card',
+      '.step-card-box',
+      '.policy-section .section-badge-aesthetic',
+      '.policy-section .section-main-heading',
+      '.policy-section .section-subtext',
+      '.policy-hero-card',
+      '.policy-mini-card',
+      '.depots-section .step-badge-pill',
+      '.depots-section .section-main-heading',
+      '.depots-section .section-subtext',
+      '.depot-slider',
+      '.depot-slider-dots',
+      '.faq-section .section-badge-aesthetic',
+      '.faq-section .section-main-heading',
+      '.faq-section .section-subtext',
+      '.faq-item-card',
+      '.footer-grid-top > *'
+    ].join(','));
+
+    targets.forEach((el) => el.classList.add('reveal'));
+
+    document.querySelectorAll('.steps-4grid, .policy-subgrid, .faq-wrap, .footer-grid-top').forEach((group) => {
+      [...group.children].forEach((child, idx) => {
+        if (!child.classList.contains('reveal')) return;
+        if (idx > 0 && idx <= 5) child.classList.add('reveal-delay-' + idx);
+      });
+    });
+
+    if (reduceMotion) {
+      targets.forEach((el) => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    targets.forEach((el) => observer.observe(el));
+  })();
+</script>
+</body>
+</html>
