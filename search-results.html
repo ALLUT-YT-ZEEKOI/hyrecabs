@@ -67,24 +67,20 @@
 
   /* HEADER */
   header.site-header {
-    background: var(--header-gradient);
-    border-bottom: none;
-    box-shadow: 0 10px 28px rgba(12, 51, 68, 0.18);
+    background: #000000;
+    border-bottom: 1px solid rgba(105, 200, 226, 0.12);
+    box-shadow: none;
     position: sticky;
     top: 0;
     z-index: 100;
   }
-  header.site-header::after {
-    content: "";
-    display: block;
-    height: 3px;
-    background: linear-gradient(90deg, #69c8e2 0%, #ffffff 50%, #69c8e2 100%);
-  }
+  header.site-header::after { display: none; }
+  header.site-header .container { max-width: 1240px; }
   .header-wrap {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 86px;
+    height: 78px;
   }
   .brand {
     display: flex;
@@ -92,7 +88,7 @@
     flex-shrink: 0;
   }
   .brand-logo {
-    height: 70px;
+    height: 58px;
     width: auto;
     display: block;
     border-radius: 8px;
@@ -100,18 +96,29 @@
   .nav-links {
     display: flex;
     align-items: center;
-    gap: 32px;
-    font-size: 14px;
+    gap: 4px;
+    font-size: 13.5px;
     font-weight: 600;
     color: rgba(255, 255, 255, 0.92);
   }
   .nav-links a {
-    padding: 8px 14px;
-    border-radius: 999px;
-    transition: background 0.2s ease, color 0.2s ease;
+    padding: 8px 12px;
+    border-radius: 0;
+    position: relative;
+    transition: color 0.2s ease;
   }
   .nav-links a:hover, .nav-links a.active {
-    color: #0c3344;
+    color: #ffffff;
+    background: transparent;
+  }
+  .nav-links a.active::after {
+    content: "";
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 2px;
+    height: 2px;
+    border-radius: 2px;
     background: #69c8e2;
   }
   .header-actions {
@@ -142,6 +149,19 @@
   .icon-circle-btn:hover {
     background: rgba(255, 255, 255, 0.18);
   }
+  .btn-book-now {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #69c8e2;
+    color: #0a1628;
+    font-size: 13.5px;
+    font-weight: 800;
+    padding: 12px 24px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .btn-book-now:hover { background: #7fd4ea; }
 
   /* MOBILE NAV TOGGLE (HAMBURGER) */
   .nav-toggle-btn {
@@ -170,7 +190,7 @@
 
   .nav-backdrop {
     position: fixed;
-    inset: 86px 0 0;
+    inset: 78px 0 0;
     background: rgba(18, 21, 26, 0.45);
     z-index: 98;
     opacity: 0;
@@ -632,8 +652,8 @@
 
   /* FOOTER */
   footer.site-footer {
-    background: var(--footer-gradient);
-    border-top: 3px solid #69c8e2;
+    background: #060e14;
+    border-top: 1px solid rgba(105, 200, 226, 0.12);
     color: #f4fcfe;
     padding: 56px 0 24px;
   }
@@ -683,22 +703,23 @@
   @media (max-width: 900px) {
     .nav-toggle-btn { display: flex; }
     .lang-select { display: none; }
+    .btn-book-now { display: none; }
 
     .nav-links {
       position: fixed;
-      top: 86px;
+      top: 78px;
       left: 0;
       right: 0;
       flex-direction: column;
       align-items: stretch;
       gap: 0;
       padding: 6px 24px 18px;
-      background: #ffffff;
-      border-bottom: 1px solid var(--border-color);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.10);
-      color: #203D4F;
+      background: #0a1a22;
+      border-bottom: 1px solid rgba(105, 200, 226, 0.18);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      color: #ffffff;
       font-size: 15px;
-      max-height: calc(100vh - 86px);
+      max-height: calc(100vh - 78px);
       overflow-y: auto;
       transform: translateY(-100%);
       visibility: hidden;
@@ -712,14 +733,15 @@
     .nav-links a {
       padding: 15px 4px;
       border-radius: 0;
-      color: #203D4F;
+      color: rgba(255, 255, 255, 0.9);
       background: transparent;
-      border-bottom: 1px solid #f1f5f9;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
     .nav-links a:hover, .nav-links a.active {
-      color: var(--brand-accent);
+      color: #69c8e2;
       background: transparent;
     }
+    .nav-links a.active::after { display: none; }
     .nav-links a:last-child { border-bottom: none; }
 
     .grid-4col { grid-template-columns: repeat(2, 1fr); }
@@ -813,18 +835,21 @@
     <nav class="nav-links" id="primaryNav">
       <a href="index.html">Home</a>
       <a href="search-results.html" class="active">Shop / Vehicles</a>
+      <a href="index.html#howitworks">How it Works</a>
+      <a href="index.html#faq">FAQ</a>
       <a href="blog.html">Blog</a>
       <a href="contact.html">Contact Us</a>
     </nav>
 
     <div class="header-actions">
-      <div class="lang-select">us EN ▾</div>
-      <button class="icon-circle-btn" title="Search">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <button class="icon-circle-btn" aria-label="Support" title="Support">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
       </button>
-      <button class="icon-circle-btn" title="Cart">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-      </button>
+      <div class="lang-select">
+        <span>🇺🇸 EN</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <a href="index.html#heroSearchForm" class="btn-book-now">Book Now</a>
       <button class="nav-toggle-btn" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="primaryNav">
         <span></span><span></span><span></span>
       </button>

@@ -1,0 +1,454 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find My Cab</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+}
+
+.cab-banner {
+    position: relative;
+    overflow: hidden;
+    padding: 65px 6%;
+    min-height: 520px;
+    color: #fff;
+    background:
+        radial-gradient(circle at 85% 20%, #245e78 0%, transparent 35%),
+        linear-gradient(120deg, #071629 0%, #102c46 60%, #16445a 100%);
+}
+
+.cab-banner::before {
+    content: "";
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 50%;
+    right: -100px;
+    top: -130px;
+    box-shadow: 0 0 0 45px rgba(255,255,255,.025),
+                0 0 0 90px rgba(255,255,255,.02);
+}
+
+.banner-container {
+    max-width: 1250px;
+    margin: auto;
+    position: relative;
+    z-index: 2;
+}
+
+.banner-content {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: center;
+    gap: 45px;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px;
+    border: 1px solid rgba(93, 226, 214, .3);
+    border-radius: 30px;
+    color: #7ce8dd;
+    background: rgba(65, 214, 199, .08);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+}
+
+.tag span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #62e4d3;
+}
+
+.banner-text h1 {
+    font-size: clamp(38px, 4.5vw, 62px);
+    line-height: 1.08;
+    letter-spacing: -2px;
+    margin: 25px 0 18px;
+}
+
+.banner-text h1 strong {
+    color: #65dfd0;
+}
+
+.banner-text p {
+    max-width: 430px;
+    font-size: 16px;
+    color: #b9c8d6;
+    line-height: 1.8;
+}
+
+.banner-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: 30px;
+    font-size: 13px;
+    color: #e0eaf2;
+}
+
+.banner-features span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.banner-features b {
+    color: #69e2d2;
+}
+
+/* Booking card */
+
+.booking-card {
+    background: #fff;
+    color: #172638;
+    padding: 30px;
+    border-radius: 22px;
+    box-shadow: 0 25px 70px rgba(0,0,0,.24);
+}
+
+.booking-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.booking-heading h2 {
+    font-size: 23px;
+    letter-spacing: -.6px;
+}
+
+.booking-heading p {
+    color: #8290a0;
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+.booking-heading .icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 15px;
+    display: grid;
+    place-items: center;
+    background: #e8f9f6;
+    font-size: 25px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 14px;
+}
+
+.field {
+    min-width: 0;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 9px;
+    color: #637285;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.input-box {
+    min-height: 53px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 12px;
+    border: 1px solid #e3e9ef;
+    border-radius: 10px;
+    background: #fbfcfe;
+}
+
+.input-box .field-icon {
+    font-size: 17px;
+}
+
+.input-box input {
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #1c2c3e;
+    font: inherit;
+    font-size: 13px;
+}
+
+.input-box input[type="date"],
+.input-box input[type="time"] {
+    font-size: 12px;
+}
+
+.input-box:focus-within {
+    border-color: #38bcae;
+    box-shadow: 0 0 0 3px rgba(56,188,174,.1);
+}
+
+.booking-button {
+    display: block;
+    width: 100%;
+    margin-top: 23px;
+    padding: 17px 20px;
+    border: none;
+    border-radius: 11px;
+    color: #062a31;
+    background: #65dfd0;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: .25s ease;
+}
+
+.booking-button:hover {
+    background: #45cdbd;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(69,205,189,.25);
+}
+
+.booking-footer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 17px;
+    color: #8491a0;
+    font-size: 11px;
+}
+
+.booking-footer span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.booking-footer b {
+    color: #273a4c;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+    .cab-banner {
+        padding: 50px 5%;
+    }
+
+    .banner-content {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .banner-text {
+        text-align: center;
+    }
+
+    .banner-text p {
+        margin: auto;
+    }
+
+    .banner-features {
+        justify-content: center;
+    }
+
+    .booking-card {
+        max-width: 650px;
+        width: 100%;
+        margin: auto;
+    }
+}
+
+@media (max-width: 520px) {
+    .cab-banner {
+        padding: 40px 16px;
+    }
+
+    .banner-text h1 {
+        font-size: 39px;
+        letter-spacing: -1.5px;
+    }
+
+    .banner-text p {
+        font-size: 14px;
+    }
+
+    .banner-features {
+        gap: 12px;
+        font-size: 11px;
+    }
+
+    .booking-card {
+        padding: 21px 16px;
+        border-radius: 17px;
+    }
+
+    .booking-heading h2 {
+        font-size: 20px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .input-box {
+        min-height: 50px;
+    }
+
+    .booking-footer {
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<section class="cab-banner">
+    <div class="banner-container">
+        <div class="banner-content">
+
+            <div class="banner-text">
+                <div class="tag">
+                    <span></span>
+                    YOUR JOURNEY, OUR PRIORITY
+                </div>
+
+                <h1>
+                    Every journey<br>
+                    starts with <strong>comfort.</strong>
+                </h1>
+
+                <p>
+                    Book your next ride with ease. Enjoy comfortable
+                    intercity travel from Kochi to Kottayam with a
+                    cab that fits your journey.
+                </p>
+
+                <div class="banner-features">
+                    <span><b>✓</b> Easy booking</span>
+                    <span><b>✓</b> Comfortable rides</span>
+                    <span><b>✓</b> Reliable travel</span>
+                </div>
+            </div>
+
+            <div class="booking-card">
+                <div class="booking-heading">
+                    <div>
+                        <h2>Find your cab</h2>
+                        <p>Plan your trip in just a few steps</p>
+                    </div>
+                    <div class="icon">🚕</div>
+                </div>
+
+                <form action="#" method="get">
+                    <div class="form-grid">
+
+                        <div class="field">
+                            <label for="pickup">PICK-UP LOCATION</label>
+                            <div class="input-box">
+                                <span class="field-icon">📍</span>
+                                <input id="pickup" name="pickup"
+                                    type="text"
+                                    value="Kochi — Kaloor"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="dropoff">DROP-OFF LOCATION</label>
+                            <div class="input-box">
+                                <span class="field-icon">📍</span>
+                                <input id="dropoff" name="dropoff"
+                                    type="text"
+                                    value="Kottayam"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="pickup-date">PICK-UP DATE</label>
+                            <div class="input-box">
+                                <span class="field-icon">📅</span>
+                                <input id="pickup-date" name="pickup_date"
+                                    type="date"
+                                    value="2026-09-10"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="pickup-time">PICK-UP TIME</label>
+                            <div class="input-box">
+                                <span class="field-icon">◷</span>
+                                <input id="pickup-time" name="pickup_time"
+                                    type="time"
+                                    value="10:00"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="dropoff-date">DROP-OFF DATE</label>
+                            <div class="input-box">
+                                <span class="field-icon">📅</span>
+                                <input id="dropoff-date" name="dropoff_date"
+                                    type="date"
+                                    value="2026-09-13"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="dropoff-time">DROP-OFF TIME</label>
+                            <div class="input-box">
+                                <span class="field-icon">◷</span>
+                                <input id="dropoff-time" name="dropoff_time"
+                                    type="time"
+                                    value="10:00"
+                                    required>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <button class="booking-button" type="submit">
+                        Find My Cab &nbsp; →
+                    </button>
+
+                    <div class="booking-footer">
+                        <span>✓ No booking fee shown here</span>
+                        <span>Driver age: <b>21+</b></span>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
+```
