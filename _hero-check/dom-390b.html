@@ -1,0 +1,5131 @@
+﻿<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SW477 CW477 </title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Poppins:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-page: #ffffff;
+    --header-gradient:
+      radial-gradient(480px 140px at 8% -30%, rgba(255, 255, 255, 0.28), transparent 62%),
+      linear-gradient(105deg, #0c3344 0%, #14566c 55%, #1a7a96 100%);
+    --footer-gradient:
+      radial-gradient(640px 240px at 92% -20%, rgba(105, 200, 226, 0.5), transparent 58%),
+      linear-gradient(165deg, #0c3344 0%, #134e63 58%, #1a6f86 100%);
+    --bg-card: #ffffff;
+    --text-primary: #000000;
+    --text-muted: #6b6b6b;
+    --text-light: #A7A7A7;
+    --border-color: #d4eef5;
+    --brand-accent: #1a6f86;
+    --brand-cyan: #69c8e2;
+    --brand-yellow: #69c8e2; /* Signal Amber */
+    --brand-dark: #000000;
+    --brand-blue: #69c8e2; /* Petrol Blue */
+    --brand-grey: #A7A7A7; /* Road Dust Grey */
+
+    --section-space: 34px;
+    --radius-card: 20px;
+    --radius-pill: 30px;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 40px -10px rgba(18, 21, 26, 0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+  }
+  body.picker-lock {
+    overflow: hidden;
+  }
+
+  /* Secondary brand typeface (Copperplate Gothic Light) for tags & accents */
+  .font-brand-secondary,
+  .step-badge-pill,
+  .section-badge-aesthetic,
+  .vision-tag,
+  .vision-badge-sub,
+  .depot-city-title,
+  .card-cat,
+  .ticket-brand {
+    font-family: 'Copperplate Gothic Light', Copperplate, 'Segoe UI', sans-serif;
+    letter-spacing: 0.06em;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  img { max-width: 100%; display: block; }
+
+  .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    /* Side gutters only, so section classes keep control of vertical padding */
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  /* HEADER ΓÇö dark overlay nav (VoltHire-style) */
+  header.site-header {
+    background: #000000;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(105, 200, 226, 0.12);
+    box-shadow: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+  }
+  header.site-header.is-scrolled {
+    background: #000000;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+  }
+  header.site-header {
+    transition: transform 0.28s ease, background 0.28s ease, box-shadow 0.28s ease;
+  }
+  .header-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 78px;
+    gap: 20px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .brand-logo {
+    height: 58px;
+    width: auto;
+    display: block;
+    border-radius: 8px;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.88);
+  }
+  .nav-links a {
+    padding: 8px 12px;
+    border-radius: 0;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+  .nav-links a:hover {
+    color: #ffffff;
+  }
+  .nav-links a.active {
+    color: #ffffff;
+  }
+  .nav-links a.active::after {
+    content: "";
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 2px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--brand-cyan);
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .lang-select {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  .icon-circle-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    transition: all 0.2s ease;
+  }
+  .icon-circle-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(105, 200, 226, 0.55);
+  }
+  .btn-book-now {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--brand-cyan);
+    color: #0a1628;
+    font-size: 13.5px;
+    font-weight: 800;
+    padding: 12px 24px;
+    border-radius: 999px;
+    border: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    white-space: nowrap;
+  }
+  .btn-book-now:hover {
+    background: #7fd4ea;
+    box-shadow: 0 8px 22px rgba(105, 200, 226, 0.35);
+    transform: translateY(-1px);
+  }
+
+  /* MOBILE NAV TOGGLE (HAMBURGER) */
+  .nav-toggle-btn {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .nav-toggle-btn span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    border-radius: 2px;
+    background: #ffffff;
+    transition: transform 0.28s ease, opacity 0.18s ease;
+  }
+  .nav-toggle-btn.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav-toggle-btn.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle-btn.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  .nav-backdrop {
+    position: fixed;
+    inset: 78px 0 0;
+    background: rgba(6, 14, 20, 0.55);
+    z-index: 98;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+  }
+  .nav-backdrop.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* HERO ΓÇö full photo banner (desktop + mobile) */
+  .hero-section {
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 0;
+    color: #ffffff;
+    background: #061018;
+  }
+  .hero-photo {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right center;
+    display: block;
+  }
+  .hero-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(5, 12, 20, 0.78) 0%, rgba(5, 12, 20, 0.5) 32%, rgba(5, 12, 20, 0.08) 58%, rgba(5, 12, 20, 0.22) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hero-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(5, 12, 20, 0.4) 0%, transparent 16%, transparent 68%, rgba(5, 12, 20, 0.62) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  /* Live UX hero ΓÇö Kerala experience banner */
+  .ux-hero {
+    min-height: min(720px, calc(100dvh - 78px));
+    margin-top: 78px;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    background: #061018;
+  }
+  .ux-hero::before {
+    background:
+      linear-gradient(100deg, rgba(4, 14, 24, 0.92) 0%, rgba(4, 14, 24, 0.82) 22%, rgba(4, 14, 24, 0.62) 40%, rgba(4, 14, 24, 0.22) 58%, rgba(4, 14, 24, 0.2) 100%);
+  }
+  .ux-hero::after {
+    background:
+      linear-gradient(180deg, rgba(4, 14, 24, 0.35) 0%, transparent 22%, transparent 62%, rgba(4, 14, 24, 0.55) 100%);
+  }
+  .ux-hero .hero-photo img {
+    object-position: 68% center;
+  }
+  .ux-hero-inner {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 100%;
+    flex: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(520px, 580px);
+    gap: 28px 40px;
+    align-items: center;
+    padding-top: 36px;
+    padding-bottom: 48px;
+  }
+  .ux-hero-copy {
+    max-width: 560px;
+    width: 100%;
+    min-width: 0;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .ux-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 16px;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .ux-kicker::before {
+    content: "";
+    width: 28px;
+    height: 2px;
+    border-radius: 999px;
+    background: var(--brand-cyan);
+    flex-shrink: 0;
+  }
+  .ux-hero-copy h1 {
+    margin: 0 0 16px;
+    max-width: 100%;
+    font-size: clamp(34px, 4.2vw, 52px);
+    font-weight: 800;
+    letter-spacing: -1.2px;
+    line-height: 1.08;
+    color: #ffffff;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+  .ux-hero-copy h1 .accent {
+    color: var(--brand-cyan);
+  }
+  .ux-lead {
+    margin: 0 0 28px;
+    max-width: 100%;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 15.5px;
+    line-height: 1.55;
+  }
+  .ux-features {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 14px;
+    row-gap: 16px;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 0 28px;
+    padding: 0;
+  }
+  .ux-feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    min-width: 0;
+  }
+  .ux-feature-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(145deg, #69c8e2 0%, #2aa8c8 100%);
+    color: #ffffff;
+    box-shadow: 0 8px 18px rgba(42, 168, 200, 0.28);
+    flex-shrink: 0;
+  }
+  .ux-feature-icon svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+  }
+  .ux-feature > div {
+    min-width: 0;
+  }
+  .ux-feature strong {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.25;
+  }
+  .ux-feature span {
+    display: block;
+    margin-top: 3px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.68);
+    line-height: 1.3;
+  }
+  .ux-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 0 24px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #7fd4ea 0%, #69c8e2 45%, #3fb6d4 100%);
+    color: #0a1628;
+    font-size: 14.5px;
+    font-weight: 800;
+    line-height: 1;
+    box-shadow: 0 12px 28px rgba(105, 200, 226, 0.32);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  }
+  .ux-cta svg {
+    display: block;
+    flex-shrink: 0;
+  }
+  .ux-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px rgba(105, 200, 226, 0.4);
+    background: linear-gradient(135deg, #93dcf0 0%, #7fd4ea 50%, #69c8e2 100%);
+  }
+  .ux-hero-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 22px;
+    min-width: 0;
+    width: 100%;
+  }
+  .ux-script {
+    align-self: flex-end;
+    text-align: right;
+    color: #d7f4fb;
+    max-width: 100%;
+    padding-bottom: 4px;
+  }
+  .ux-script-title {
+    display: block;
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(42px, 4.6vw, 62px);
+    line-height: 1.15;
+    color: #7ec8e8;
+    text-shadow: 0 6px 22px rgba(4, 20, 32, 0.35);
+  }
+  .ux-script-sub {
+    display: inline-block;
+    margin-top: 6px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.55);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .banner-booking {
+    line-height: 1.5;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    margin: 0;
+  }
+  .ux-hero .search-card {
+    opacity: 1;
+    transform: none;
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.28);
+  }
+  .ux-hero .search-body {
+    grid-template-columns: 1fr;
+    padding: 18px 18px 16px;
+    gap: 12px;
+  }
+  .ux-hero .search-main { gap: 12px; }
+  .ux-hero .search-row {
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: 12px 14px;
+  }
+  .ux-hero .datetime-box .search-field[data-picker="date"] { flex: 1 1 auto; min-width: 0; }
+  .ux-hero .datetime-box .search-field[data-picker="time"] { flex: 0 0 122px; }
+  .ux-hero .datetime-box .search-field[data-picker="date"] .picker-trigger {
+    gap: 6px;
+    padding: 0 8px;
+  }
+  .ux-hero .datetime-box .search-field[data-picker="time"] .picker-trigger {
+    padding: 0 8px;
+    gap: 4px;
+  }
+  .ux-hero .datetime-box .search-field[data-picker="time"] .picker-value {
+    flex: 0 0 auto;
+    overflow: visible;
+    text-overflow: clip;
+  }
+  .ux-hero .search-field > label,
+  .ux-hero .search-datetime > label { font-size: 12px; }
+  .ux-hero .search-field .picker-trigger,
+  .ux-hero .datetime-box { min-height: 46px; }
+  .ux-hero .datetime-box .search-field .picker-trigger {
+    min-height: 44px;
+    padding: 0 10px;
+  }
+  .ux-hero .picker-trigger .picker-value { font-size: 13.5px; }
+  .ux-hero .search-actions {
+    margin-top: 2px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px 12px;
+    width: 100%;
+    min-width: 0;
+  }
+  .ux-hero .btn-search {
+    min-height: 46px;
+    min-width: 0;
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+  .ux-hero .search-note { flex-shrink: 0; font-size: 12px; }
+  .ux-trust {
+    position: absolute;
+    right: 24px;
+    bottom: 18px;
+    z-index: 4;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 12.5px;
+    font-weight: 600;
+  }
+  .ux-trust svg { flex-shrink: 0; opacity: 0.95; }
+  .ux-wave {
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: min(42vw, 420px);
+    height: auto;
+    z-index: 4;
+    pointer-events: none;
+    line-height: 0;
+  }
+  .ux-wave svg { width: 100%; height: auto; display: block; }
+
+  .ux-hero .ux-kicker,
+  .ux-hero .ux-hero-copy h1,
+  .ux-hero .ux-lead,
+  .ux-hero .ux-features,
+  .ux-hero .ux-cta,
+  .ux-hero .ux-script,
+  .ux-hero .search-card,
+  .ux-hero .ux-trust {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  .ux-hero.is-animated .ux-kicker { animation: heroRiseIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both; }
+  .ux-hero.is-animated .ux-hero-copy h1 { animation: heroRiseIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.16s both; }
+  .ux-hero.is-animated .ux-lead { animation: heroRiseIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both; }
+  .ux-hero.is-animated .ux-features { animation: heroRiseIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.32s both; }
+  .ux-hero.is-animated .ux-cta { animation: heroRiseIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both; }
+  .ux-hero.is-animated .ux-script { animation: heroRiseIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both; }
+  .ux-hero.is-animated .search-card { animation: heroRiseIn 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both; }
+  .ux-hero.is-animated .ux-trust { animation: heroRiseIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.55s both; }
+
+  @media (max-width: 1100px) {
+    .ux-hero { min-height: 0; }
+    .ux-hero::before {
+      background:
+        linear-gradient(180deg, rgba(4, 14, 24, 0.82) 0%, rgba(4, 14, 24, 0.62) 28%, rgba(4, 14, 24, 0.28) 58%, rgba(4, 14, 24, 0.4) 100%);
+    }
+    .ux-hero .hero-photo img { object-position: 72% 42%; }
+    .ux-hero-inner {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 22px;
+      padding-top: 28px;
+      padding-bottom: 28px;
+    }
+    .ux-hero-copy {
+      max-width: 680px;
+      padding-right: 200px;
+    }
+    .ux-features {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      max-width: 520px;
+    }
+    .ux-hero-panel { align-items: stretch; }
+    .ux-script {
+      position: absolute;
+      top: 4px;
+      right: 0;
+      z-index: 4;
+      max-width: 46%;
+      text-align: right;
+      pointer-events: none;
+    }
+    .ux-script-title { font-size: clamp(34px, 4.2vw, 52px); padding-right: 0.08em; }
+    .ux-script-sub { letter-spacing: 1.6px; }
+    .ux-trust {
+      position: static;
+      display: flex;
+      justify-content: flex-end;
+      margin: 0;
+      padding: 8px 24px 18px;
+    }
+    .ux-hero .search-body {
+      grid-template-columns: minmax(0, 1fr);
+      padding: 18px 18px 16px;
+      gap: 14px;
+    }
+    .ux-hero .search-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .ux-hero .search-actions {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      width: 100%;
+    }
+  }
+  @media (max-width: 860px) {
+    .ux-hero-copy { padding-right: 160px; }
+    .ux-features {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      max-width: 340px;
+      column-gap: 18px;
+    }
+    .ux-script-title { font-size: 40px; }
+  }
+  @media (max-width: 720px) {
+    .ux-hero-inner {
+      gap: 18px;
+      padding-top: 22px;
+      padding-bottom: 20px;
+    }
+    .ux-hero,
+    .ux-hero-inner { width: 100%; max-width: 100%; }
+    .ux-hero-panel { display: flex; align-items: stretch; }
+    .ux-hero-copy {
+      padding-top: 58px;
+      padding-right: 0;
+      max-width: none;
+    }
+    .ux-lead { max-width: 100%; }
+    .ux-hero-copy,
+    .ux-script,
+    .banner-booking,
+    .ux-hero .search-card,
+    .ux-hero .search-main,
+    .ux-hero .search-row {
+      min-width: 0;
+    }
+    .ux-hero-copy h1 {
+      font-size: 30px;
+      letter-spacing: -0.7px;
+      max-width: 100%;
+      padding-right: 0;
+    }
+    .ux-lead { font-size: 14.5px; max-width: 36em; }
+    .ux-features {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      max-width: 320px;
+      gap: 16px 12px;
+      margin-bottom: 22px;
+    }
+    .ux-kicker {
+      max-width: 100%;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+    .ux-script {
+      position: absolute;
+      top: 6px;
+      right: 0;
+      left: auto;
+      order: 0;
+      width: max-content;
+      max-width: 100%;
+      min-width: 0;
+      margin: 0;
+      text-align: right;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .ux-script-title {
+      font-size: clamp(24px, 7vw, 32px);
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+    .ux-script-sub {
+      font-size: 9px;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+    .ux-hero-copy h1,
+    .ux-lead { padding-right: 0; }
+    .ux-cta { max-width: 100%; }
+    .banner-booking { width: 100%; }
+    .ux-hero .search-body { grid-template-columns: minmax(0, 1fr); padding: 16px; }
+    .ux-hero .search-row { grid-template-columns: minmax(0, 1fr); }
+    .ux-hero .search-actions {
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+    }
+    .ux-hero .btn-search { width: 100%; }
+    .ux-hero .search-note { justify-content: center; }
+    .ux-trust {
+      position: relative;
+      z-index: 5;
+      justify-content: flex-end;
+      max-width: 100%;
+      padding: 12px 16px 18px;
+    }
+    .ux-wave { width: 46vw; opacity: 0.95; }
+  }
+  @media (max-width: 420px) {
+    .ux-hero-copy h1 { font-size: 26px; letter-spacing: -0.5px; line-height: 1.12; }
+    .ux-features { max-width: 100%; }
+    .ux-feature strong { font-size: 12px; }
+    .ux-script-title { font-size: 26px; }
+  }
+  .hero-visual-slot {
+    grid-area: visual;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 0 4px 18px 0;
+    min-height: 0;
+  }
+  .hero-side-card {
+    width: min(230px, 100%);
+    background: rgba(8, 14, 24, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 18px;
+    padding: 14px 16px 12px;
+    color: #ffffff;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
+  }
+  .hero-side-card strong {
+    display: block;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+  }
+  .hero-side-card .hero-side-meta {
+    display: block;
+    margin-top: 4px;
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.68);
+  }
+  .hero-side-card .hero-side-price {
+    display: block;
+    margin-top: 10px;
+    font-style: normal;
+    font-size: 15px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+  .hero-side-card .hero-side-price b {
+    color: var(--brand-cyan);
+    font-size: 18px;
+  }
+  .hero-side-card .hero-side-price span {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(340px, 1.18fr);
+    grid-template-areas:
+      "copy visual"
+      "booking booking";
+    grid-template-rows: minmax(260px, 1fr) auto;
+    column-gap: 32px;
+    row-gap: 10px;
+    align-items: center;
+    padding-top: 104px;
+    padding-bottom: 36px;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  .hero-booking {
+    grid-area: booking;
+    width: 100%;
+    max-width: 1040px;
+    justify-self: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 8px;
+  }
+  .hero-copy {
+    grid-area: copy;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    padding-bottom: 0;
+    max-width: none;
+    align-self: center;
+  }
+  .hero-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brand-cyan);
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  .hero-kicker::before {
+    content: "";
+    width: 28px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--brand-cyan);
+  }
+  .hero-title-box {
+    text-align: left;
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  .hero-title-box h1 {
+    font-size: clamp(38px, 4.4vw, 58px);
+    font-weight: 800;
+    letter-spacing: -1.2px;
+    line-height: 1.02;
+    text-transform: none;
+    margin-bottom: 14px;
+    color: #ffffff;
+  }
+  .hero-title-box h1 .hero-accent {
+    color: var(--brand-cyan);
+    display: block;
+  }
+  .hero-vehicle-label {
+    display: inline-block;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.78);
+    background: rgba(105, 200, 226, 0.12);
+    border: 1px solid rgba(105, 200, 226, 0.28);
+    border-radius: 999px;
+    padding: 6px 14px;
+    margin-bottom: 12px;
+  }
+  .hero-title-box p {
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.72);
+    max-width: 480px;
+    margin: 0;
+  }
+  .hero-checks {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    max-width: 420px;
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  .hero-checks li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14.5px;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .hero-checks span {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(105, 200, 226, 0.18);
+    color: var(--brand-cyan);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 12px;
+    font-weight: 800;
+    margin-top: 1px;
+  }
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0 18px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+  .hero-cta--fill {
+    background: var(--brand-cyan);
+    color: #0a1628;
+  }
+  .hero-cta--fill:hover { background: #7fd4ea; }
+  .hero-cta--ghost {
+    background: #ffffff;
+    color: #0a1628;
+  }
+  .hero-cta--ghost:hover { background: #e8f7fb; }
+  .hero-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 22px;
+    width: 100%;
+    max-width: 440px;
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  .hero-feature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    flex: 0 1 auto;
+  }
+  .hero-feature-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(105, 200, 226, 0.12);
+    border: 1px solid rgba(105, 200, 226, 0.28);
+    color: var(--brand-cyan);
+    flex-shrink: 0;
+  }
+  .hero-feature strong {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.2;
+  }
+  .hero-feature span {
+    display: block;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: 2px;
+  }
+
+  .hero-visual {
+    grid-area: visual;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 340px;
+    padding-bottom: 0;
+    align-self: center;
+  }
+  .hero-stage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 320px;
+  }
+  .hero-bg-text {
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(56px, 6.2vw, 104px);
+    font-weight: 800;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(168, 214, 230, 0.28);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    user-select: none;
+    z-index: 1;
+    opacity: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: clip;
+  }
+  .hero-side-car {
+    display: none;
+  }
+  .hero-main-img-wrap {
+    position: relative;
+    z-index: 3;
+    width: min(540px, 100%);
+    margin: 0 auto;
+    filter: drop-shadow(0 28px 40px rgba(0, 0, 0, 0.55));
+    opacity: 0;
+    transform: translateY(28px) scale(0.94);
+  }
+  .hero-main-img-wrap::after {
+    content: "";
+    position: absolute;
+    left: 12%;
+    right: 12%;
+    bottom: 4%;
+    height: 28px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.35), transparent 70%);
+    filter: blur(6px);
+    z-index: -1;
+    pointer-events: none;
+  }
+  .hero-main-img-wrap img {
+    width: 100%;
+    display: block;
+    object-fit: contain;
+  }
+  .hero-glow-ring {
+    position: absolute;
+    width: min(380px, 62%);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 1.5px solid rgba(105, 200, 226, 0.18);
+    box-shadow:
+      0 0 0 14px rgba(105, 200, 226, 0.04),
+      inset 0 0 50px rgba(105, 200, 226, 0.06);
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  /* Booking search card ΓÇö wide VoltHire-style bar */
+  .search-card {
+    background: #ffffff;
+    border-radius: 22px;
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 40;
+    opacity: 0;
+    transform: translateY(24px);
+    overflow: visible;
+    color: var(--text-primary);
+  }
+  .search-body {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px 24px;
+    align-items: center;
+    padding: 22px 24px;
+  }
+  .search-main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+  }
+  .search-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 20px;
+    align-items: end;
+    width: 100%;
+  }
+  .search-field {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+    text-align: left;
+    padding: 0;
+    border: none;
+    background: transparent;
+  }
+  .search-field:has(.picker-panel.open) {
+    z-index: 30;
+  }
+  .search-field > label,
+  .search-datetime > label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #6b7280;
+    text-transform: none;
+    letter-spacing: 0;
+    margin: 0;
+  }
+  .search-field .picker-trigger {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 52px;
+    padding: 0 16px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .search-field .picker-trigger:hover {
+    border-color: #cbd5e1;
+  }
+  .search-field .picker-trigger[aria-expanded="true"] {
+    border-color: var(--brand-cyan);
+    box-shadow: 0 0 0 3px rgba(105, 200, 226, 0.22);
+  }
+  .search-field[data-picker="place"] .picker-trigger {
+    justify-content: space-between;
+  }
+  .search-field[data-picker="place"] .picker-icon {
+    order: 2;
+    color: #9ca3af;
+    display: inline-flex;
+  }
+  .search-field[data-picker="place"] .picker-value {
+    order: 1;
+  }
+  .search-field[data-picker="place"] .picker-caret {
+    display: none;
+  }
+
+  .search-datetime {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+  }
+  .datetime-box {
+    display: flex;
+    align-items: stretch;
+    min-height: 52px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: visible;
+  }
+  .datetime-box:focus-within {
+    border-color: var(--brand-cyan);
+    box-shadow: 0 0 0 3px rgba(105, 200, 226, 0.22);
+  }
+  .datetime-box .search-field {
+    flex: 1;
+    min-width: 0;
+  }
+  .datetime-box .search-field .picker-trigger {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    min-height: 50px;
+    padding: 0 14px;
+  }
+  .datetime-box .search-field .picker-trigger:hover,
+  .datetime-box .search-field .picker-trigger[aria-expanded="true"] {
+    border: none;
+    box-shadow: none;
+  }
+  .datetime-divider {
+    width: 1px;
+    align-self: stretch;
+    margin: 12px 0;
+    background: #e5e7eb;
+    flex-shrink: 0;
+  }
+  .datetime-box .search-field[data-picker="time"] .picker-icon {
+    display: none;
+  }
+  .datetime-box .search-field[data-picker="date"] .picker-icon {
+    color: #9ca3af;
+    display: inline-flex;
+  }
+
+  .search-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    align-self: center;
+    margin-top: 24px;
+  }
+  .search-note {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 12.5px;
+    color: #9ca3af;
+    white-space: nowrap;
+  }
+  .input-inline {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .input-inline input, .input-inline select {
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    width: 100%;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .picker-trigger .picker-icon {
+    font-size: 15px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .picker-trigger .picker-icon svg {
+    display: block;
+  }
+  .picker-trigger .picker-value {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .picker-trigger .picker-caret {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    color: #9ca3af;
+    transition: transform 0.2s ease;
+  }
+  .picker-panel.place-panel,
+  .picker-panel.time-panel {
+    padding: 8px;
+  }
+  .picker-trigger[aria-expanded="true"] .picker-caret {
+    transform: rotate(180deg);
+    color: var(--brand-accent);
+  }
+
+  .picker-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 400;
+    background: rgba(6, 14, 20, 0.48);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+  .picker-backdrop.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .picker-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    z-index: 420;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    box-shadow: 0 18px 48px rgba(15, 23, 42, 0.18);
+    padding: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+    pointer-events: none;
+    overscroll-behavior: contain;
+  }
+  .picker-panel.open {
+    position: fixed;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    pointer-events: auto;
+  }
+  .picker-panel.time-panel {
+    min-width: 168px;
+    max-height: 280px;
+    overflow-y: auto;
+    padding: 8px;
+  }
+  .picker-panel.date-panel {
+    width: 300px;
+    padding: 14px 14px 12px;
+  }
+  .picker-panel:not(.open) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0 !important;
+    height: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+  }
+  .picker-sheet-head {
+    display: none;
+  }
+
+  .time-option {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 44px;
+    text-align: left;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .time-option:hover {
+    background: #f3f4f6;
+  }
+  .time-option.active,
+  .place-panel .time-option.active {
+    background: var(--brand-cyan);
+    color: #0c3344;
+    font-weight: 700;
+  }
+
+  .cal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .cal-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: #0a0a0a;
+  }
+  .cal-nav {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border-color);
+    background: #ffffff;
+    color: #0a0a0a;
+    font-size: 16px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+  .cal-nav:hover {
+    background: #0a0a0a;
+    border-color: #0a0a0a;
+    color: #ffffff;
+  }
+  .cal-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: 6px;
+  }
+  .cal-weekdays span {
+    text-align: center;
+    font-size: 10.5px;
+    font-weight: 800;
+    color: #a3a3a3;
+    text-transform: uppercase;
+    padding: 4px 0;
+  }
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+  }
+  .cal-day {
+    aspect-ratio: 1;
+    border: none;
+    background: transparent;
+    border-radius: 50%;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: #111827;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .cal-day:hover:not(:disabled):not(.selected) {
+    background: #f5f5f5;
+  }
+  .cal-day.muted {
+    color: #d4d4d4;
+  }
+  .cal-day.today {
+    box-shadow: inset 0 0 0 1.5px var(--brand-cyan);
+    color: var(--brand-accent);
+  }
+  .cal-day.selected {
+    background: var(--brand-accent);
+    color: #ffffff;
+    box-shadow: none;
+  }
+  .cal-day:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .hero-stage { overflow: hidden; }
+  .search-card { overflow: visible; }
+
+  .btn-search {
+    background: var(--brand-cyan);
+    color: #0a1628;
+    font-size: 15.5px;
+    font-weight: 800;
+    padding: 16px 28px;
+    border-radius: 999px;
+    transition: all 0.2s ease;
+    border: none;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 52px;
+    min-width: 168px;
+  }
+  .btn-search:hover {
+    background: #7fd4ea;
+    color: #0a1628;
+    box-shadow: 0 10px 24px rgba(105, 200, 226, 0.4);
+    transform: translateY(-1px);
+  }
+  .btn-search svg {
+    flex-shrink: 0;
+  }
+
+  .carousel-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 18px;
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  .dot {
+    width: 14px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.28);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .dot.active {
+    background: var(--brand-cyan);
+    width: 26px;
+  }
+  @keyframes heroCardFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
+  }
+  @keyframes heroCardNudge {
+    from { opacity: 0.35; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-side-card {
+    animation: heroCardFloat 4.6s ease-in-out infinite;
+  }
+  .hero-side-card.is-nudging {
+    animation: heroCardNudge 0.45s ease both;
+  }
+
+  /* ---------- Hero pure animations ---------- */
+  @keyframes heroBgIn {
+    from { opacity: 0; transform: translate(-50%, -46%) scale(0.96); }
+    to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  }
+  @keyframes heroBgPulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    50%      { transform: translate(-50%, -52%) scale(1.015); opacity: 0.85; }
+  }
+  @keyframes heroSideInL {
+    from { opacity: 0; transform: translate(-48px, -50%); }
+    to   { opacity: 0.45; transform: translate(0, -50%); }
+  }
+  @keyframes heroSideInR {
+    from { opacity: 0; transform: translate(48px, -50%); }
+    to   { opacity: 0.45; transform: translate(0, -50%); }
+  }
+  @keyframes heroSideDriftL {
+    0%, 100% { transform: translate(0, -50%); }
+    50%      { transform: translate(6px, calc(-50% - 6px)); }
+  }
+  @keyframes heroSideDriftR {
+    0%, 100% { transform: translate(0, -50%); }
+    50%      { transform: translate(-6px, calc(-50% - 6px)); }
+  }
+  @keyframes heroMainIn {
+    from { opacity: 0; transform: translateY(32px) scale(0.92); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes heroFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-12px); }
+  }
+  @keyframes heroSwap {
+    0%   { opacity: 0; transform: translateY(18px) scale(0.96); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes heroRiseIn {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes heroRingIn {
+    from { opacity: 0; transform: translate(-50%, -50%) scale(0.86); }
+    to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  }
+  @keyframes heroDotPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(105, 200, 226, 0.35); }
+    50%      { box-shadow: 0 0 0 5px rgba(105, 200, 226, 0); }
+  }
+
+  .hero-section.is-animated .hero-bg-text {
+    animation:
+      heroBgIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both,
+      heroBgPulse 6s ease-in-out 1.2s infinite;
+  }
+  .hero-section.is-animated .hero-glow-ring {
+    animation: heroRingIn 1s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+  }
+  .hero-section.is-animated .hero-side-car.left {
+    animation:
+      heroSideInL 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both,
+      heroSideDriftL 5.5s ease-in-out 1.2s infinite;
+  }
+  .hero-section.is-animated .hero-side-car.right {
+    animation:
+      heroSideInR 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both,
+      heroSideDriftR 5.5s ease-in-out 1.3s infinite;
+  }
+  .hero-section.is-animated .hero-main-img-wrap {
+    animation: heroMainIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+  }
+  .hero-section.is-animated .hero-main-img-wrap img {
+    animation: heroFloat 4.2s ease-in-out 1.2s infinite;
+  }
+  .hero-section.is-animated .hero-main-img-wrap.is-swapping img {
+    animation: heroSwap 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .hero-section.is-animated .hero-kicker {
+    animation: heroRiseIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+  }
+  .hero-section.is-animated .hero-title-box {
+    animation: heroRiseIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
+  }
+  .hero-section.is-animated .hero-checks,
+  .hero-section.is-animated .hero-ctas {
+    animation: heroRiseIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+  }
+  .hero-section.is-animated .hero-features {
+    animation: heroRiseIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+  }
+  .hero-section.is-animated .search-card {
+    animation: heroRiseIn 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.55s both;
+  }
+  .hero-section.is-animated .carousel-dots {
+    animation: heroRiseIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.7s both;
+  }
+  .hero-section.is-animated .dot.active {
+    background: var(--brand-cyan);
+    animation: heroDotPulse 2.2s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg-text,
+    .hero-side-car,
+    .hero-main-img-wrap,
+    .hero-glow-ring,
+    .search-card,
+    .hero-kicker,
+    .hero-title-box,
+    .hero-features,
+    .hero-checks,
+    .hero-ctas,
+    .hero-side-card,
+    .carousel-dots,
+    .ux-hero .ux-kicker,
+    .ux-hero .ux-hero-copy h1,
+    .ux-hero .ux-lead,
+    .ux-hero .ux-features,
+    .ux-hero .ux-cta,
+    .ux-hero .ux-script,
+    .ux-hero .search-card,
+    .ux-hero .ux-trust {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+    }
+    .hero-bg-text { transform: translate(-50%, -50%) !important; }
+    .hero-glow-ring { transform: translate(-50%, -50%) !important; }
+    .hero-side-car { opacity: 0.45 !important; transform: translateY(-50%) !important; }
+  }
+
+  /* AESTHETIC ELEVATED DESIGN SYSTEM */
+  .section-badge-aesthetic {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border: 1.5px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 11.5px;
+    font-weight: 800;
+    padding: 6px 18px;
+    border-radius: 30px;
+    margin-bottom: 14px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+  }
+  .section-main-heading {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+  .section-main-heading span {
+    color: var(--brand-accent);
+  }
+  .section-subtext {
+    font-size: 14px;
+    color: var(--text-muted);
+    max-width: 560px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+
+  /* =========================================================
+     SECTION 1: HOW IT WORKS & VISION MISSION (AESTHETIC LIGHT UI)
+     ========================================================= */
+  .how-it-works-section {
+    padding-top: var(--section-space);
+    padding-bottom: var(--section-space);
+    text-align: center;
+  }
+
+  .step-badge-pill {
+    background: #ffffff;
+    border: 1.5px solid #e5e7eb;
+    color: #4b5563;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 7px 22px;
+    border-radius: 50px;
+    display: inline-block;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+  }
+
+  /* Universal Aesthetic Car Watermark Tint Backdrop */
+  /* Fills the card and scales the car down to fit, so the whole vehicle
+     stays inside the container instead of being cropped at the edges.
+     object-position decides which corner it hugs. */
+  .card-car-watermark {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 18px;
+    object-fit: contain;
+    object-position: center;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    opacity: 0.07;
+    filter: grayscale(100%) contrast(110%);
+    transition: opacity 0.35s ease;
+  }
+
+  /* Giant Section Watermark Backdrop */
+  .how-it-works-section,
+  .policy-section,
+  .depots-section,
+  .faq-section {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-bg-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1100px;
+    max-width: 95%;
+    opacity: 0.055;
+    filter: grayscale(100%) contrast(120%) brightness(0.9);
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+
+  .how-it-works-section > *:not(.section-bg-watermark),
+  .policy-section > *:not(.section-bg-watermark),
+  .depots-section > *:not(.section-bg-watermark),
+  .faq-section > *:not(.section-bg-watermark) {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Vision & Mission Aesthetic Card */
+  .vision-mission-card {
+    background: #ffffff;
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-card);
+    padding: 26px 32px 28px;
+    text-align: left;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  }
+  .vision-mission-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--brand-yellow), var(--brand-accent));
+  }
+  /* Opacity only ΓÇö a hover scale would push the car past the card edge */
+  .policy-hero-card:hover .card-car-watermark {
+    opacity: 0.15;
+  }
+
+  /* Lift the real card content above the watermark so text stays crisp */
+  .policy-hero-card > *:not(.card-car-watermark) {
+    position: relative;
+    z-index: 1;
+  }
+  .vision-mission-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: #cbd5e1;
+    transform: translateY(-2px);
+  }
+  .vision-header-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-bottom: 18px;
+    margin-bottom: 18px;
+    border-bottom: 1px dashed var(--border-color);
+  }
+  .vision-icon-halo {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    font-size: 19px;
+    background: linear-gradient(140deg, #fff7e6, #ffedd5);
+    border: 1px solid #fde3b0;
+  }
+  .vision-title-block {
+    flex: 1;
+    min-width: 0;
+  }
+  .vision-tag {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+  .vision-title-sub {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-top: 3px;
+  }
+  .vision-badge-sub {
+    flex-shrink: 0;
+    background: #f1f5f9;
+    border: 1px solid var(--border-color);
+    color: #475569;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+  }
+  .vision-text {
+    font-size: 14px;
+    color: #4b5563;
+    line-height: 1.8;
+    font-weight: 450;
+    max-width: 900px;
+  }
+  .vision-text strong {
+    color: var(--text-primary);
+    font-weight: 800;
+  }
+  .vision-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 22px;
+  }
+  .vision-pillar {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    background: #f8fafc;
+    border: 1px solid #eef2f7;
+    border-radius: 14px;
+    padding: 12px 14px;
+    transition: background 0.25s ease, border-color 0.25s ease;
+  }
+  .vision-pillar:hover {
+    background: #fffdf6;
+    border-color: #fde3b0;
+  }
+  .vision-pillar .vp-icon {
+    font-size: 16px;
+    line-height: 1;
+  }
+  .vision-pillar strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--text-primary);
+  }
+  .vision-pillar small {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* 4 Step Cards Aesthetic Horizontal Grid */
+  .steps-4grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    position: relative;
+  }
+
+  .step-card-box {
+    background: #ffffff;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 28px 24px;
+    text-align: left;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.025);
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .step-card-box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.06);
+    border-color: #cbd5e1;
+  }
+
+  .step-card-header-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .step-card-num {
+    font-size: 26px;
+    font-weight: 900;
+    color: #111827;
+    line-height: 1;
+    letter-spacing: -0.5px;
+  }
+
+  .step-icon-aesthetic {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .icon-bg-blue { background: #eff6ff; color: #2563eb; }
+  .icon-bg-amber { background: #F0F9FC; color: var(--brand-accent); }
+  .icon-bg-green { background: #f0fdf4; color: #16a34a; }
+  .icon-bg-rose { background: #f8fafc; color: #475569; }
+
+  .step-card-title {
+    font-size: 15.5px;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 8px;
+  }
+  .step-card-desc {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  /* =========================================================
+     SECTION 2: POLICY & GUIDELINES (AESTHETIC ASYMMETRIC BENTO)
+     ========================================================= */
+  .policy-section {
+    padding-top: var(--section-space);
+    padding-bottom: var(--section-space);
+    text-align: center;
+  }
+
+  .policy-bento-layout {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 24px;
+    align-items: stretch;
+    text-align: left;
+  }
+
+  /* Hero Highlight Card */
+  .policy-hero-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f9fc 100%);
+    border: 1.5px solid #bae6fd;
+    border-radius: 20px;
+    padding: 32px 28px;
+    box-shadow: 0 8px 28px rgba(105, 200, 226, 0.08);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  .policy-hero-card .card-car-watermark {
+    object-position: center 62%;
+  }
+  .hero-card-badge {
+    font-size: 10.5px;
+    font-weight: 800;
+    background: #e0f2fe;
+    color: var(--brand-accent);
+    padding: 5px 14px;
+    border-radius: 20px;
+    display: inline-block;
+    width: fit-content;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .hero-card-icon-halo {
+    width: 52px;
+    height: 52px;
+    background: #ffffff;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+  }
+  .hero-card-title {
+    font-size: 20px;
+    font-weight: 900;
+    color: #111827;
+    margin-bottom: 10px;
+  }
+  .hero-card-intro {
+    font-size: 13.5px;
+    color: #4b5563;
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+  .hero-card-features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: auto;
+  }
+  .hero-feature-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 12px 16px;
+    border-radius: 14px;
+    border: 1px solid #e0f2fe;
+  }
+  .hero-feature-item .feature-icon {
+    font-size: 18px;
+    margin-top: 2px;
+  }
+  .hero-feature-item strong {
+    font-size: 13px;
+    color: #111827;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .hero-feature-item p {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Sub-Grid for remaining cards */
+  .policy-subgrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .policy-mini-card {
+    background: #ffffff;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 24px 22px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.025);
+    transition: all 0.3s ease;
+  }
+  .policy-mini-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.05);
+    border-color: #cbd5e1;
+  }
+  .mini-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .mini-icon-bubble {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .mini-card-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: #111827;
+    margin: 0;
+    line-height: 1.2;
+  }
+  .mini-card-subtag {
+    font-size: 11px;
+    color: #94a3b8;
+    font-weight: 600;
+  }
+
+  .mini-policy-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .mini-policy-list li {
+    font-size: 12.5px;
+    color: #4b5563;
+    line-height: 1.6;
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 16px;
+  }
+  .mini-policy-list li::before {
+    content: 'Γ£ô';
+    position: absolute;
+    left: 0;
+    color: #2563eb;
+    font-weight: 900;
+    font-size: 11px;
+  }
+  .mini-policy-list li strong {
+    color: #111827;
+  }
+
+  .full-span-card {
+    grid-column: span 2;
+  }
+  .cancellation-flex-boxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+    margin-top: 10px;
+  }
+  .cancel-badge-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 10px 18px;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .cancel-time {
+    font-size: 11px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+  }
+  .cancel-val {
+    font-size: 14px;
+    font-weight: 900;
+  }
+  .cancel-val.green { color: #16a34a; }
+  .cancel-val.amber { color: var(--brand-accent); }
+  .cancel-note {
+    font-size: 12px;
+    color: #94a3b8;
+    font-style: italic;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  /* =========================================================
+     SECTION 3: KERALA DEPOTS (COMMAND CENTER DASHBOARD)
+     ========================================================= */
+  .depots-section {
+    padding-top: var(--section-space);
+    padding-bottom: var(--section-space);
+    text-align: center;
+  }
+
+  /* Fleet car image slider */
+  .depot-slider {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+    border: 1.5px solid #e5e7eb;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+    min-height: 380px;
+  }
+  .depot-slider-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+  .depot-slide {
+    position: relative;
+    flex: 0 0 100%;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 36px 72px 28px;
+    box-sizing: border-box;
+  }
+  .depot-slide img {
+    width: min(720px, 100%);
+    height: 260px;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    filter: drop-shadow(0 18px 28px rgba(15, 23, 42, 0.18));
+  }
+  .depot-slide-caption {
+    margin-top: 18px;
+    text-align: center;
+    max-width: 560px;
+  }
+  .depot-slide-caption strong {
+    display: block;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+    color: #0f172a;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .depot-slide-caption span {
+    display: block;
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.5;
+  }
+  .depot-slider-nav {
+    position: absolute;
+    top: 42%;
+    transform: translateY(-50%);
+    z-index: 3;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1.5px solid #e2e8f0;
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  }
+  .depot-slider-nav:hover {
+    background: #0f172a;
+    color: #ffffff;
+    border-color: #0f172a;
+    transform: translateY(-50%) scale(1.05);
+  }
+  .depot-slider-nav.prev { left: 16px; }
+  .depot-slider-nav.next { right: 16px; }
+  .depot-slider-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+  }
+  .depot-slider-dots .depot-dot {
+    width: 24px;
+    height: 3px;
+    border-radius: 2px;
+    border: none;
+    padding: 0;
+    background: #e2e8f0;
+    cursor: pointer;
+    transition: width 0.3s ease, background 0.3s ease;
+  }
+  .depot-slider-dots .depot-dot.active {
+    width: 36px;
+    background: #0f172a;
+  }
+
+  /* =========================================================
+     SECTION 4: RENTAL KNOWLEDGE BASE (AESTHETIC ACCORDION)
+     ========================================================= */
+  .faq-section {
+    padding-top: var(--section-space);
+    padding-bottom: var(--section-space);
+    text-align: center;
+  }
+  .faq-wrap {
+    max-width: 820px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .faq-item-card {
+    background: #ffffff;
+    border: 1.5px solid var(--border-color);
+    border-radius: 18px;
+    overflow: hidden;
+    transition: border-color 0.25s ease;
+    text-align: left;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.02);
+  }
+  .faq-header-btn {
+    width: 100%;
+    padding: 22px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+  .faq-badge-tag {
+    font-size: 11px;
+    font-weight: 900;
+    background: #f1f5f9;
+    color: #475569;
+    padding: 3px 10px;
+    border-radius: 10px;
+    margin-right: 10px;
+  }
+  .faq-toggle-icon {
+    font-size: 18px;
+    color: var(--text-muted);
+    transition: transform 0.3s ease;
+  }
+  .faq-item-card.active .faq-toggle-icon {
+    transform: rotate(45deg);
+    color: var(--text-primary);
+  }
+  .faq-body-text {
+    display: none;
+    padding: 0 28px 24px;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.75;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 18px;
+  }
+  .faq-item-card.active .faq-body-text {
+    display: block;
+  }
+
+  /* KOTTAYAM RENTALS FOOTER */
+  footer.site-footer {
+    background: #060e14;
+    border-top: 1px solid rgba(105, 200, 226, 0.12);
+    color: #f4fcfe;
+    padding-top: var(--section-space);
+    padding-bottom: 28px;
+  }
+  .footer-grid-top {
+    display: grid;
+    grid-template-columns: minmax(220px, 1.5fr) repeat(3, minmax(150px, 1fr));
+    gap: 48px;
+    margin-bottom: 40px;
+    align-items: start;
+    text-align: left;
+    justify-items: stretch;
+  }
+  .footer-brand-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .footer-brand-logo {
+    height: 56px;
+    width: auto;
+    display: block;
+    border-radius: 10px;
+    margin-bottom: 14px;
+  }
+  .footer-brand-desc {
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.86);
+    max-width: 320px;
+  }
+  .footer-col-h {
+    font-size: 13.5px;
+    font-weight: 800;
+    color: #69c8e2;
+    margin-bottom: 16px;
+  }
+  .footer-links-list {
+    list-style: none;
+  }
+  .footer-links-list li {
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.88);
+    overflow-wrap: anywhere;
+  }
+  .footer-links-list a {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.88);
+    transition: color 0.2s ease;
+  }
+  .footer-links-list a:hover {
+    color: #69c8e2;
+  }
+
+  .footer-bottom-bar {
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
+    padding-top: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.82);
+  }
+  .footer-copy {
+    margin: 0;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+  .footer-legal-links {
+    display: flex;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+  .footer-legal-links a {
+    color: rgba(255, 255, 255, 0.88);
+    white-space: nowrap;
+  }
+  .footer-legal-links a:hover {
+    color: #69c8e2;
+  }
+
+  /* =========================================================
+     RESPONSIVE LAYOUT BREAKPOINTS
+     ========================================================= */
+
+  /* --- Laptop / small desktop --- */
+  @media (max-width: 1100px) {
+    .steps-4grid { grid-template-columns: repeat(2, 1fr); }
+    .policy-6grid { grid-template-columns: repeat(2, 1fr); }
+    .policy-bento-layout { grid-template-columns: 1fr; }
+    .depots-layout-grid { grid-template-columns: 1fr; }
+    .depot-slider { min-height: 340px; }
+    .depot-slide img { height: 220px; }
+    .footer-grid-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .vision-pillars { grid-template-columns: repeat(2, 1fr); }
+    .hero-section { min-height: 0; }
+    .hero-section::before {
+      background: linear-gradient(180deg, rgba(5, 12, 20, 0.78) 0%, rgba(5, 12, 20, 0.4) 22%, rgba(5, 12, 20, 0.05) 48%, rgba(5, 12, 20, 0.62) 100%);
+    }
+    .hero-photo img { object-position: center 36%; }
+    .hero-visual-slot {
+      display: none;
+    }
+    .hero-features { max-width: none; }
+    .hero-checks { max-width: none; }
+    .hero-ctas { width: 100%; }
+    .hero-cta { flex: 1 1 160px; }
+    .hero-inner {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "copy"
+        "visual"
+        "booking";
+      grid-template-rows: auto;
+      column-gap: 0;
+      row-gap: 6px;
+      align-items: start;
+      padding-top: 96px;
+      padding-bottom: 28px;
+      min-height: 0;
+    }
+    .hero-visual {
+      min-height: 240px;
+      padding-bottom: 0;
+    }
+    .hero-booking {
+      max-width: none;
+      margin-top: 10px;
+    }
+    .hero-stage { min-height: 220px; }
+    .hero-main-img-wrap { width: min(480px, 86%); }
+    .hero-glow-ring { width: min(280px, 64%); }
+    .hero-side-car { width: min(180px, 26vw); }
+    .hero-copy { max-width: none; }
+    .hero-title-box h1 { font-size: clamp(34px, 5vw, 46px); }
+  }
+
+  /* --- Tablet: swap the nav for a slide-down drawer --- */
+  @media (max-width: 900px) {
+    .nav-toggle-btn { display: flex; }
+    .lang-select { display: none; }
+    .btn-book-now { display: none; }
+
+    .nav-links {
+      position: fixed;
+      top: 78px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 6px 24px 18px;
+      background: #0a1a22;
+      border-bottom: 1px solid rgba(105, 200, 226, 0.18);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      color: #ffffff;
+      font-size: 15px;
+      max-height: calc(100vh - 78px);
+      overflow-y: auto;
+      transform: translateY(-100%);
+      visibility: hidden;
+      transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.32s;
+      z-index: 99;
+    }
+    .nav-links.open {
+      transform: translateY(0);
+      visibility: visible;
+    }
+    .nav-links a {
+      padding: 15px 4px;
+      border-radius: 0;
+      color: rgba(255, 255, 255, 0.9);
+      background: transparent;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--brand-cyan);
+      background: transparent;
+    }
+    .nav-links a.active::after { display: none; }
+    .nav-links a:last-child { border-bottom: none; }
+
+    .hero-side-car { display: none; }
+    .hero-stage {
+      flex-direction: column;
+      min-height: 200px;
+      gap: 4px;
+    }
+    .hero-main-img-wrap { width: min(400px, 84%); }
+    .hero-glow-ring { width: min(260px, 62%); }
+  }
+
+  /* --- Large phone / small tablet --- */
+  @media (max-width: 860px) {
+    :root { --section-space: 28px; }
+    .section-main-heading { font-size: 26px; }
+
+    .hero-section { min-height: 0; }
+    .hero-features {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      width: 100%;
+    }
+    .hero-feature {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      min-width: 0;
+    }
+    .hero-feature strong,
+    .hero-feature span {
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+    .hero-feature strong { font-size: 12.5px; }
+    .hero-feature span { font-size: 11.5px; }
+    .hero-title-box p { max-width: none; width: 100%; }
+    .hero-copy,
+    .hero-visual,
+    .hero-booking { min-width: 0; width: 100%; }
+    .search-body,
+    .ux-hero .search-body {
+      grid-template-columns: 1fr;
+      padding: 16px;
+      gap: 14px;
+    }
+    .search-row,
+    .ux-hero .search-row {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .search-actions,
+    .ux-hero .search-actions {
+      align-self: stretch;
+      flex-direction: column;
+      width: 100%;
+      margin-top: 0;
+    }
+
+    /* Phone / small tablet: dropdowns become a bottom sheet so they
+       stay on screen and are easy to tap. */
+    .picker-panel.open {
+      left: 12px !important;
+      right: 12px !important;
+      top: auto !important;
+      bottom: max(12px, env(safe-area-inset-bottom)) !important;
+      width: auto !important;
+      max-width: none !important;
+      max-height: min(78dvh, 560px) !important;
+      overflow-y: auto;
+      border-radius: 22px;
+      padding-bottom: 14px;
+      transform: none !important;
+    }
+    .picker-panel.open.is-sheet .picker-sheet-head {
+      display: block;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #ffffff;
+      text-align: center;
+      padding: 6px 44px 12px;
+      margin: -4px -4px 6px;
+    }
+    .picker-grab {
+      display: block;
+      width: 42px;
+      height: 4px;
+      border-radius: 4px;
+      background: #e5e7eb;
+      margin: 2px auto 12px;
+    }
+    .picker-sheet-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111827;
+    }
+    .picker-sheet-close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      background: #ffffff;
+      color: #111827;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .picker-panel.is-sheet .time-option {
+      min-height: 48px;
+      font-size: 15px;
+      border-radius: 12px;
+    }
+    .picker-panel.is-sheet .cal-header,
+    .picker-panel.is-sheet .cal-weekdays,
+    .picker-panel.is-sheet .cal-grid {
+      max-width: 336px;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .picker-panel.is-sheet .cal-weekdays,
+    .picker-panel.is-sheet .cal-grid {
+      justify-items: center;
+    }
+    .picker-panel.is-sheet .cal-weekdays span {
+      width: 44px;
+    }
+    .picker-panel.is-sheet .cal-day {
+      width: 44px;
+      height: 44px;
+      max-width: none;
+      aspect-ratio: auto;
+      margin: 0;
+      font-size: 15px;
+    }
+    .picker-panel.is-sheet .cal-nav {
+      width: 40px;
+      height: 40px;
+    }
+    .btn-search {
+      width: 100%;
+      min-width: 0;
+      padding: 14px;
+      font-size: 14px;
+    }
+
+    .policy-hero-card { padding: 26px 22px; }
+    .depot-slide-caption strong { font-size: 20px; }
+  }
+
+  /* --- Phone --- */
+  @media (max-width: 640px) {
+    :root { --section-space: 24px; }
+    .container { padding-left: 16px; padding-right: 16px; }
+
+    .steps-4grid { grid-template-columns: 1fr; }
+    .policy-6grid { grid-template-columns: 1fr; }
+    .policy-subgrid { grid-template-columns: 1fr; }
+    .full-span-card { grid-column: span 1; }
+    .footer-grid-top {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      text-align: center;
+      justify-items: center;
+    }
+    .footer-brand-logo {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .footer-brand-desc {
+      max-width: none;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .footer-links-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .footer-bottom-bar {
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+    }
+    .footer-legal-links {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .section-bg-watermark { width: 600px; opacity: 0.04; }
+    .cancellation-flex-boxes { flex-direction: column; align-items: stretch; }
+    .cancel-note { min-width: 0; }
+    .vision-mission-card { padding: 22px 20px 24px; }
+    /* Icon + title share row 1; badge gets row 2 at its natural width */
+    .vision-header-row {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px 14px;
+      align-items: center;
+    }
+    .vision-badge-sub {
+      grid-column: 1 / -1;
+      justify-self: start;
+    }
+    .vision-pillars { grid-template-columns: 1fr; }
+
+    .nav-links { padding: 6px 16px 18px; }
+
+    /* Mobile banner: headline, car, then booking card */
+    .hero-inner { padding-top: 88px; padding-bottom: 20px; row-gap: 4px; }
+    .hero-bg-text {
+      -webkit-text-stroke-width: 1px;
+      font-size: 64px;
+    }
+    .hero-visual { min-height: 190px; }
+    .hero-stage { min-height: 180px; }
+    .hero-main-img-wrap { width: min(340px, 92%); }
+    .hero-title-box h1 { font-size: 32px; letter-spacing: -0.8px; margin-bottom: 12px; }
+    .hero-title-box p { font-size: 13.5px; }
+    .hero-kicker { font-size: 11px; }
+    .hero-features { gap: 8px; }
+    .hero-feature-icon { width: 36px; height: 36px; border-radius: 10px; }
+    .hero-feature strong { font-size: 12px; }
+    .hero-feature span { font-size: 11px; line-height: 1.3; }
+    .search-row { gap: 10px; }
+    .datetime-box .search-field .picker-trigger { padding: 0 10px; }
+    .search-card { border-radius: 18px; }
+    .carousel-dots { margin-top: 8px; }
+
+    .section-main-heading { font-size: 23px; letter-spacing: -0.4px; }
+    .section-subtext { font-size: 13.5px; margin-bottom: 26px; }
+    .step-badge-pill,
+    .section-badge-aesthetic { font-size: 10.5px; padding: 6px 16px; }
+
+    .step-card-box { padding: 22px 20px; }
+    .policy-mini-card { padding: 20px 18px; }
+    .hero-card-title { font-size: 18px; }
+
+    .depot-slider { min-height: 300px; }
+    .depot-slide { padding: 28px 52px 22px; }
+    .depot-slide img { height: 180px; }
+    .depot-slider-nav { width: 36px; height: 36px; font-size: 17px; top: 38%; }
+    .depot-slider-nav.prev { left: 10px; }
+    .depot-slider-nav.next { right: 10px; }
+    .depot-slide-caption strong { font-size: 17px; }
+    .depot-slide-caption span { font-size: 13px; }
+
+    .faq-header-btn { padding: 18px 18px; font-size: 14px; gap: 12px; }
+    .faq-body-text { padding: 0 18px 20px; padding-top: 16px; }
+  }
+
+  /* --- Small phone --- */
+  @media (max-width: 420px) {
+    .hero-title-box h1 { font-size: 28px; }
+    .hero-feature { align-items: flex-start; text-align: left; }
+    .hero-feature-icon { width: 34px; height: 34px; }
+    .brand-logo { height: 52px; }
+    .header-actions { gap: 8px; }
+    .icon-circle-btn { width: 34px; height: 34px; }
+
+    .search-field { flex: 1 1 100%; }
+    .section-main-heading { font-size: 21px; }
+    .vision-icon-halo { width: 38px; height: 38px; border-radius: 12px; font-size: 17px; }
+    .faq-badge-tag { display: none; }
+    .depot-slide { padding: 24px 44px 18px; }
+    .depot-slide img { height: 150px; }
+  }
+
+  /* =========================================================
+     SCROLL REVEAL (standard fade-up)
+     ========================================================= */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.08s; }
+  .reveal-delay-2 { transition-delay: 0.16s; }
+  .reveal-delay-3 { transition-delay: 0.24s; }
+  .reveal-delay-4 { transition-delay: 0.32s; }
+  .reveal-delay-5 { transition-delay: 0.40s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .vh-promo-car { animation: none; }
+    .vh-promo-car img { transition: none; }
+  }
+
+  /* =========================================================
+     VOLTHIRE-STYLE PAGE SECTIONS (HyreCabs content)
+     ========================================================= */
+  :root {
+    --vh-green: #7acb2e;
+    --vh-green-dark: #62a822;
+    --vh-ink: #111827;
+    --vh-muted: #6b7280;
+    --vh-soft: #f3f4f6;
+    --vh-dark: #0f1720;
+    --vh-card: #f5f6f8;
+  }
+  .vh-section {
+    padding: 72px 0;
+  }
+  .vh-section--soft { background: #fafbfc; }
+  .vh-section--white { background: #ffffff; }
+  .vh-center { text-align: center; }
+  .vh-heading {
+    font-size: clamp(28px, 3.5vw, 40px);
+    font-weight: 800;
+    letter-spacing: -0.8px;
+    color: var(--vh-ink);
+    margin: 0 0 10px;
+  }
+  .vh-sub {
+    font-size: 15px;
+    color: var(--vh-muted);
+    max-width: 560px;
+    margin: 0 auto 40px;
+    line-height: 1.55;
+  }
+  .vh-row-between {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .vh-row-between .vh-sub { margin: 0; text-align: left; }
+  .vh-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .vh-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 800;
+    border-radius: 999px;
+    padding: 12px 22px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  }
+  .vh-btn:hover { transform: translateY(-1px); }
+  .vh-btn--green,
+  .vh-btn--dark,
+  .vh-btn--primary {
+    background: var(--brand-cyan);
+    color: #0a1628;
+  }
+  .vh-btn--green:hover,
+  .vh-btn--dark:hover,
+  .vh-btn--primary:hover {
+    background: #7fd4ea;
+    box-shadow: 0 10px 24px rgba(105, 200, 226, 0.35);
+    color: #0a1628;
+  }
+  .vh-btn--outline {
+    background: #ffffff;
+    color: #0a1628;
+    border: 1.5px solid #e5e7eb;
+  }
+  .vh-icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1.5px solid #e5e7eb;
+    background: #ffffff;
+    color: var(--vh-ink);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .vh-icon-btn:hover { border-color: var(--vh-green); color: var(--vh-green); }
+
+  /* Benefits row */
+  .vh-benefits {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    margin-top: 8px;
+  }
+  .vh-benefit {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    text-align: left;
+  }
+  .vh-benefit-icon {
+    width: 44px;
+    height: 44px;
+    color: var(--vh-green);
+  }
+  .vh-benefit strong {
+    display: block;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--vh-ink);
+    margin-bottom: 4px;
+  }
+  .vh-benefit p {
+    margin: 0;
+    font-size: 13.5px;
+    color: var(--vh-muted);
+    line-height: 1.5;
+  }
+
+  /* Fleet cards */
+  .vh-fleet-track {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .vh-fleet-track::-webkit-scrollbar { display: none; }
+
+  /* Dark vehicle card ΓÇö shared with search-results */
+  .vc-card,
+  .vh-fleet-card {
+    scroll-snap-align: start;
+    background: #1a1a1a;
+    border-radius: 22px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+    display: flex;
+    flex-direction: column;
+    color: #ffffff;
+    min-height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .vc-card:hover,
+  .vh-fleet-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+  }
+  .vc-media {
+    background: #e8eaed;
+    margin: 12px 12px 0;
+    border-radius: 16px;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    position: relative;
+  }
+  .vc-media img {
+    max-height: 90%;
+    max-width: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 16px rgba(0,0,0,0.2));
+  }
+  .vc-badge {
+    position: absolute;
+    top: 12px;
+    z-index: 2;
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+  .vc-badge--type { left: 12px; background: rgba(30, 30, 30, 0.88); }
+  .vc-badge--status { right: 12px; background: rgba(55, 70, 90, 0.92); }
+  .vc-body {
+    padding: 16px 18px 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 10px;
+  }
+  .vc-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .vc-title {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+  }
+  .vc-year {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+    flex-shrink: 0;
+  }
+  .vc-star { color: #f5c542; }
+  .vc-plate {
+    font-size: 13px;
+    font-weight: 600;
+    color: #9ca3af;
+    margin-top: -4px;
+  }
+  .vc-specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 14px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #9ca3af;
+  }
+  .vc-specs span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .vc-footer {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 8px;
+  }
+  .vc-price-col {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .vc-deposit {
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+    white-space: nowrap;
+  }
+  .vc-price-day {
+    font-size: 20px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+  .vc-price-day span {
+    font-size: 13px;
+    font-weight: 600;
+    color: #9ca3af;
+  }
+  .vc-price-total {
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .vc-book {
+    background: var(--brand-cyan);
+    color: #0a1628;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 12px 20px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  }
+  .vc-book:hover {
+    background: #7fd4ea;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(105, 200, 226, 0.35);
+  }
+
+  /* Travel Kerala banner */
+  .vh-promo {
+    background: #071018;
+    line-height: 0;
+  }
+  .vh-promo-banner {
+    display: block;
+    position: relative;
+  }
+  .vh-promo-banner img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .vh-promo-cta {
+    position: absolute;
+    left: 6.2%;
+    top: 62%;
+    width: 18%;
+    height: 16%;
+    border-radius: 999px;
+  }
+
+  /* Stats */
+  .vh-stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    margin-top: 8px;
+  }
+  .vh-stat {
+    text-align: center;
+  }
+  .vh-stat-icon {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 14px;
+    border-radius: 50%;
+    background: rgba(122, 203, 46, 0.12);
+    color: var(--vh-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .vh-stat strong {
+    display: block;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--vh-green);
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+  }
+  .vh-stat span {
+    font-size: 13px;
+    color: var(--vh-muted);
+    font-weight: 600;
+  }
+
+  /* Testimonials / trust quotes from FAQ themes */
+  .vh-quotes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .vh-quote {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    border: 1px solid #eef0f3;
+  }
+  .vh-quote-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .vh-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0c3344, #69c8e2);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+  }
+  .vh-quote-top strong {
+    display: block;
+    font-size: 14.5px;
+    color: var(--vh-ink);
+  }
+  .vh-stars {
+    color: var(--vh-green);
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+  .vh-quote p {
+    margin: 0;
+    font-size: 13.5px;
+    color: var(--vh-muted);
+    line-height: 1.55;
+  }
+  .vh-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 22px;
+  }
+  .vh-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #d1d5db;
+  }
+  .vh-dot.active { background: var(--vh-green); }
+
+  /* Locations */
+  .loc-section {
+    position: relative;
+    background:
+      radial-gradient(520px 240px at 4% 92%, rgba(176, 216, 242, 0.45), transparent 70%),
+      radial-gradient(460px 260px at 98% 6%, rgba(190, 222, 246, 0.5), transparent 72%),
+      linear-gradient(180deg, #f6fafd 0%, #ffffff 46%, #f5f9fc 100%);
+    overflow: hidden;
+  }
+  .loc-dots {
+    position: absolute;
+    width: 92px;
+    height: 72px;
+    background-image: radial-gradient(#c5d5e6 1.5px, transparent 1.6px);
+    background-size: 12px 12px;
+    pointer-events: none;
+  }
+  .loc-dots--tl { top: 36px; left: 22px; }
+  .loc-dots--br { right: 28px; bottom: 48px; }
+  .loc-wrap {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(280px, 0.88fr) minmax(480px, 1.12fr);
+    gap: 12px 8px;
+    align-items: center;
+  }
+  .loc-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    color: #6a8498;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+  }
+  .loc-kicker svg { color: #1497b8; }
+  .loc-copy h2 {
+    margin: 0 0 14px;
+    color: #122033;
+    font-size: clamp(34px, 4.2vw, 52px);
+    font-weight: 800;
+    letter-spacing: -1.4px;
+    line-height: 1.05;
+  }
+  .loc-copy h2 span { color: #1a6fd4; }
+  .loc-copy > p {
+    max-width: 460px;
+    margin: 0 0 20px;
+    color: #66788a;
+    font-size: 15.5px;
+    line-height: 1.6;
+  }
+  .loc-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 22px;
+    max-width: 460px;
+  }
+  .loc-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: #ffffff;
+    border: 1px solid #e4edf4;
+    color: #1b3348;
+    font-size: 13.5px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 6px 16px rgba(18, 48, 78, 0.05);
+  }
+  .loc-chip svg { color: #1497b8; flex: 0 0 auto; }
+  .loc-chip:hover { border-color: #b9d7ea; color: #0e4d66; }
+  .loc-chip--more { background: #f3f7fb; color: #607488; }
+  .loc-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .loc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 22px;
+    border-radius: 999px;
+    background: #12384f;
+    color: #ffffff;
+    font-size: 14.5px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .loc-btn:hover { background: #0d4f68; }
+  .loc-trust {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: #24384a;
+  }
+  .loc-trust svg { color: #1aaa6a; margin-top: 2px; flex: 0 0 auto; }
+  .loc-trust strong { display: block; font-size: 13px; font-weight: 700; }
+  .loc-trust span { display: block; font-size: 12px; color: #7d8fa0; }
+  .loc-visual {
+    position: relative;
+    min-height: 560px;
+  }
+  .loc-map {
+    position: absolute;
+    left: 2%;
+    top: 8px;
+    width: 64%;
+    height: 78%;
+  }
+  .loc-sea {
+    position: absolute;
+    left: 0;
+    top: 4%;
+    width: 86%;
+    height: 92%;
+    border-radius: 48% 46% 42% 50%;
+    background: linear-gradient(180deg, #e7f5fb 0%, #c5e4f4 100%);
+  }
+  .loc-kerala {
+    position: absolute;
+    left: 18%;
+    top: 2%;
+    width: 58%;
+    height: 94%;
+    filter: drop-shadow(0 10px 16px rgba(40, 90, 60, 0.08));
+  }
+  .loc-map-name,
+  .loc-sea-name {
+    position: absolute;
+    font-weight: 700;
+    letter-spacing: 3px;
+    pointer-events: none;
+  }
+  .loc-map-name {
+    left: 42%;
+    top: 80%;
+    color: rgba(36, 90, 52, 0.5);
+    font-size: 11px;
+    letter-spacing: 4px;
+  }
+  .loc-sea-name {
+    left: 6%;
+    top: 62%;
+    color: #7eabc4;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    line-height: 1.35;
+  }
+  .loc-compass {
+    position: absolute;
+    right: 8%;
+    top: 2%;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 8px 18px rgba(20, 50, 80, 0.1);
+    color: #1a6fd4;
+    font-size: 11px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .loc-compass span {
+    position: absolute;
+    top: 3px;
+    font-size: 9px;
+  }
+  .loc-pin {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transform: translate(0, -50%);
+    color: #1c3348;
+    font-size: 12.5px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .loc-pin i {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #1497b8;
+    box-shadow: 0 0 0 5px rgba(20, 151, 184, 0.18);
+    flex: 0 0 auto;
+  }
+  .loc-pin--air {
+    gap: 0;
+  }
+  .loc-pin--air em {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-right: 6px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: #ffffff;
+    box-shadow: 0 6px 14px rgba(20, 50, 80, 0.1);
+    color: #1497b8;
+    font-style: normal;
+  }
+  .loc-card {
+    position: absolute;
+    right: 0;
+    top: 18px;
+    width: min(292px, 50%);
+    background: #ffffff;
+    border-radius: 22px;
+    padding: 14px 12px 6px;
+    box-shadow: 0 18px 46px rgba(22, 52, 84, 0.12);
+    z-index: 2;
+  }
+  .loc-card-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 8px 10px;
+  }
+  .loc-card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    background: #e8f6fb;
+    color: #1497b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+  }
+  .loc-card-head strong {
+    display: block;
+    color: #14283a;
+    font-size: 15px;
+  }
+  .loc-card-head span {
+    display: block;
+    color: #8aa0b3;
+    font-size: 12px;
+  }
+  .loc-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border-top: 1px solid #f1f4f7;
+    text-decoration: none;
+    color: inherit;
+  }
+  .loc-row:hover { background: #f7fbfd; border-radius: 12px; }
+  .loc-row img {
+    width: 56px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex: 0 0 auto;
+  }
+  .loc-row strong {
+    display: block;
+    color: #15283a;
+    font-size: 13.5px;
+  }
+  .loc-row span {
+    display: block;
+    color: #8aa0b3;
+    font-size: 11.5px;
+  }
+  .loc-row svg { margin-left: auto; color: #c0ced8; flex: 0 0 auto; }
+  .loc-car {
+    position: absolute;
+    left: 14%;
+    bottom: -8px;
+    width: min(280px, 48%);
+    z-index: 3;
+    pointer-events: none;
+    filter: drop-shadow(0 14px 16px rgba(20, 40, 60, 0.16));
+  }
+  .loc-script {
+    position: absolute;
+    right: 2%;
+    bottom: 36px;
+    margin: 0;
+    color: #1a6aa8;
+    font-family: "Great Vibes", cursive;
+    font-size: 36px;
+    line-height: 1;
+    transform: rotate(-8deg);
+    z-index: 1;
+  }
+  .loc-script::after {
+    content: "";
+    display: block;
+    height: 2px;
+    margin-top: 2px;
+    border-radius: 2px;
+    background: #1a6aa8;
+    transform: rotate(3deg);
+  }
+
+  /* Policy strip as clean cards */
+  .vh-policy-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .vh-policy-card {
+    background: #ffffff;
+    border: 1px solid #eef0f3;
+    border-radius: 16px;
+    padding: 20px;
+  }
+  .vh-policy-card h3 {
+    margin: 0 0 8px;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--vh-ink);
+  }
+  .vh-policy-card p,
+  .vh-policy-card ul {
+    margin: 0;
+    font-size: 13px;
+    color: var(--vh-muted);
+    line-height: 1.5;
+    padding-left: 16px;
+  }
+  .vh-policy-card ul { list-style: disc; }
+  .vh-policy-card li { margin-bottom: 4px; }
+
+  /* FAQ restyle */
+  .vh-faq .faq-wrap { max-width: 820px; margin: 0 auto; }
+  .vh-faq .faq-item-card {
+    background: #ffffff;
+    border: 1px solid #eef0f3;
+    border-radius: 14px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    box-shadow: none;
+  }
+  .vh-faq .faq-header-btn {
+    padding: 16px 18px;
+  }
+  .vh-faq .faq-body-text {
+    padding: 0 18px 16px;
+  }
+
+  /* Contact CTA */
+  .vh-contact-cta {
+    background: #ffffff;
+    border: 1px solid #eef0f3;
+    border-radius: 18px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+  }
+  .vh-contact-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .vh-contact-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: rgba(122,203,46,0.12);
+    color: var(--vh-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .vh-contact-left strong {
+    display: block;
+    font-size: 15px;
+    color: var(--vh-ink);
+  }
+  .vh-contact-left span {
+    font-size: 13px;
+    color: var(--vh-muted);
+  }
+
+  @media (max-width: 1100px) {
+    .vh-benefits,
+    .vh-fleet-track,
+    .vh-stats,
+    .vh-policy-grid { grid-template-columns: repeat(2, 1fr); }
+    .vh-promo-cta { left: 6%; width: 28%; height: 14%; }
+    .loc-wrap { grid-template-columns: 1fr; }
+    .loc-visual { min-height: 0; display: grid; gap: 8px; }
+    .loc-map { position: relative; left: auto; top: auto; width: 100%; height: 380px; }
+    .loc-card { position: relative; right: auto; top: auto; width: min(420px, 100%); margin-left: auto; }
+    .loc-car { position: relative; left: auto; bottom: auto; width: min(300px, 72%); margin: -28px auto 0; }
+    .loc-script { position: relative; right: auto; bottom: auto; justify-self: end; margin: 4px 8% 0 0; }
+  }
+  @media (max-width: 720px) {
+    .vh-section { padding: 52px 0; }
+    .vh-benefits,
+    .vh-fleet-track,
+    .vh-stats,
+    .vh-quotes,
+    .vh-policy-grid { grid-template-columns: 1fr; }
+    .loc-copy h2 { font-size: 32px; }
+    .loc-map { height: 300px; }
+    .loc-card { width: 100%; }
+    .loc-script { font-size: 30px; }
+    .vh-promo-cta { left: 5%; top: 60%; width: 42%; height: 16%; }
+    .vh-store-btns .vh-btn { flex: 1 1 150px; justify-content: center; text-align: center; }
+  }
+</style>
+</head>
+<body class="ux-banner">
+
+<!-- HEADER -->
+<header class="site-header" id="siteHeader">
+  <div class="container header-wrap">
+    <a href="index.html" class="brand" aria-label="HYRECABS ΓÇö Home">
+      <img src="images/logo-cars.png" alt="HYRECABS" class="brand-logo">
+    </a>
+
+    <nav class="nav-links" id="primaryNav">
+      <a href="index.html" class="active">Home</a>
+      <a href="search-results.html">Shop / Vehicles</a>
+      <a href="#howitworks">How it Works</a>
+      <a href="#faq">FAQ</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-circle-btn" aria-label="Support" title="Support">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+      </button>
+      <div class="lang-select">
+        <span>≡ƒç║≡ƒç╕ EN</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg>
+      </div>
+      <a href="#heroSearchForm" class="btn-book-now">Book Now</a>
+      <button class="nav-toggle-btn" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="primaryNav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="nav-backdrop" id="navBackdrop"></div>
+
+<!-- MAIN CONTENT -->
+<main>
+  
+  <!-- HERO ΓÇö live Kerala UX banner -->
+  <section class="hero-section ux-hero is-animated" aria-label="HyreCabs Kerala cab rental banner">
+    <div class="hero-photo" aria-hidden="true">
+      <img src="images/hero-kerala-ux.jpg" alt="">
+    </div>
+
+    <div class="ux-hero-inner container">
+      <div class="ux-hero-copy">
+        <p class="ux-kicker">Premium Cab Rentals ΓÇó Kerala</p>
+        <h1>More Than a Ride.<br><span class="accent">ItΓÇÖs a Kerala Experience.</span></h1>
+        <p class="ux-lead">From misty hills to coastal towns, HyreCabs makes every journey across Kerala smooth, safe and memorable.</p>
+
+        <ul class="ux-features">
+          <li class="ux-feature">
+            <span class="ux-feature-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"></path><path d="M9 12l2 2 4-4"></path></svg>
+            </span>
+            <div>
+              <strong>Safe &amp; Reliable</strong>
+              <span>Verified Drivers</span>
+            </div>
+          </li>
+          <li class="ux-feature">
+            <span class="ux-feature-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17h14v-5l-2-5H7L5 12v5z"></path><circle cx="7.5" cy="17.5" r="1.5"></circle><circle cx="16.5" cy="17.5" r="1.5"></circle></svg>
+            </span>
+            <div>
+              <strong>Wide Range</strong>
+              <span>Sedans to SUVs</span>
+            </div>
+          </li>
+          <li class="ux-feature">
+            <span class="ux-feature-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+            </span>
+            <div>
+              <strong>On-Time Pickup</strong>
+              <span>Always on Schedule</span>
+            </div>
+          </li>
+          <li class="ux-feature">
+            <span class="ux-feature-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            </span>
+            <div>
+              <strong>Across Kerala</strong>
+              <span>Major Cities &amp; Towns</span>
+            </div>
+          </li>
+        </ul>
+
+        <a class="ux-cta" href="#howitworks">
+          Explore Our Services
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"></path></svg>
+        </a>
+      </div>
+
+      <div class="ux-hero-panel">
+        <div class="ux-script" aria-hidden="true">
+          <span class="ux-script-title">Kerala Awaits</span>
+          <span class="ux-script-sub">Travel with HyreCabs</span>
+        </div>
+
+        <div class="banner-booking">
+          <form action="search-results.html" method="GET" class="search-card" id="heroSearchForm">
+            <div class="search-body">
+              <div class="search-main">
+                <div class="search-row">
+                  <div class="search-field" data-picker="place">
+                    <label>Pick-up Location</label>
+                    <button type="button" class="picker-trigger" aria-haspopup="listbox" aria-expanded="false">
+                      <span class="picker-value" data-display="">Kochi ΓÇö Kaloor</span>
+                      <span class="picker-icon" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                      </span>
+                      <svg class="picker-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+                    </button>
+                    <input type="hidden" name="pickup" value="Kochi ΓÇö Kaloor" data-hidden="">
+                    <div class="picker-panel place-panel" role="listbox" aria-label="Choose pickup location"><div class="picker-sheet-head"><span class="picker-grab" aria-hidden="true"></span><div class="picker-sheet-title">Pick-up Location</div><button type="button" class="picker-sheet-close" aria-label="Close">├ù</button></div><button type="button" class="time-option active" role="option" aria-selected="true">Kochi ΓÇö Kaloor</button><button type="button" class="time-option" role="option" aria-selected="false">Cochin Airport (COK)</button><button type="button" class="time-option" role="option" aria-selected="false">Kottayam</button><button type="button" class="time-option" role="option" aria-selected="false">Kollam</button><button type="button" class="time-option" role="option" aria-selected="false">Adoor</button></div>
+                  </div>
+
+                  <div class="search-datetime">
+                    <label>Pick-up Date &amp; Time</label>
+                    <div class="datetime-box">
+                      <div class="search-field" data-picker="date">
+                        <button type="button" class="picker-trigger" aria-haspopup="dialog" aria-expanded="false">
+                          <span class="picker-icon" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>
+                          </span>
+                          <span class="picker-value" data-display="">10 Sep 2026</span>
+                        </button>
+                        <input type="hidden" name="startDate" value="2026-09-10" data-hidden="">
+                        <div class="picker-panel date-panel" role="dialog" aria-label="Choose start date"><div class="picker-sheet-head"><span class="picker-grab" aria-hidden="true"></span><div class="picker-sheet-title">Pick-up Date</div><button type="button" class="picker-sheet-close" aria-label="Close">├ù</button></div><div class="cal-header"><button type="button" class="cal-nav" aria-label="Previous month">ΓÇ╣</button><div class="cal-title">September 2026</div><button type="button" class="cal-nav" aria-label="Next month">ΓÇ║</button></div><div class="cal-weekdays"><span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span></div><div class="cal-grid"><button type="button" class="cal-day muted">30</button><button type="button" class="cal-day muted">31</button><button type="button" class="cal-day">1</button><button type="button" class="cal-day">2</button><button type="button" class="cal-day">3</button><button type="button" class="cal-day">4</button><button type="button" class="cal-day">5</button><button type="button" class="cal-day">6</button><button type="button" class="cal-day">7</button><button type="button" class="cal-day">8</button><button type="button" class="cal-day">9</button><button type="button" class="cal-day selected">10</button><button type="button" class="cal-day">11</button><button type="button" class="cal-day">12</button><button type="button" class="cal-day">13</button><button type="button" class="cal-day">14</button><button type="button" class="cal-day">15</button><button type="button" class="cal-day">16</button><button type="button" class="cal-day">17</button><button type="button" class="cal-day">18</button><button type="button" class="cal-day">19</button><button type="button" class="cal-day">20</button><button type="button" class="cal-day">21</button><button type="button" class="cal-day">22</button><button type="button" class="cal-day">23</button><button type="button" class="cal-day">24</button><button type="button" class="cal-day">25</button><button type="button" class="cal-day">26</button><button type="button" class="cal-day">27</button><button type="button" class="cal-day">28</button><button type="button" class="cal-day">29</button><button type="button" class="cal-day">30</button><button type="button" class="cal-day muted">1</button><button type="button" class="cal-day muted">2</button><button type="button" class="cal-day muted">3</button><button type="button" class="cal-day muted">4</button><button type="button" class="cal-day muted">5</button><button type="button" class="cal-day muted">6</button><button type="button" class="cal-day muted">7</button><button type="button" class="cal-day muted">8</button><button type="button" class="cal-day muted">9</button><button type="button" class="cal-day muted">10</button></div></div>
+                      </div>
+                      <div class="datetime-divider" aria-hidden="true"></div>
+                      <div class="search-field" data-picker="time">
+                        <button type="button" class="picker-trigger" aria-haspopup="listbox" aria-expanded="false">
+                          <span class="picker-value" data-display="">10:00 AM</span>
+                          <svg class="picker-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+                        </button>
+                        <input type="hidden" name="startTime" value="10:00 AM" data-hidden="">
+                        <div class="picker-panel time-panel" role="listbox" aria-label="Choose start time"><div class="picker-sheet-head"><span class="picker-grab" aria-hidden="true"></span><div class="picker-sheet-title">Pick-up Time</div><button type="button" class="picker-sheet-close" aria-label="Close">├ù</button></div><button type="button" class="time-option" role="option" aria-selected="false">09:00 AM</button><button type="button" class="time-option active" role="option" aria-selected="true">10:00 AM</button><button type="button" class="time-option" role="option" aria-selected="false">11:00 AM</button><button type="button" class="time-option" role="option" aria-selected="false">12:00 PM</button><button type="button" class="time-option" role="option" aria-selected="false">01:00 PM</button><button type="button" class="time-option" role="option" aria-selected="false">02:00 PM</button><button type="button" class="time-option" role="option" aria-selected="false">03:00 PM</button><button type="button" class="time-option" role="option" aria-selected="false">04:00 PM</button><button type="button" class="time-option" role="option" aria-selected="false">05:00 PM</button><button type="button" class="time-option" role="option" aria-selected="false">06:00 PM</button></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="search-row">
+                  <div class="search-field" data-picker="place">
+                    <label>Drop-off Location</label>
+                    <button type="button" class="picker-trigger" aria-haspopup="listbox" aria-expanded="false">
+                      <span class="picker-value" data-display="">Kottayam</span>
+                      <span class="picker-icon" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                      </span>
+                      <svg class="picker-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+                    </button>
+                    <input type="hidden" name="dropoff" value="Kottayam" data-hidden="">
+                    <div class="picker-panel place-panel" role="listbox" aria-label="Choose drop-off location"><div class="picker-sheet-head"><span class="picker-grab" aria-hidden="true"></span><div class="picker-sheet-title">Drop-off Location</div><button type="button" class="picker-sheet-close" aria-label="Close">├ù</button></div><button type="button" class="time-option" role="option" aria-selected="false">Kochi ΓÇö Kaloor</button><button type="button" class="time-option" role="option" aria-selected="false">Cochin Airport (COK)</button><button type="button" class="time-option active" role="option" aria-selected="true">Kottayam</button><button type="button" class="time-option" role="option" aria-selected="false">Kollam</button><button type="button" class="time-option" role="option" aria-selected="false">Adoor</button></div>
+                  </div>
+
+                  <div class="search-datetime">
+                    <label>Drop-off Date &amp; Time</label>
+                    <div class="datetime-box">
+                      <div class="search-field" data-picker="date">
+                        <button type="button" class="picker-trigger" aria-haspopup="dialog" aria-expanded="false">
+                          <span class="picker-icon" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>
+                          </span>
+                          <span class="picker-value" data-display="">13 Sep 2026</span>
+                        </button>
+                        <input type="hidden" name="endDate" value="2026-09-13" data-hidden="">
+                        <div class="picker-panel date-panel" role="dialog" aria-label="Choose end date"><div class="picker-sheet-head"><span class="picker-grab" aria-hidden="true"></span><div class="picker-sheet-title">Drop-off Date</div><button type="button" class="picker-sheet-close" aria-label="Close">├ù</button></div><div class="cal-header"><button type="button" class="cal-nav" aria-label="Previous month">ΓÇ╣</button><div class="cal-title">September 2026</div><button type="button" class="cal-nav" aria-label="Next month">ΓÇ║</button></div><div class="cal-weekdays"><span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span></div><div class="cal-grid"><button type="button" class="cal-day muted">30</button><button type="button" class="cal-day muted">31</button><button type="button" class="cal-day">1</button><button type="button" class="cal-day">2</button><button type="button" class="cal-day">3</button><button type="button" class="cal-day">4</button><button type="button" class="cal-day">5</button><button type="button" class="cal-day">6</button><button type="button" class="cal-day">7</button><button type="button" class="cal-day">8</button><button type="button" class="cal-day">9</button><button type="button" class="cal-day">10</button><button type="button" class="cal-day">11</button><button type="button" class="cal-day">12</button><button type="button" class="cal-day selected">13</button><button type="button" class="cal-day">14</button><button type="button" class="cal-day">15</button><button type="button" class="cal-day">16</button><button type="button" class="cal-day">17</button><button type="button" class="cal-day">18</button><button type="button" class="cal-day">19</button><button type="button" class="cal-day">20</button><button type="button" class="cal-day">21</button><button type="button" class="cal-day">22</button><button type="button" class="cal-day">23</button><button type="button" class="cal-day">24</button><button type="button" class="cal-day">25</button><button type="button" class="cal-day">26</button><button type="button" class="cal-day">27</button><button type="button" class="cal-day">28</button><button type="button" class="cal-day">29</button><button type="button" class="cal-day">30</button><button type="button" class="cal-day muted">1</button><button type="button" class="cal-day muted">2</button><button type="button" class="cal-day muted">3</button><button type="button" class="cal-day muted">4</button><button type="button" class="cal-day muted">5</button><button type="button" class="cal-day muted">6</button><button type="button" class="cal-day muted">7</button><button type="button" class="cal-day muted">8</button><button type="button" class="cal-day muted">9</button><button type="button" class="cal-day muted">10</button></div></div>
+                      </div>
+                      <div class="datetime-divider" aria-hidden="true"></div>
+                      <div class="search-field" data-picker="time">
+                        <button type="button" class="picker-trigger" aria-haspopup="listbox" aria-expanded="false">
+                          <span class="picker-value" data-display="">10:00 AM</span>
+                          <svg class="picker-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+                        </button>
+                        <input type="hidden" name="endTime" value="10:00 AM" data-hidden="">
+                        <div class="picker-panel time-panel" role="listbox" aria-label="Choose end time"><div class="picker-sheet-head"><span class="picker-grab" aria-hidden="true"></span><div class="picker-sheet-title">Drop-off Time</div><button type="button" class="picker-sheet-close" aria-label="Close">├ù</button></div><button type="button" class="time-option" role="option" aria-selected="false">09:00 AM</button><button type="button" class="time-option active" role="option" aria-selected="true">10:00 AM</button><button type="button" class="time-option" role="option" aria-selected="false">11:00 AM</button><button type="button" class="time-option" role="option" aria-selected="false">12:00 PM</button><button type="button" class="time-option" role="option" aria-selected="false">01:00 PM</button><button type="button" class="time-option" role="option" aria-selected="false">02:00 PM</button><button type="button" class="time-option" role="option" aria-selected="false">03:00 PM</button><button type="button" class="time-option" role="option" aria-selected="false">04:00 PM</button><button type="button" class="time-option" role="option" aria-selected="false">05:00 PM</button><button type="button" class="time-option" role="option" aria-selected="false">06:00 PM</button></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="search-actions">
+                <button type="submit" class="btn-search">
+                  Find My Cab
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"></path></svg>
+                </button>
+                <div class="search-note">
+                  Driver age: 21+
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="ux-trust">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21c-.4 0-4-2.2-5.8-6.1C4.7 11.6 5.2 8.4 7 7.2c1.1-.7 2.4-.4 3.2.4.3-.9 1-2.3 2.4-3.1 1.7-1 3.5-.3 4.4 1.1.8 1.2.8 2.9.1 4.5 1.5-.1 2.7.7 3.1 2 .6 1.9-.5 4.1-2.9 5.4C15.2 19.5 12.4 21 12 21z"></path><path d="M12 10v11" fill="none" stroke="currentColor" stroke-width="1.6"></path></svg>
+      Trusted by thousands across Kerala
+    </div>
+
+    <div class="ux-wave" aria-hidden="true">
+      <svg viewBox="0 0 420 86" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0 86V34C48 58 96 70 150 58C210 44 250 10 310 18C352 24 388 48 420 70V86H0Z" fill="#ffffff"></path>
+        <path d="M0 86V48C56 66 104 74 156 62C214 48 252 20 308 28C352 34 388 54 420 72V86H0Z" fill="#e8f6fb"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Benefits ΓÇö How It Works -->
+  <section class="vh-section vh-section--white" id="howitworks">
+    <div class="container vh-center">
+      <h2 class="vh-heading reveal is-visible">More Freedom. Across Kerala.</h2>
+      <p class="vh-sub reveal is-visible">Rent your dream cab in 4 effortless steps with HyreCabs ΓÇö search, pick up, ride, and return.</p>
+      <div class="vh-benefits">
+        <div class="vh-benefit reveal">
+          <div class="vh-benefit-icon" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+          </div>
+          <div>
+            <strong>Search &amp; Book</strong>
+            <p>Use our website to search and book cabs or cars that suit your budget and travel needs.</p>
+          </div>
+        </div>
+        <div class="vh-benefit reveal reveal-delay-1">
+          <div class="vh-benefit-icon" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          </div>
+          <div>
+            <strong>Pick Up Your Vehicle</strong>
+            <p>Collect from doorstep delivery or any of our conveniently located depots around your city.</p>
+          </div>
+        </div>
+        <div class="vh-benefit reveal reveal-delay-2">
+          <div class="vh-benefit-icon" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 17h14v-5l-2-5H7L5 12v5z"></path><circle cx="7.5" cy="17.5" r="1.5"></circle><circle cx="16.5" cy="17.5" r="1.5"></circle></svg>
+          </div>
+          <div>
+            <strong>Ride Your Vehicle</strong>
+            <p>Explore wherever you want with your loved ones across KeralaΓÇÖs scenic routes and beyond.</p>
+          </div>
+        </div>
+        <div class="vh-benefit reveal reveal-delay-3">
+          <div class="vh-benefit-icon" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+          </div>
+          <div>
+            <strong>Return Your Vehicle</strong>
+            <p>Drop the cab at your preferred return location, and we will take it from there.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Fleet -->
+  <section class="vh-section vh-section--soft" id="depots">
+    <div class="container">
+      <div class="vh-row-between">
+        <div>
+          <h2 class="vh-heading reveal" style="margin-bottom:6px;">Featured Rental Fleet</h2>
+          <p class="vh-sub reveal">Browse the cars available across our Kerala depots.</p>
+        </div>
+        <div class="vh-actions">
+          <a href="search-results.html" class="vh-btn vh-btn--outline">View All Vehicles</a>
+          <button type="button" class="vh-icon-btn" onclick="scrollFleet(-1)" aria-label="Previous">ΓÇ╣</button>
+          <button type="button" class="vh-icon-btn" onclick="scrollFleet(1)" aria-label="Next">ΓÇ║</button>
+        </div>
+      </div>
+      <div class="vh-fleet-track" id="fleetTrack">
+        <article class="vc-card vh-fleet-card reveal">
+          <div class="vc-media">
+            <span class="vc-badge vc-badge--type">Car</span>
+            <span class="vc-badge vc-badge--status">Available</span>
+            <img src="images/hero_car.png" alt="Premium SUV">
+          </div>
+          <div class="vc-body">
+            <div class="vc-title-row">
+              <h3 class="vc-title">Premium SUV</h3>
+              <span class="vc-year"><span class="vc-star">Γÿà</span> 2026</span>
+            </div>
+            <div class="vc-plate">KL07DL2208</div>
+            <div class="vc-specs"><span>≡ƒæñ 5 Seats</span><span>Γ¢╜ Diesel</span><span>ΓÜÖ Automatic</span></div>
+            <div class="vc-footer">
+              <div class="vc-price-col">
+                <div class="vc-deposit">Deposit: Γé╣5,000</div>
+                <div class="vc-price-day">Γé╣2,499 <span>/day</span></div>
+                <div class="vc-price-total">Family &amp; highway</div>
+              </div>
+              <a href="search-results.html" class="vc-book">Book Now</a>
+            </div>
+          </div>
+        </article>
+        <article class="vc-card vh-fleet-card reveal reveal-delay-1">
+          <div class="vc-media">
+            <span class="vc-badge vc-badge--type">Car</span>
+            <span class="vc-badge vc-badge--status">Available</span>
+            <img src="images/car_luxury.png" alt="Executive Sedan">
+          </div>
+          <div class="vc-body">
+            <div class="vc-title-row">
+              <h3 class="vc-title">Executive Sedan</h3>
+              <span class="vc-year"><span class="vc-star">Γÿà</span> 2026</span>
+            </div>
+            <div class="vc-plate">KL07DL2153</div>
+            <div class="vc-specs"><span>≡ƒæñ 5 Seats</span><span>Γ¢╜ Petrol</span><span>ΓÜÖ Automatic</span></div>
+            <div class="vc-footer">
+              <div class="vc-price-col">
+                <div class="vc-deposit">Deposit: Γé╣5,000</div>
+                <div class="vc-price-day">Γé╣1,999 <span>/day</span></div>
+                <div class="vc-price-total">City &amp; coast</div>
+              </div>
+              <a href="search-results.html" class="vc-book">Book Now</a>
+            </div>
+          </div>
+        </article>
+        <article class="vc-card vh-fleet-card reveal reveal-delay-2">
+          <div class="vc-media">
+            <span class="vc-badge vc-badge--type">Car</span>
+            <span class="vc-badge vc-badge--status">Available</span>
+            <img src="images/car_sedan.png" alt="City Taxi">
+          </div>
+          <div class="vc-body">
+            <div class="vc-title-row">
+              <h3 class="vc-title">City Taxi</h3>
+              <span class="vc-year"><span class="vc-star">Γÿà</span> 2026</span>
+            </div>
+            <div class="vc-plate">KL07DL1490</div>
+            <div class="vc-specs"><span>≡ƒæñ 4 Seats</span><span>Γ¢╜ Petrol</span><span>ΓÜÖ Manual</span></div>
+            <div class="vc-footer">
+              <div class="vc-price-col">
+                <div class="vc-deposit">Deposit: Γé╣3,000</div>
+                <div class="vc-price-day">Γé╣1,499 <span>/day</span></div>
+                <div class="vc-price-total">Airport &amp; daily</div>
+              </div>
+              <a href="search-results.html" class="vc-book">Book Now</a>
+            </div>
+          </div>
+        </article>
+        <article class="vc-card vh-fleet-card reveal reveal-delay-3">
+          <div class="vc-media">
+            <span class="vc-badge vc-badge--type">Car</span>
+            <span class="vc-badge vc-badge--status">Available</span>
+            <img src="images/car_ev.png" alt="E-EV Green Cruiser">
+          </div>
+          <div class="vc-body">
+            <div class="vc-title-row">
+              <h3 class="vc-title">E-EV Green Cruiser</h3>
+              <span class="vc-year"><span class="vc-star">Γÿà</span> 2026</span>
+            </div>
+            <div class="vc-plate">KL07DL5202</div>
+            <div class="vc-specs"><span>≡ƒæñ 5 Seats</span><span>ΓÜí Electric</span><span>ΓÜÖ Automatic</span></div>
+            <div class="vc-footer">
+              <div class="vc-price-col">
+                <div class="vc-deposit">Deposit: Γé╣5,000</div>
+                <div class="vc-price-day">Γé╣2,199 <span>/day</span></div>
+                <div class="vc-price-total">Quiet electric</div>
+              </div>
+              <a href="search-results.html" class="vc-book">Book Now</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Travel Kerala banner -->
+  <section class="vh-promo" id="vision">
+    <a class="vh-promo-banner" href="search-results.html">
+      <img src="WhatsApp%20Image%202026-10-15%20at%206.46.29%20PM.jpeg" alt="Your journey, our priority. Travel Kerala Your Way. Reliable rides. Transparent fares. Comfortable journeys.">
+      <span class="vh-promo-cta" aria-label="Explore Our Services"></span>
+    </a>
+  </section>
+
+  <!-- Stats from existing policies -->
+  <section class="vh-section vh-section--white">
+    <div class="container vh-center">
+      <h2 class="vh-heading reveal">Driving Kerala. Together.</h2>
+      <p class="vh-sub reveal">Transparent, fair, and hassle-free rental terms for your trip across Kerala.</p>
+      <div class="vh-stats">
+        <div class="vh-stat reveal">
+          <div class="vh-stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></div>
+          <strong>80 km/h</strong>
+          <span>GPS speed advisory</span>
+        </div>
+        <div class="vh-stat reveal reveal-delay-1">
+          <div class="vh-stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg></div>
+          <strong>7 Days</strong>
+          <span>Deposit refund window</span>
+        </div>
+        <div class="vh-stat reveal reveal-delay-2">
+          <div class="vh-stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h11v10H3z"></path><path d="M14 10h4l3 3v4h-7V10z"></path></svg></div>
+          <strong>5 km</strong>
+          <span>Free depot delivery</span>
+        </div>
+        <div class="vh-stat reveal reveal-delay-3">
+          <div class="vh-stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"></path></svg></div>
+          <strong>Γé╣300</strong>
+          <span>COK airport transfer</span>
+        </div>
+        <div class="vh-stat reveal reveal-delay-4">
+          <div class="vh-stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+          <strong>12 hrs</strong>
+          <span>Minimum local rental</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Policy cards -->
+  <section class="vh-section vh-section--soft" id="policies">
+    <div class="container">
+      <div class="vh-center">
+        <h2 class="vh-heading reveal">Policy &amp; Guidelines</h2>
+        <p class="vh-sub reveal">Official rental terms ΓÇö documents, hours, deposits, and delivery.</p>
+      </div>
+      <div class="vh-policy-grid">
+        <div class="vh-policy-card reveal">
+          <h3>Required Documents</h3>
+          <ul>
+            <li><strong>Indian Nationals:</strong> Original DL (1+ yr) &amp; Aadhaar / Passport</li>
+            <li><strong>Foreign Nationals:</strong> IDP + Passport</li>
+            <li>Digital A4 sheets or expired licenses not accepted</li>
+          </ul>
+        </div>
+        <div class="vh-policy-card reveal reveal-delay-1">
+          <h3>Rental &amp; Hours</h3>
+          <ul>
+            <li><strong>Minimum:</strong> 12 Hours for local / round trips</li>
+            <li><strong>Closed:</strong> 12:00 AM ΓÇô 5:00 AM</li>
+            <li><strong>Grace:</strong> 1 Hour; late fees apply</li>
+          </ul>
+        </div>
+        <div class="vh-policy-card reveal reveal-delay-2">
+          <h3>Security Deposit</h3>
+          <ul>
+            <li>Refundable deposit at delivery</li>
+            <li>Refunded within <strong>7 working days</strong></li>
+            <li>FASTag, advisories &amp; damage may be deducted</li>
+          </ul>
+        </div>
+        <div class="vh-policy-card reveal reveal-delay-3">
+          <h3>Doorstep &amp; Airport</h3>
+          <ul>
+            <li><strong>Free delivery</strong> within 5 km of depots</li>
+            <li><strong>COK:</strong> Flat Γé╣300 one-way</li>
+            <li>One-way drops across Kerala supported</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust quotes (from service promises) -->
+  <section class="vh-section vh-section--white">
+    <div class="container">
+      <div class="vh-row-between">
+        <h2 class="vh-heading reveal" style="margin:0;">What Travelers Value</h2>
+      </div>
+      <div class="vh-quotes" style="margin-top:28px;">
+        <article class="vh-quote reveal">
+          <div class="vh-quote-top">
+            <div class="vh-avatar">SC</div>
+            <div>
+              <strong>Service &amp; Support</strong>
+              <div class="vh-stars">ΓÿàΓÿàΓÿàΓÿàΓÿà</div>
+            </div>
+          </div>
+          <p>Exceptional customer service at every step ΓÇö from booking to return across Kerala.</p>
+        </article>
+        <article class="vh-quote reveal reveal-delay-1">
+          <div class="vh-quote-top">
+            <div class="vh-avatar">TR</div>
+            <div>
+              <strong>Transparency</strong>
+              <div class="vh-stars">ΓÿàΓÿàΓÿàΓÿàΓÿà</div>
+            </div>
+          </div>
+          <p>No hidden charges. Clear policies on deposits, cancellations, and GPS speed advisory.</p>
+        </article>
+        <article class="vh-quote reveal reveal-delay-2">
+          <div class="vh-quote-top">
+            <div class="vh-avatar">BK</div>
+            <div>
+              <strong>Modern Booking</strong>
+              <div class="vh-stars">ΓÿàΓÿàΓÿàΓÿàΓÿà</div>
+            </div>
+          </div>
+          <p>Fast online booking with doorstep delivery and multi-location drops statewide.</p>
+        </article>
+      </div>
+      <div class="vh-dots" aria-hidden="true">
+        <span class="vh-dot active"></span><span class="vh-dot"></span><span class="vh-dot"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Locations -->
+  <section class="vh-section loc-section" id="locations">
+    <span class="loc-dots loc-dots--tl" aria-hidden="true"></span>
+    <span class="loc-dots loc-dots--br" aria-hidden="true"></span>
+    <div class="container loc-wrap reveal">
+      <div class="loc-copy">
+        <div class="loc-kicker">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          Our Service Locations
+        </div>
+        <h2>Where can you find<br><span>HyreCabs?</span></h2>
+        <p>We are available across Kerala, with convenient pickup points in Kochi, Kottayam, Kollam, Adoor, Cochin Airport and more.</p>
+        <div class="loc-chips">
+          <a class="loc-chip" href="search-results.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>Kochi</a>
+          <a class="loc-chip" href="search-results.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>Kottayam</a>
+          <a class="loc-chip" href="search-results.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>Kollam</a>
+          <a class="loc-chip" href="search-results.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>Adoor</a>
+          <a class="loc-chip" href="search-results.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>Cochin Airport</a>
+          <a class="loc-chip loc-chip--more" href="search-results.html">+ More</a>
+        </div>
+        <div class="loc-actions">
+          <a href="search-results.html" class="loc-btn">Explore Locations <span aria-hidden="true">ΓåÆ</span></a>
+          <div class="loc-trust">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.5 2.5L16 9.5"></path></svg>
+            <div>
+              <strong>Safe ΓÇó Reliable ΓÇó Everywhere</strong>
+              <span>Your ride, our priority.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="loc-visual">
+        <div class="loc-map" aria-label="Kerala service map">
+          <div class="loc-sea" aria-hidden="true"></div>
+          <svg class="loc-kerala" viewBox="0 0 160 340" aria-hidden="true">
+            <path fill="#9ed48a" d="M74 8c-16 18-26 40-30 68-4 26-8 44-6 70 2 24-8 46-6 74 2 28 6 50 4 74-2 22 8 42 18 56 10 12 18 6 24 2 8-6 14-22 22-26 14 8 24-6 30-22 8-20 18-30 12-52 12-18 16-38 6-56 10-24 4-46-8-66-10-22-8-42-16-60-8-16-20-38-34-48-8-6-12-8-16-4z"></path>
+            <path fill="#c6e7b0" d="M78 28c-10 16-18 34-20 56-2 20-6 36-4 56 2 18-4 34-2 52 2 20 6 36 4 52 4 16 12 28 20 34 8-4 12-16 18-20 8 4 14-4 18-14 6-14 10-22 8-36 6-12 8-24 2-36 6-16 2-30-6-44-6-16-4-28-12-42-6-12-14-26-22-34-2-2-4-4-4-4z"></path>
+          </svg>
+          <span class="loc-sea-name">ARABIAN<br>SEA</span>
+          <span class="loc-map-name">KERALA</span>
+          <span class="loc-compass" aria-hidden="true"><span>N</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V6"></path><path d="M7 10l5-5 5 5"></path></svg>
+          </span>
+          <span class="loc-pin loc-pin--air" style="left:30%;top:20%;">
+            <em>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2 1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"></path></svg>
+            </em>
+            Cochin Airport
+          </span>
+          <span class="loc-pin" style="left:26%;top:32%;"><i></i>Kochi</span>
+          <span class="loc-pin" style="left:46%;top:42%;"><i></i>Kottayam</span>
+          <span class="loc-pin" style="left:54%;top:58%;"><i></i>Adoor</span>
+          <span class="loc-pin" style="left:36%;top:70%;"><i></i>Kollam</span>
+        </div>
+
+        <aside class="loc-card" aria-label="Major locations">
+          <div class="loc-card-head">
+            <span class="loc-card-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            </span>
+            <div>
+              <strong>Major Locations</strong>
+              <span>Explore our pickup points</span>
+            </div>
+          </div>
+          <a class="loc-row" href="search-results.html">
+            <img src="images/loc-kochi.jpg" alt="">
+            <div><strong>Kochi</strong><span>City &amp; Airport</span></div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"></path></svg>
+          </a>
+          <a class="loc-row" href="search-results.html">
+            <img src="images/loc-kottayam.jpg" alt="">
+            <div><strong>Kottayam</strong><span>Town &amp; Surroundings</span></div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"></path></svg>
+          </a>
+          <a class="loc-row" href="search-results.html">
+            <img src="images/loc-kollam.jpg" alt="">
+            <div><strong>Kollam</strong><span>City &amp; Nearby Areas</span></div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"></path></svg>
+          </a>
+          <a class="loc-row" href="search-results.html">
+            <img src="images/loc-adoor.jpg" alt="">
+            <div><strong>Adoor</strong><span>Town &amp; Surroundings</span></div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"></path></svg>
+          </a>
+          <a class="loc-row" href="search-results.html">
+            <img src="images/loc-airport.jpg" alt="">
+            <div><strong>Cochin Airport</strong><span>International Airport</span></div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"></path></svg>
+          </a>
+        </aside>
+
+        <img class="loc-car" src="images/loc-sedan.png" alt="">
+        <p class="loc-script">Travel Across Kerala</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="vh-section vh-section--white vh-faq" id="faq">
+    <div class="container vh-center">
+      <h2 class="vh-heading reveal">Rental Knowledge Base</h2>
+      <p class="vh-sub reveal">Everything you need to know about renting with HyreCabs.</p>
+      <div class="faq-wrap" style="text-align:left;">
+        <div class="faq-item-card active reveal">
+          <div class="faq-header-btn" onclick="toggleFaq(this)">
+            <div>
+              <span class="faq-badge-tag">Q1</span>
+              <span>What documents are required to rent a self-drive car/vehicle?</span>
+            </div>
+            <span class="faq-toggle-icon">Γ£ò</span>
+          </div>
+          <div class="faq-body-text">
+            Indian Nationals require an Original Driving License (held for at least 1 year) and an Aadhaar Card or Passport. Foreign Nationals require an International Driving Permit (IDP), country driving license, and passport copy.
+          </div>
+        </div>
+        <div class="faq-item-card reveal reveal-delay-1">
+          <div class="faq-header-btn" onclick="toggleFaq(this)">
+            <div>
+              <span class="faq-badge-tag">Q2</span>
+              <span>When and how is the security deposit refunded?</span>
+            </div>
+            <span class="faq-toggle-icon">+</span>
+          </div>
+          <div class="faq-body-text">
+            The security deposit is refunded back to your original bank account/UPI within 7 working days after returning the vehicle cleanly.
+          </div>
+        </div>
+        <div class="faq-item-card reveal reveal-delay-2">
+          <div class="faq-header-btn" onclick="toggleFaq(this)">
+            <div>
+              <span class="faq-badge-tag">Q3</span>
+              <span>What is the speed limit policy in Kerala?</span>
+            </div>
+            <span class="faq-toggle-icon">+</span>
+          </div>
+          <div class="faq-body-text">
+            All our vehicles are equipped with GPS monitoring with an 80 km/h speed limit advisory in accordance with Kerala MVD road safety rules.
+          </div>
+        </div>
+        <div class="faq-item-card reveal reveal-delay-3">
+          <div class="faq-header-btn" onclick="toggleFaq(this)">
+            <div>
+              <span class="faq-badge-tag">Q4</span>
+              <span>What is the cancellation policy?</span>
+            </div>
+            <span class="faq-toggle-icon">+</span>
+          </div>
+          <div class="faq-body-text">
+            Cancellations made more than 24 hours prior to trip start receive a 100% full booking refund. Cancellations under 24 hours receive a 50% refund.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <section class="vh-section vh-section--soft" style="padding-top:0;">
+    <div class="container">
+      <div class="vh-contact-cta reveal">
+        <div class="vh-contact-left">
+          <div class="vh-contact-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+          </div>
+          <div>
+            <strong>Have questions? Our team is here to help.</strong>
+            <span>+91 70340 60000 ┬╖ info@kottayamrentals.com</span>
+          </div>
+        </div>
+        <a href="contact.html" class="vh-btn vh-btn--dark">Contact Us ΓåÆ</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- KOTTAYAM RENTALS FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid-top">
+      <div class="reveal">
+        <a href="index.html" aria-label="HYRECABS ΓÇö Home">
+          <img src="images/logo-cars.png" alt="HYRECABS" class="footer-brand-logo">
+        </a>
+        <p class="footer-brand-desc">
+          HyreCabs | Kerala's premier self-drive cab &amp; car rental network.
+        </p>
+      </div>
+
+      <div class="reveal reveal-delay-1">
+        <div class="footer-col-h">Navigation</div>
+        <ul class="footer-links-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="search-results.html">Book Now</a></li>
+          <li><a href="#policies">Rental Policies</a></li>
+          <li><a href="#depots">Kerala Depots</a></li>
+        </ul>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div class="footer-col-h">Popular Rentals</div>
+        <ul class="footer-links-list">
+          <li><a href="search-results.html">Premium SUV</a></li>
+          <li><a href="search-results.html">Executive Sedan</a></li>
+          <li><a href="search-results.html">City Taxi</a></li>
+          <li><a href="search-results.html">E-EV Green Cruiser</a></li>
+        </ul>
+      </div>
+
+      <div class="reveal reveal-delay-3">
+        <div class="footer-col-h">Contact HQ</div>
+        <ul class="footer-links-list">
+          <li>≡ƒôì JNI Stadium, Kaloor, Kochi</li>
+          <li>≡ƒô₧ +91 70340 60000</li>
+          <li>Γ£ë∩╕Å info@kottayamrentals.com</li>
+          <li>≡ƒîÉ www.kottayamrentals.com</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      <p class="footer-copy">┬⌐ 2026 HyreCabs. All Rights Reserved. Powered by Zeekoi Enterprise Solutions</p>
+      <div class="footer-legal-links">
+        <a href="#policies">Privacy Policy</a>
+        <a href="#policies">Terms of Service</a>
+        <a href="#policies">Rental Guidelines</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile navigation drawer
+  (function () {
+    const toggle = document.getElementById('navToggle');
+    const nav = document.getElementById('primaryNav');
+    const backdrop = document.getElementById('navBackdrop');
+    if (!toggle || !nav) return;
+
+    function setOpen(open) {
+      nav.classList.toggle('open', open);
+      toggle.classList.toggle('open', open);
+      if (backdrop) backdrop.classList.toggle('show', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    toggle.addEventListener('click', () => setOpen(!nav.classList.contains('open')));
+    if (backdrop) backdrop.addEventListener('click', () => setOpen(false));
+    nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
+    window.addEventListener('resize', () => { if (window.innerWidth > 900) setOpen(false); });
+  })();
+
+  // Sticky dark header after scrolling past hero top
+  (function initHeaderScroll() {
+    const header = document.getElementById('siteHeader');
+    if (!header) return;
+    const onScroll = () => {
+      header.classList.toggle('is-scrolled', window.scrollY > 24);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+
+  // Custom date calendar + time dropdown for hero search
+  (function initSearchPickers() {
+    const TIMES = [
+      '09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
+      '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM', '06:00 PM'
+    ];
+    const PLACES = [
+      'Kochi ΓÇö Kaloor',
+      'Cochin Airport (COK)',
+      'Kottayam',
+      'Kollam',
+      'Adoor'
+    ];
+    const WEEKDAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+    const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'];
+
+    function parseISO(iso) {
+      const [y, m, d] = iso.split('-').map(Number);
+      return new Date(y, m - 1, d);
+    }
+    function toISO(date) {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const d = String(date.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
+    function formatDisplay(iso) {
+      const dt = parseISO(iso);
+      const mon = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][dt.getMonth()];
+      return `${dt.getDate()} ${mon} ${dt.getFullYear()}`;
+    }
+    function sameDay(a, b) {
+      return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+    }
+
+    const sheetQuery = window.matchMedia('(max-width: 860px)');
+    let backdrop = null;
+    let scrollLockY = 0;
+    let pageLocked = false;
+
+    function useSheet() {
+      return sheetQuery.matches;
+    }
+
+    function ensureBackdrop() {
+      if (backdrop) return backdrop;
+      backdrop = document.createElement('div');
+      backdrop.className = 'picker-backdrop';
+      backdrop.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeAll();
+      });
+      document.body.appendChild(backdrop);
+      return backdrop;
+    }
+
+    function lockPage() {
+      if (pageLocked) return;
+      scrollLockY = window.scrollY || window.pageYOffset || 0;
+      document.body.classList.add('picker-lock');
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollLockY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+      pageLocked = true;
+    }
+
+    function unlockPage() {
+      if (!pageLocked) return;
+      document.body.classList.remove('picker-lock');
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+      pageLocked = false;
+      window.scrollTo(0, scrollLockY);
+    }
+
+    function closeAll() {
+      document.querySelectorAll('.picker-panel.open').forEach((panel) => {
+        panel.classList.remove('open', 'is-sheet');
+        panel.style.left = '';
+        panel.style.top = '';
+        panel.style.width = '';
+        panel.style.maxHeight = '';
+        const field = panel._ownerField;
+        if (field) {
+          const trigger = field.querySelector('.picker-trigger');
+          if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+      document.querySelectorAll('.picker-trigger[aria-expanded="true"]').forEach((trigger) => {
+        trigger.setAttribute('aria-expanded', 'false');
+      });
+      if (backdrop) backdrop.classList.remove('show');
+      unlockPage();
+    }
+
+    function mountSheetHead(panel, title) {
+      const head = document.createElement('div');
+      head.className = 'picker-sheet-head';
+      const grab = document.createElement('span');
+      grab.className = 'picker-grab';
+      grab.setAttribute('aria-hidden', 'true');
+      const label = document.createElement('div');
+      label.className = 'picker-sheet-title';
+      label.textContent = title;
+      const closeBtn = document.createElement('button');
+      closeBtn.type = 'button';
+      closeBtn.className = 'picker-sheet-close';
+      closeBtn.setAttribute('aria-label', 'Close');
+      closeBtn.textContent = '├ù';
+      closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeAll();
+      });
+      head.append(grab, label, closeBtn);
+      panel.prepend(head);
+    }
+
+    function scrollActiveIntoView(panel) {
+      const active = panel.querySelector('.time-option.active');
+      if (!active) return;
+      const head = panel.querySelector('.picker-sheet-head');
+      const headH = head ? head.offsetHeight : 0;
+      const top = active.offsetTop - headH;
+      const bottom = top + active.offsetHeight;
+      if (top < panel.scrollTop) panel.scrollTop = Math.max(0, top);
+      else if (bottom > panel.scrollTop + panel.clientHeight) {
+        panel.scrollTop = bottom - panel.clientHeight;
+      }
+    }
+
+    function positionPanel(field) {
+      const panel = field._panel;
+      const trigger = field.querySelector('.picker-trigger');
+      if (!panel || !trigger) return;
+
+      if (panel.parentElement !== document.body) {
+        document.body.appendChild(panel);
+      }
+
+      if (useSheet()) {
+        panel.classList.add('is-sheet');
+        panel.style.left = '';
+        panel.style.top = '';
+        panel.style.width = '';
+        panel.style.maxHeight = '';
+        ensureBackdrop().classList.add('show');
+        lockPage();
+        requestAnimationFrame(() => scrollActiveIntoView(panel));
+        return;
+      }
+
+      panel.classList.remove('is-sheet');
+      if (backdrop) backdrop.classList.remove('show');
+      unlockPage();
+
+      const type = field.getAttribute('data-picker');
+      const rect = trigger.getBoundingClientRect();
+      const margin = 12;
+      const gap = 8;
+      const width = type === 'date'
+        ? Math.min(300, window.innerWidth - margin * 2)
+        : Math.min(Math.max(Math.round(rect.width), 180), window.innerWidth - margin * 2);
+
+      panel.style.width = width + 'px';
+      panel.style.maxHeight = '';
+
+      const spaceBelow = window.innerHeight - rect.bottom - gap - margin;
+      const spaceAbove = rect.top - gap - margin;
+      const needed = panel.scrollHeight;
+      const minDown = type === 'date' ? 280 : 150;
+      const openBelow = spaceBelow >= Math.min(needed, minDown) || spaceBelow >= spaceAbove;
+      const room = Math.max(160, openBelow ? spaceBelow : spaceAbove);
+      const maxH = Math.min(type === 'date' ? 440 : 320, room);
+      if (needed > maxH) panel.style.maxHeight = maxH + 'px';
+
+      let left = type === 'time' ? rect.right - width : rect.left;
+      left = Math.max(margin, Math.min(left, window.innerWidth - width - margin));
+
+      const visibleH = Math.min(needed, maxH);
+      let top = openBelow ? rect.bottom + gap : rect.top - gap - visibleH;
+      top = Math.max(margin, Math.min(top, window.innerHeight - visibleH - margin));
+
+      panel.style.left = Math.round(left) + 'px';
+      panel.style.top = Math.round(top) + 'px';
+      requestAnimationFrame(() => scrollActiveIntoView(panel));
+    }
+
+    function buildPlacePanel(field) {
+      const panel = field._panel;
+      const hidden = field.querySelector('[data-hidden]');
+      const display = field.querySelector('[data-display]');
+      panel.innerHTML = '';
+      mountSheetHead(panel, 'Pick-up location');
+      const label = field.querySelector('label');
+      if (label) panel.querySelector('.picker-sheet-title').textContent = label.textContent.trim();
+      PLACES.forEach((place) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'time-option' + (hidden.value === place ? ' active' : '');
+        btn.setAttribute('role', 'option');
+        btn.setAttribute('aria-selected', hidden.value === place ? 'true' : 'false');
+        btn.textContent = place;
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          hidden.value = place;
+          display.textContent = place;
+          closeAll();
+        });
+        panel.appendChild(btn);
+      });
+    }
+
+    function buildTimePanel(field) {
+      const panel = field._panel;
+      const hidden = field.querySelector('[data-hidden]');
+      const display = field.querySelector('[data-display]');
+      const hiddenName = hidden.name || '';
+      panel.innerHTML = '';
+      mountSheetHead(panel, hiddenName === 'endTime' ? 'Drop-off Time' : 'Pick-up Time');
+      TIMES.forEach((t) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'time-option' + (hidden.value === t ? ' active' : '');
+        btn.setAttribute('role', 'option');
+        btn.setAttribute('aria-selected', hidden.value === t ? 'true' : 'false');
+        btn.textContent = t;
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          hidden.value = t;
+          display.textContent = t;
+          closeAll();
+        });
+        panel.appendChild(btn);
+      });
+    }
+
+    function buildDatePanel(field, viewDate) {
+      const panel = field._panel;
+      const hidden = field.querySelector('[data-hidden]');
+      const display = field.querySelector('[data-display]');
+      const selected = parseISO(hidden.value);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const view = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1);
+      const hiddenName = hidden.name || '';
+
+      panel.innerHTML = '';
+      mountSheetHead(panel, hiddenName === 'endDate' ? 'Drop-off Date' : 'Pick-up Date');
+
+      const header = document.createElement('div');
+      header.className = 'cal-header';
+      const prev = document.createElement('button');
+      prev.type = 'button';
+      prev.className = 'cal-nav';
+      prev.setAttribute('aria-label', 'Previous month');
+      prev.textContent = 'ΓÇ╣';
+      const titleEl = document.createElement('div');
+      titleEl.className = 'cal-title';
+      titleEl.textContent = `${MONTHS[view.getMonth()]} ${view.getFullYear()}`;
+      const next = document.createElement('button');
+      next.type = 'button';
+      next.className = 'cal-nav';
+      next.setAttribute('aria-label', 'Next month');
+      next.textContent = 'ΓÇ║';
+      prev.addEventListener('click', (e) => {
+        e.stopPropagation();
+        buildDatePanel(field, new Date(view.getFullYear(), view.getMonth() - 1, 1));
+        if (panel.classList.contains('open')) positionPanel(field);
+      });
+      next.addEventListener('click', (e) => {
+        e.stopPropagation();
+        buildDatePanel(field, new Date(view.getFullYear(), view.getMonth() + 1, 1));
+        if (panel.classList.contains('open')) positionPanel(field);
+      });
+      header.append(prev, titleEl, next);
+      panel.appendChild(header);
+
+      const weekdays = document.createElement('div');
+      weekdays.className = 'cal-weekdays';
+      WEEKDAYS.forEach((w) => {
+        const span = document.createElement('span');
+        span.textContent = w;
+        weekdays.appendChild(span);
+      });
+      panel.appendChild(weekdays);
+
+      const grid = document.createElement('div');
+      grid.className = 'cal-grid';
+      const startPad = view.getDay();
+      const daysInMonth = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
+      const prevMonthDays = new Date(view.getFullYear(), view.getMonth(), 0).getDate();
+
+      for (let i = 0; i < 42; i++) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'cal-day';
+        let dayNum, cellDate, muted = false;
+
+        if (i < startPad) {
+          dayNum = prevMonthDays - startPad + i + 1;
+          cellDate = new Date(view.getFullYear(), view.getMonth() - 1, dayNum);
+          muted = true;
+        } else if (i >= startPad + daysInMonth) {
+          dayNum = i - startPad - daysInMonth + 1;
+          cellDate = new Date(view.getFullYear(), view.getMonth() + 1, dayNum);
+          muted = true;
+        } else {
+          dayNum = i - startPad + 1;
+          cellDate = new Date(view.getFullYear(), view.getMonth(), dayNum);
+        }
+
+        btn.textContent = String(dayNum);
+        if (muted) btn.classList.add('muted');
+        if (sameDay(cellDate, today)) btn.classList.add('today');
+        if (sameDay(cellDate, selected)) btn.classList.add('selected');
+
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          hidden.value = toISO(cellDate);
+          display.textContent = formatDisplay(hidden.value);
+          closeAll();
+        });
+        grid.appendChild(btn);
+      }
+      panel.appendChild(grid);
+    }
+
+    document.querySelectorAll('.search-field[data-picker]').forEach((field) => {
+      const type = field.getAttribute('data-picker');
+      const trigger = field.querySelector('.picker-trigger');
+      const panel = field.querySelector('.picker-panel');
+      const hidden = field.querySelector('[data-hidden]');
+      const display = field.querySelector('[data-display]');
+      if (!trigger || !panel || !hidden) return;
+
+      field._panel = panel;
+      panel._ownerField = field;
+
+      if (type === 'time') {
+        display.textContent = hidden.value;
+        buildTimePanel(field);
+      } else if (type === 'place') {
+        display.textContent = hidden.value;
+        buildPlacePanel(field);
+      } else {
+        display.textContent = formatDisplay(hidden.value);
+        buildDatePanel(field, parseISO(hidden.value));
+      }
+
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = panel.classList.contains('open');
+        closeAll();
+        if (!isOpen) {
+          if (type === 'time') buildTimePanel(field);
+          else if (type === 'place') buildPlacePanel(field);
+          else buildDatePanel(field, parseISO(hidden.value));
+          if (panel.parentElement !== document.body) document.body.appendChild(panel);
+          panel.classList.add('open');
+          trigger.setAttribute('aria-expanded', 'true');
+          positionPanel(field);
+        }
+      });
+
+      panel.addEventListener('click', (e) => e.stopPropagation());
+    });
+
+    function onViewportChange(e) {
+      const panel = document.querySelector('.picker-panel.open');
+      if (!panel || !panel._ownerField) return;
+      if (e && e.type === 'scroll' && (e.target === panel || (e.target && panel.contains(e.target)))) return;
+      positionPanel(panel._ownerField);
+    }
+
+    window.addEventListener('resize', onViewportChange);
+    window.addEventListener('scroll', onViewportChange, true);
+    document.addEventListener('click', () => closeAll());
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeAll();
+    });
+  })();
+
+  // Hero Carousel logic
+  const heroes = [
+    {
+      title: "KERALA EXPERIENCE",
+      bgText: "KERALA",
+      size: "Large",
+      weight: "210 KG",
+      img: "images/kerala-experience-banner.jpg",
+      mobileImg: "images/kerala-experience-banner.jpg",
+      name: "Kerala Experience Ride",
+      meta: "2026 ┬╖ Premium Cab ┬╖ Chauffeur",
+      price: "Γé╣2,299",
+      desc: "Scenic backwater drives, airport transfers, and city-to-coast rides with trusted drivers across Kerala."
+    },
+    {
+      title: "PREMIUM SUV",
+      bgText: "PREMIUM",
+      size: "Large",
+      weight: "195 KG",
+      img: "images/banner-suv.jpg",
+      mobileImg: "images/banner-suv-mobile.jpg",
+      name: "Premium SUV",
+      meta: "2026 ┬╖ 5 Seats ┬╖ Automatic",
+      price: "Γé╣2,499",
+      desc: "Spacious premium SUV comfort with powerful performance ΓÇö ideal for family trips and highway cruising across Kerala."
+    },
+    {
+      title: "EXECUTIVE SEDAN",
+      bgText: "SEDAN",
+      price: "Γé╣1,999",
+      size: "Large",
+      weight: "247 KG",
+      img: "images/banner-sedan.jpg",
+      mobileImg: "images/banner-sedan-mobile.jpg",
+      name: "Executive Sedan",
+      meta: "2026 ┬╖ 5 Seats ┬╖ Automatic",
+      desc: "The HyreCabs Executive Sedan offers executive comfort, powerful performance, and smooth highway cruising across Kerala."
+    },
+    {
+      title: "CITY TAXI",
+      bgText: "TAXI",
+      price: "Γé╣1,499",
+      size: "Medium",
+      weight: "208 KG",
+      img: "images/banner-taxi.jpg",
+      mobileImg: "images/banner-taxi-mobile.jpg",
+      name: "City Taxi",
+      meta: "2026 ┬╖ 4 Seats ┬╖ Manual",
+      desc: "Reliable premium city cab for airport transfers, daily rides, and seamless travel across Kerala."
+    },
+    {
+      title: "URBAN HATCHBACK",
+      name: "Urban Hatchback",
+      meta: "2026 ┬╖ 5 Seats ┬╖ Manual",
+      price: "Γé╣1,499",
+      img: "images/banner-taxi.jpg",
+      mobileImg: "images/banner-taxi-mobile.jpg",
+      desc: "A compact city hatchback for daily errands, airport hops, and easy parking across Kerala."
+    },
+    {
+      title: "LUXURY CHAUFFEUR",
+      name: "Luxury Chauffeur",
+      meta: "2026 ┬╖ 5 Seats ┬╖ Automatic",
+      price: "Γé╣4,499",
+      img: "images/banner-sedan.jpg",
+      mobileImg: "images/banner-sedan-mobile.jpg",
+      desc: "Chauffeur-driven luxury for meetings, weddings, and comfortable highway travel."
+    },
+    {
+      title: "ELECTRIC EV CAB",
+      name: "Electric EV Cab",
+      meta: "2026 ┬╖ 5 Seats ┬╖ Automatic",
+      price: "Γé╣2,199",
+      img: "images/banner-suv.jpg",
+      mobileImg: "images/banner-suv-mobile.jpg",
+      desc: "A quiet electric cab for city rides with a smooth, modern drive."
+    },
+    {
+      title: "OUTSTATION SUV",
+      name: "Outstation SUV",
+      meta: "2026 ┬╖ 7 Seats ┬╖ Manual",
+      price: "Γé╣3,799",
+      img: "images/banner-suv.jpg",
+      mobileImg: "images/banner-suv-mobile.jpg",
+      desc: "A 7-seater SUV for family outstation trips and longer Kerala routes."
+    },
+    {
+      title: "ECO GREEN EV",
+      name: "Eco Green EV",
+      meta: "2026 ┬╖ 4 Seats ┬╖ Automatic",
+      price: "Γé╣2,099",
+      img: "images/banner-sedan.jpg",
+      mobileImg: "images/banner-sedan-mobile.jpg",
+      desc: "A compact electric cab for short city trips with a light daily rate."
+    }
+  ];
+
+  function heroBannerSrc(h) {
+    const narrow = window.matchMedia("(max-width: 1100px)").matches;
+    return narrow && h.mobileImg ? h.mobileImg : h.img;
+  }
+
+  let currentHero = 0;
+  let heroAutoTimer = null;
+
+  function switchHero(index, fromAuto) {
+    if (index === currentHero && fromAuto !== true) {
+      // still allow re-trigger animation if clicking same? skip
+    }
+    currentHero = index;
+    const h = heroes[index];
+    const banner = document.getElementById('heroBannerImg');
+    const title = document.getElementById('heroTitle');
+    const desc = document.getElementById('heroDesc');
+
+    const sideName = document.getElementById('heroSideName');
+    const sideMeta = document.getElementById('heroSideMeta');
+    const sidePrice = document.getElementById('heroSidePrice');
+
+    if (title) title.innerText = h.title;
+    if (desc) desc.innerText = h.desc;
+    const card = document.getElementById('heroSideCard');
+    if (sideName) sideName.textContent = h.name || h.title;
+    if (sideMeta) sideMeta.textContent = h.meta || "";
+    if (sidePrice) sidePrice.innerHTML = 'from <b>' + h.price + '</b> <span>/day</span>';
+    if (card) {
+      card.classList.remove('is-nudging');
+      void card.offsetWidth;
+      card.classList.add('is-nudging');
+      window.setTimeout(() => card.classList.remove('is-nudging'), 480);
+    }
+    if (banner) {
+      banner.src = heroBannerSrc(h);
+      banner.alt = "";
+    }
+    document.querySelectorAll('.carousel-dots .dot').forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+
+    if (!fromAuto) restartHeroAutoplay();
+  }
+
+  function restartHeroAutoplay() {
+    if (heroAutoTimer) clearInterval(heroAutoTimer);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    heroAutoTimer = setInterval(() => {
+      switchHero((currentHero + 1) % heroes.length, true);
+    }, 5000);
+  }
+
+  // Kick off hero entrance animations + auto-rotate
+  (function initHeroMotion() {
+    const hero = document.querySelector('.hero-section');
+    if (!hero) return;
+    requestAnimationFrame(() => {
+      hero.classList.add('is-animated');
+    });
+    const banner = document.getElementById('heroBannerImg');
+    if (!banner) return;
+    const dots = document.getElementById('heroDots');
+    if (dots) {
+      dots.innerHTML = heroes.map((_, i) =>
+        '<div class="dot' + (i === 0 ? ' active' : '') + '" onclick="switchHero(' + i + ')"></div>'
+      ).join('');
+    }
+    banner.src = heroBannerSrc(heroes[0]);
+    restartHeroAutoplay();
+    window.addEventListener('resize', () => {
+      const banner = document.getElementById('heroBannerImg');
+      if (banner && heroes[currentHero]) banner.src = heroBannerSrc(heroes[currentHero]);
+    });
+    hero.addEventListener('mouseenter', () => {
+      if (heroAutoTimer) clearInterval(heroAutoTimer);
+    });
+    hero.addEventListener('mouseleave', restartHeroAutoplay);
+  })();
+
+  // Vision section: background stays still; only the PNG car floats and swaps
+  (function initPromoCars() {
+    const car = document.getElementById('vhPromoCar');
+    if (!car) return;
+    const slides = [
+      { src: 'images/car_luxury.png', alt: 'HyreCabs executive sedan' },
+      { src: 'images/hero_car.png', alt: 'HyreCabs premium SUV' },
+      { src: 'images/car_hatchback.png', alt: 'HyreCabs city sedan' }
+    ];
+    slides.forEach((slide) => {
+      const preload = new Image();
+      preload.src = slide.src;
+    });
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let index = 0;
+    window.setInterval(() => {
+      car.classList.add('is-out');
+      window.setTimeout(() => {
+        index = (index + 1) % slides.length;
+        car.src = slides[index].src;
+        car.alt = slides[index].alt;
+        car.classList.remove('is-out');
+      }, 420);
+    }, 4800);
+  })();
+
+  // Featured fleet horizontal nudge
+  function scrollFleet(dir) {
+    const track = document.getElementById('fleetTrack');
+    if (!track) return;
+    const card = track.querySelector('.vh-fleet-card');
+    const step = card ? card.offsetWidth + 18 : 280;
+    track.scrollBy({ left: dir * step, behavior: 'smooth' });
+  }
+
+  // FAQ Accordion Logic
+  function toggleFaq(elem) {
+    const card = elem.parentElement;
+    const isActive = card.classList.contains('active');
+    
+    document.querySelectorAll('.faq-item-card').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.faq-toggle-icon').forEach(i => i.textContent = '+');
+
+    if (!isActive) {
+      card.classList.add('active');
+      elem.querySelector('.faq-toggle-icon').textContent = 'Γ£ò';
+    }
+  }
+
+  // Standard scroll-reveal animations (fade-up as elements enter view)
+  (function initScrollReveal() {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const targets = document.querySelectorAll([
+      '.vh-heading',
+      '.vh-sub',
+      '.vh-benefit',
+      '.vh-fleet-card',
+      '.vh-promo-inner > *',
+      '.vh-stat',
+      '.vh-policy-card',
+      '.vh-quote',
+      '.loc-wrap',
+      '.faq-item-card',
+      '.vh-contact-cta',
+      '.footer-grid-top > *'
+    ].join(','));
+
+    targets.forEach((el) => el.classList.add('reveal'));
+
+    document.querySelectorAll('.vh-benefits, .vh-fleet-track, .vh-stats, .vh-policy-grid, .vh-quotes, .faq-wrap, .footer-grid-top').forEach((group) => {
+      [...group.children].forEach((child, idx) => {
+        if (!child.classList.contains('reveal')) return;
+        if (idx > 0 && idx <= 5) child.classList.add('reveal-delay-' + idx);
+      });
+    });
+
+    if (reduceMotion) {
+      targets.forEach((el) => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    targets.forEach((el) => observer.observe(el));
+  })();
+</script>
+<script>
+(function () {
+  var w = document.documentElement.clientWidth;
+  var wide = [];
+  document.querySelectorAll('body *').forEach(function (el) {
+    var r = el.getBoundingClientRect();
+    if (r.right > w + 2 || r.width > w + 2) {
+      wide.push((el.className && el.className.toString ? el.className.toString().slice(0, 40) : el.tagName) + '@' + Math.round(r.left) + '+' + Math.round(r.width));
+    }
+  });
+  document.title = 'SW' + document.documentElement.scrollWidth + ' CW' + w + ' ' + wide.slice(0, 12).join(' | ');
+})();
+</script>
+
+</body></html>
