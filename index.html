@@ -47,6 +47,9 @@
     -webkit-text-size-adjust: 100%;
     overflow-x: hidden;
   }
+  body.picker-lock {
+    overflow: hidden;
+  }
 
   /* Secondary brand typeface (Copperplate Gothic Light) for tags & accents */
   .font-brand-secondary,
@@ -73,26 +76,30 @@
     padding-right: 24px;
   }
 
-  /* HEADER */
+  /* HEADER — dark overlay nav (VoltHire-style) */
   header.site-header {
-    background: var(--header-gradient);
-    border-bottom: none;
-    box-shadow: 0 10px 28px rgba(12, 51, 68, 0.18);
-    position: sticky;
+    background: rgba(6, 14, 20, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(105, 200, 226, 0.12);
+    box-shadow: none;
+    position: absolute;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 100;
   }
-  header.site-header::after {
-    content: "";
-    display: block;
-    height: 3px;
-    background: linear-gradient(90deg, #69c8e2 0%, #ffffff 50%, #69c8e2 100%);
+  header.site-header.is-scrolled {
+    position: fixed;
+    background: rgba(6, 14, 20, 0.94);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
   }
   .header-wrap {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 86px;
+    height: 78px;
+    gap: 20px;
   }
   .brand {
     display: flex;
@@ -100,7 +107,7 @@
     flex-shrink: 0;
   }
   .brand-logo {
-    height: 70px;
+    height: 58px;
     width: auto;
     display: block;
     border-radius: 8px;
@@ -108,24 +115,38 @@
   .nav-links {
     display: flex;
     align-items: center;
-    gap: 32px;
-    font-size: 14px;
+    gap: 4px;
+    font-size: 13.5px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.92);
+    color: rgba(255, 255, 255, 0.88);
   }
   .nav-links a {
-    padding: 8px 14px;
-    border-radius: 999px;
-    transition: background 0.2s ease, color 0.2s ease;
+    padding: 8px 12px;
+    border-radius: 0;
+    position: relative;
+    transition: color 0.2s ease;
   }
-  .nav-links a:hover, .nav-links a.active {
-    color: #0c3344;
-    background: #69c8e2;
+  .nav-links a:hover {
+    color: #ffffff;
+  }
+  .nav-links a.active {
+    color: #ffffff;
+  }
+  .nav-links a.active::after {
+    content: "";
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 2px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--brand-cyan);
   }
   .header-actions {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
+    flex-shrink: 0;
   }
   .lang-select {
     display: flex;
@@ -140,7 +161,7 @@
     width: 38px;
     height: 38px;
     border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.28);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -148,7 +169,27 @@
     transition: all 0.2s ease;
   }
   .icon-circle-btn:hover {
-    background: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(105, 200, 226, 0.55);
+  }
+  .btn-book-now {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--brand-cyan);
+    color: #0c3344;
+    font-size: 13.5px;
+    font-weight: 800;
+    padding: 11px 20px;
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    white-space: nowrap;
+  }
+  .btn-book-now:hover {
+    background: #7fd4ea;
+    box-shadow: 0 8px 22px rgba(105, 200, 226, 0.35);
+    transform: translateY(-1px);
   }
 
   /* MOBILE NAV TOGGLE (HAMBURGER) */
@@ -157,7 +198,7 @@
     width: 40px;
     height: 40px;
     border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.35);
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -178,8 +219,8 @@
 
   .nav-backdrop {
     position: fixed;
-    inset: 86px 0 0;
-    background: rgba(18, 21, 26, 0.45);
+    inset: 78px 0 0;
+    background: rgba(6, 14, 20, 0.55);
     z-index: 98;
     opacity: 0;
     visibility: hidden;
@@ -190,116 +231,409 @@
     visibility: visible;
   }
 
-  /* HERO SECTION (UNCHANGED PERFECT HERO BANNER) */
-  /* These sections also carry .container, so only ever set vertical padding
-     here — a `padding` shorthand would wipe out the container's side gutters. */
+  /* HERO — full-bleed dark VoltHire-style banner */
   .hero-section {
-    padding-top: var(--section-space);
-    padding-bottom: var(--section-space);
-    text-align: center;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 0;
+    color: #ffffff;
+    background:
+      radial-gradient(900px 480px at 78% 42%, rgba(105, 200, 226, 0.22), transparent 58%),
+      radial-gradient(700px 420px at 12% 80%, rgba(26, 111, 134, 0.35), transparent 60%),
+      linear-gradient(135deg, #050b10 0%, #0c3344 48%, #061820 100%);
+  }
+  .hero-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(5, 11, 16, 0.88) 0%, rgba(5, 11, 16, 0.55) 48%, rgba(5, 11, 16, 0.2) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 72% 58%, rgba(105, 200, 226, 0.16), transparent 42%),
+      linear-gradient(180deg, transparent 55%, rgba(5, 11, 16, 0.55) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 28px 40px;
+    align-items: end;
+    padding-top: 110px;
+    padding-bottom: 48px;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  .hero-booking {
+    grid-column: 1 / -1;
+    width: 100%;
+    max-width: 980px;
+    justify-self: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+    padding-bottom: 8px;
+    max-width: 640px;
+  }
+  .hero-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brand-cyan);
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  .hero-kicker::before {
+    content: "";
+    width: 28px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--brand-cyan);
+  }
+  .hero-title-box {
+    text-align: left;
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  .hero-title-box h1 {
+    font-size: clamp(36px, 5.2vw, 64px);
+    font-weight: 800;
+    letter-spacing: -1.4px;
+    line-height: 1.05;
+    text-transform: none;
+    margin-bottom: 10px;
+    color: #ffffff;
+  }
+  .hero-title-box h1 .hero-accent {
+    color: var(--brand-cyan);
+    display: inline;
+  }
+  .hero-vehicle-label {
+    display: inline-block;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.78);
+    background: rgba(105, 200, 226, 0.12);
+    border: 1px solid rgba(105, 200, 226, 0.28);
+    border-radius: 999px;
+    padding: 6px 14px;
+    margin-bottom: 12px;
+  }
+  .hero-title-box p {
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.72);
+    max-width: 480px;
+    margin: 0;
+  }
+  .hero-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px 28px;
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  .hero-feature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 140px;
+  }
+  .hero-feature-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(105, 200, 226, 0.12);
+    border: 1px solid rgba(105, 200, 226, 0.28);
+    color: var(--brand-cyan);
+    flex-shrink: 0;
+  }
+  .hero-feature strong {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.2;
+  }
+  .hero-feature span {
+    display: block;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: 2px;
   }
 
+  .hero-visual {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 420px;
+    padding-bottom: 24px;
+  }
   .hero-stage {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 340px;
-    margin-bottom: 20px;
+    width: 100%;
+    min-height: 360px;
   }
   .hero-bg-text {
     position: absolute;
-    top: 45%;
+    top: 38%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: clamp(60px, 12vw, 130px);
+    font-size: clamp(42px, 6.5vw, 88px);
     font-weight: 900;
     color: transparent;
-    -webkit-text-stroke: 1.5px #e2e8f0;
+    -webkit-text-stroke: 1.5px rgba(105, 200, 226, 0.22);
     letter-spacing: -2px;
     white-space: nowrap;
     user-select: none;
     z-index: 1;
     opacity: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: clip;
   }
-
   .hero-side-car {
-    position: absolute;
-    width: 280px;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 0;
-    z-index: 2;
-    transition: opacity 0.3s ease;
-    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.1));
-    pointer-events: none;
+    display: none;
   }
-  .hero-side-car.left { left: -80px; }
-  .hero-side-car.right { right: -80px; }
-
   .hero-main-img-wrap {
     position: relative;
     z-index: 3;
-    width: min(520px, 85vw);
+    width: min(620px, 96%);
     margin: 0 auto;
-    filter: drop-shadow(0 18px 24px rgba(0,0,0,0.15));
+    filter: drop-shadow(0 32px 48px rgba(0, 0, 0, 0.65));
     opacity: 0;
     transform: translateY(28px) scale(0.94);
+  }
+  .hero-main-img-wrap::after {
+    content: "";
+    position: absolute;
+    left: 12%;
+    right: 12%;
+    bottom: 4%;
+    height: 28px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.35), transparent 70%);
+    filter: blur(6px);
+    z-index: -1;
+    pointer-events: none;
   }
   .hero-main-img-wrap img {
     width: 100%;
     display: block;
+    object-fit: contain;
+  }
+  .hero-glow-ring {
+    position: absolute;
+    width: min(380px, 62%);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 1.5px solid rgba(105, 200, 226, 0.18);
+    box-shadow:
+      0 0 0 14px rgba(105, 200, 226, 0.04),
+      inset 0 0 50px rgba(105, 200, 226, 0.06);
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
   }
 
-  /* Sleek Floating Horizontal Search Bar */
+  /* Booking search card — wide VoltHire-style bar */
   .search-card {
     background: #ffffff;
     border-radius: 18px;
-    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.06);
-    border: 1.5px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    max-width: 920px;
-    margin: 24px auto 32px;
-    padding: 8px 12px 10px;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
     position: relative;
-    z-index: 10;
+    z-index: 40;
     opacity: 0;
     transform: translateY(24px);
+    overflow: visible;
+    color: var(--text-primary);
+  }
+  .search-body {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px 24px;
+    align-items: center;
+    padding: 22px 24px;
+  }
+  .search-main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
   }
   .search-row {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 20px;
+    align-items: end;
     width: 100%;
   }
-  .search-row-locations {
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 4px;
-    margin-bottom: 4px;
-  }
   .search-field {
-    flex: 1;
-    padding: 6px 14px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
     text-align: left;
-    border-right: 1px solid var(--border-color);
+    padding: 0;
+    border: none;
+    background: transparent;
   }
   .search-field:has(.picker-panel.open) {
     z-index: 30;
   }
-  .search-row .search-field:last-of-type {
-    border-right: none;
-  }
-  .search-field label {
+  .search-field > label,
+  .search-datetime > label {
     display: block;
-    font-size: 10.5px;
-    font-weight: 700;
-    color: var(--text-light);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #6b7280;
+    text-transform: none;
+    letter-spacing: 0;
+    margin: 0;
+  }
+  .search-field .picker-trigger {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 52px;
+    padding: 0 16px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .search-field .picker-trigger:hover {
+    border-color: #cbd5e1;
+  }
+  .search-field .picker-trigger[aria-expanded="true"] {
+    border-color: #86c63a;
+    box-shadow: 0 0 0 3px rgba(134, 198, 58, 0.16);
+  }
+  .search-field[data-picker="place"] .picker-trigger {
+    justify-content: space-between;
+  }
+  .search-field[data-picker="place"] .picker-icon {
+    order: 2;
+    color: #9ca3af;
+    display: inline-flex;
+  }
+  .search-field[data-picker="place"] .picker-value {
+    order: 1;
+  }
+  .search-field[data-picker="place"] .picker-caret {
+    display: none;
+  }
+
+  .search-datetime {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+  }
+  .datetime-box {
+    display: flex;
+    align-items: stretch;
+    min-height: 52px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: visible;
+  }
+  .datetime-box:focus-within {
+    border-color: #86c63a;
+    box-shadow: 0 0 0 3px rgba(134, 198, 58, 0.16);
+  }
+  .datetime-box .search-field {
+    flex: 1;
+    min-width: 0;
+  }
+  .datetime-box .search-field .picker-trigger {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    min-height: 50px;
+    padding: 0 14px;
+  }
+  .datetime-box .search-field .picker-trigger:hover,
+  .datetime-box .search-field .picker-trigger[aria-expanded="true"] {
+    border: none;
+    box-shadow: none;
+  }
+  .datetime-divider {
+    width: 1px;
+    align-self: stretch;
+    margin: 12px 0;
+    background: #e5e7eb;
+    flex-shrink: 0;
+  }
+  .datetime-box .search-field[data-picker="time"] .picker-icon {
+    display: none;
+  }
+  .datetime-box .search-field[data-picker="date"] .picker-icon {
+    color: #9ca3af;
+    display: inline-flex;
+  }
+
+  .search-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    align-self: center;
+    margin-top: 24px;
+  }
+  .search-note {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 12.5px;
+    color: #9ca3af;
+    white-space: nowrap;
   }
   .input-inline {
     display: flex;
@@ -318,32 +652,19 @@
     cursor: pointer;
   }
 
-  /* Custom date + time pickers */
-  .search-field {
-    position: relative;
-  }
-  .picker-trigger {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-    background: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    font-family: inherit;
-    text-align: left;
-  }
   .picker-trigger .picker-icon {
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1;
     flex-shrink: 0;
   }
+  .picker-trigger .picker-icon svg {
+    display: block;
+  }
   .picker-trigger .picker-value {
     flex: 1;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -352,76 +673,107 @@
     flex-shrink: 0;
     width: 16px;
     height: 16px;
-    color: #737373;
+    color: #9ca3af;
     transition: transform 0.2s ease;
   }
-  .picker-panel.place-panel {
-    min-width: 240px;
+  .picker-panel.place-panel,
+  .picker-panel.time-panel {
     padding: 8px;
-  }
-  .place-panel .time-option.active {
-    background: var(--brand-cyan);
-    color: #203D4F;
   }
   .picker-trigger[aria-expanded="true"] .picker-caret {
     transform: rotate(180deg);
     color: var(--brand-accent);
   }
 
+  .picker-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 400;
+    background: rgba(6, 14, 20, 0.48);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+  .picker-backdrop.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
   .picker-panel {
     position: absolute;
-    top: calc(100% + 12px);
+    top: calc(100% + 8px);
     left: 0;
-    z-index: 80;
+    z-index: 420;
     background: #ffffff;
-    border: 1.5px solid var(--border-color);
+    border: 1px solid #e5e7eb;
     border-radius: 16px;
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 18px 48px rgba(15, 23, 42, 0.18);
     padding: 12px;
     opacity: 0;
     visibility: hidden;
     transform: translateY(6px);
     transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
     pointer-events: none;
+    overscroll-behavior: contain;
   }
   .picker-panel.open {
+    position: fixed;
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: none;
     pointer-events: auto;
   }
   .picker-panel.time-panel {
     min-width: 168px;
-    max-height: 260px;
+    max-height: 280px;
     overflow-y: auto;
     padding: 8px;
   }
   .picker-panel.date-panel {
-    width: 292px;
-    padding: 14px;
+    width: 300px;
+    padding: 14px 14px 12px;
+  }
+  .picker-panel:not(.open) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0 !important;
+    height: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+  }
+  .picker-sheet-head {
+    display: none;
   }
 
   .time-option {
-    display: block;
+    display: flex;
+    align-items: center;
     width: 100%;
+    min-height: 44px;
     text-align: left;
     border: none;
     background: transparent;
     font-family: inherit;
-    font-size: 13px;
-    font-weight: 700;
-    color: #0a0a0a;
-    padding: 10px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    padding: 10px 14px;
     border-radius: 10px;
     cursor: pointer;
     transition: background 0.15s ease, color 0.15s ease;
   }
   .time-option:hover {
-    background: #f5f5f5;
+    background: #f3f4f6;
   }
-  .time-option.active {
-    background: #0a0a0a;
-    color: #ffffff;
+  .time-option.active,
+  .place-panel .time-option.active {
+    background: var(--brand-cyan);
+    color: #0c3344;
+    font-weight: 700;
   }
 
   .cal-header {
@@ -478,11 +830,11 @@
     aspect-ratio: 1;
     border: none;
     background: transparent;
-    border-radius: 10px;
+    border-radius: 50%;
     font-family: inherit;
-    font-size: 12.5px;
-    font-weight: 700;
-    color: #0a0a0a;
+    font-size: 13px;
+    font-weight: 600;
+    color: #111827;
     cursor: pointer;
     transition: background 0.15s ease, color 0.15s ease;
   }
@@ -506,53 +858,34 @@
     cursor: not-allowed;
   }
 
-  /* Keep picker menus above clipped hero edges */
-  .hero-section {
-    overflow: visible;
-  }
-  .hero-stage {
-    overflow: hidden;
-  }
-  .search-card {
-    overflow: visible;
-    z-index: 40;
-  }
+  .hero-stage { overflow: hidden; }
+  .search-card { overflow: visible; }
 
   .btn-search {
-    background: var(--brand-cyan);
-    color: #203D4F;
-    font-size: 13.5px;
-    font-weight: 800;
-    padding: 12px 30px;
-    border-radius: 12px;
+    background: #7acb2e;
+    color: #ffffff;
+    font-size: 15.5px;
+    font-weight: 700;
+    padding: 16px 28px;
+    border-radius: 14px;
     transition: all 0.2s ease;
     border: none;
     white-space: nowrap;
-    margin-left: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 52px;
+    min-width: 168px;
   }
   .btn-search:hover {
-    background: var(--brand-accent);
+    background: #6bb826;
     color: #ffffff;
-    box-shadow: 0 4px 14px rgba(105, 200, 226, 0.35);
+    box-shadow: 0 10px 24px rgba(122, 203, 46, 0.4);
+    transform: translateY(-1px);
   }
-
-  .hero-title-box h1 {
-    font-size: 28px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .hero-title-box p {
-    font-size: 14px;
-    color: var(--text-muted);
-    max-width: 520px;
-    margin: 0 auto;
-  }
-  .hero-title-box,
-  .carousel-dots {
-    opacity: 0;
-    transform: translateY(18px);
+  .btn-search svg {
+    flex-shrink: 0;
   }
 
   .carousel-dots {
@@ -560,18 +893,20 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    margin-top: 24px;
+    margin-top: 18px;
+    opacity: 0;
+    transform: translateY(18px);
   }
   .dot {
     width: 24px;
     height: 3px;
-    background: #e2e8f0;
+    background: rgba(255, 255, 255, 0.28);
     border-radius: 2px;
     cursor: pointer;
     transition: all 0.3s ease;
   }
   .dot.active {
-    background: var(--text-primary);
+    background: var(--brand-cyan);
     width: 36px;
   }
 
@@ -586,11 +921,11 @@
   }
   @keyframes heroSideInL {
     from { opacity: 0; transform: translate(-48px, -50%); }
-    to   { opacity: 0.5; transform: translate(0, -50%); }
+    to   { opacity: 0.45; transform: translate(0, -50%); }
   }
   @keyframes heroSideInR {
     from { opacity: 0; transform: translate(48px, -50%); }
-    to   { opacity: 0.5; transform: translate(0, -50%); }
+    to   { opacity: 0.45; transform: translate(0, -50%); }
   }
   @keyframes heroSideDriftL {
     0%, 100% { transform: translate(0, -50%); }
@@ -616,15 +951,22 @@
     from { opacity: 0; transform: translateY(22px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+  @keyframes heroRingIn {
+    from { opacity: 0; transform: translate(-50%, -50%) scale(0.86); }
+    to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  }
   @keyframes heroDotPulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(10, 10, 10, 0.2); }
-    50%      { box-shadow: 0 0 0 4px rgba(10, 10, 10, 0); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(105, 200, 226, 0.35); }
+    50%      { box-shadow: 0 0 0 5px rgba(105, 200, 226, 0); }
   }
 
   .hero-section.is-animated .hero-bg-text {
     animation:
       heroBgIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both,
       heroBgPulse 6s ease-in-out 1.2s infinite;
+  }
+  .hero-section.is-animated .hero-glow-ring {
+    animation: heroRingIn 1s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
   }
   .hero-section.is-animated .hero-side-car.left {
     animation:
@@ -645,17 +987,23 @@
   .hero-section.is-animated .hero-main-img-wrap.is-swapping img {
     animation: heroSwap 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
+  .hero-section.is-animated .hero-kicker {
+    animation: heroRiseIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+  }
+  .hero-section.is-animated .hero-title-box {
+    animation: heroRiseIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
+  }
+  .hero-section.is-animated .hero-features {
+    animation: heroRiseIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+  }
   .hero-section.is-animated .search-card {
     animation: heroRiseIn 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.55s both;
   }
-  .hero-section.is-animated .hero-title-box {
-    animation: heroRiseIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.7s both;
-  }
   .hero-section.is-animated .carousel-dots {
-    animation: heroRiseIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.85s both;
+    animation: heroRiseIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.7s both;
   }
   .hero-section.is-animated .dot.active {
-    background: var(--brand-accent);
+    background: var(--brand-cyan);
     animation: heroDotPulse 2.2s ease-in-out infinite;
   }
 
@@ -663,15 +1011,19 @@
     .hero-bg-text,
     .hero-side-car,
     .hero-main-img-wrap,
+    .hero-glow-ring,
     .search-card,
+    .hero-kicker,
     .hero-title-box,
+    .hero-features,
     .carousel-dots {
       opacity: 1 !important;
       transform: none !important;
       animation: none !important;
     }
     .hero-bg-text { transform: translate(-50%, -50%) !important; }
-    .hero-side-car { opacity: 0.5 !important; transform: translateY(-50%) !important; }
+    .hero-glow-ring { transform: translate(-50%, -50%) !important; }
+    .hero-side-car { opacity: 0.45 !important; transform: translateY(-50%) !important; }
   }
 
   /* AESTHETIC ELEVATED DESIGN SYSTEM */
@@ -1479,31 +1831,49 @@
     .depot-slide img { height: 220px; }
     .footer-grid-top { grid-template-columns: 1fr 1fr; gap: 32px; }
     .vision-pillars { grid-template-columns: repeat(2, 1fr); }
-    .hero-side-car { width: 210px; }
-    .hero-side-car.left { left: -70px; }
-    .hero-side-car.right { right: -70px; }
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      align-items: start;
+      padding-top: 100px;
+      padding-bottom: 36px;
+      min-height: 0;
+    }
+    .hero-visual {
+      order: -1;
+      min-height: 280px;
+      padding-bottom: 0;
+    }
+    .hero-booking {
+      max-width: none;
+      order: 2;
+    }
+    .hero-stage { min-height: 260px; }
+    .hero-side-car { width: min(180px, 26vw); }
+    .hero-copy { max-width: none; }
   }
 
   /* --- Tablet: swap the nav for a slide-down drawer --- */
   @media (max-width: 900px) {
     .nav-toggle-btn { display: flex; }
     .lang-select { display: none; }
+    .btn-book-now { display: none; }
 
     .nav-links {
       position: fixed;
-      top: 86px;
+      top: 78px;
       left: 0;
       right: 0;
       flex-direction: column;
       align-items: stretch;
       gap: 0;
       padding: 6px 24px 18px;
-      background: #ffffff;
-      border-bottom: 1px solid var(--border-color);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.10);
-      color: #203D4F;
+      background: #0a1a22;
+      border-bottom: 1px solid rgba(105, 200, 226, 0.18);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      color: #ffffff;
       font-size: 15px;
-      max-height: calc(100vh - 86px);
+      max-height: calc(100vh - 78px);
       overflow-y: auto;
       transform: translateY(-100%);
       visibility: hidden;
@@ -1517,24 +1887,25 @@
     .nav-links a {
       padding: 15px 4px;
       border-radius: 0;
-      color: #203D4F;
+      color: rgba(255, 255, 255, 0.9);
       background: transparent;
-      border-bottom: 1px solid #f1f5f9;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
     .nav-links a:hover, .nav-links a.active {
-      color: var(--brand-accent);
+      color: var(--brand-cyan);
       background: transparent;
     }
+    .nav-links a.active::after { display: none; }
     .nav-links a:last-child { border-bottom: none; }
 
-    /* Hero: drop the side previews and stack the car over its price box */
     .hero-side-car { display: none; }
     .hero-stage {
       flex-direction: column;
       min-height: 0;
       gap: 4px;
     }
-    .hero-main-img-wrap { width: min(460px, 92%); }
+    .hero-main-img-wrap { width: min(420px, 88%); }
+    .hero-glow-ring { width: min(300px, 70%); }
   }
 
   /* --- Large phone / small tablet --- */
@@ -1542,33 +1913,112 @@
     :root { --section-space: 28px; }
     .section-main-heading { font-size: 26px; }
 
-    /* Search bar becomes a 2-up card stack */
-    .search-card {
-      gap: 8px;
-      padding: 12px;
-      border-radius: 16px;
+    .hero-section { min-height: 0; }
+    .hero-features { gap: 14px 20px; }
+    .search-body {
+      grid-template-columns: 1fr;
+      padding: 16px;
+      gap: 14px;
     }
     .search-row {
-      flex-wrap: wrap;
-      gap: 8px;
+      grid-template-columns: 1fr;
+      gap: 12px;
     }
-    .search-row-locations {
-      border-bottom: none;
-      padding-bottom: 0;
-      margin-bottom: 0;
+    .search-actions {
+      align-self: stretch;
+      width: 100%;
+      margin-top: 0;
     }
-    .search-field {
-      flex: 1 1 calc(50% - 4px);
-      min-width: 140px;
-      border-right: none;
-      background: #f8fafc;
-      border: 1px solid var(--border-color);
+
+    /* Phone / small tablet: dropdowns become a bottom sheet so they
+       stay on screen and are easy to tap. */
+    .picker-panel.open {
+      left: 12px !important;
+      right: 12px !important;
+      top: auto !important;
+      bottom: max(12px, env(safe-area-inset-bottom)) !important;
+      width: auto !important;
+      max-width: none !important;
+      max-height: min(78dvh, 560px) !important;
+      overflow-y: auto;
+      border-radius: 22px;
+      padding-bottom: 14px;
+      transform: none !important;
+    }
+    .picker-panel.open.is-sheet .picker-sheet-head {
+      display: block;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #ffffff;
+      text-align: center;
+      padding: 6px 44px 12px;
+      margin: -4px -4px 6px;
+    }
+    .picker-grab {
+      display: block;
+      width: 42px;
+      height: 4px;
+      border-radius: 4px;
+      background: #e5e7eb;
+      margin: 2px auto 12px;
+    }
+    .picker-sheet-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111827;
+    }
+    .picker-sheet-close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      background: #ffffff;
+      color: #111827;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .picker-panel.is-sheet .time-option {
+      min-height: 48px;
+      font-size: 15px;
       border-radius: 12px;
-      padding: 10px 14px;
+    }
+    .picker-panel.is-sheet .cal-header,
+    .picker-panel.is-sheet .cal-weekdays,
+    .picker-panel.is-sheet .cal-grid {
+      max-width: 336px;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .picker-panel.is-sheet .cal-weekdays,
+    .picker-panel.is-sheet .cal-grid {
+      justify-items: center;
+    }
+    .picker-panel.is-sheet .cal-weekdays span {
+      width: 44px;
+    }
+    .picker-panel.is-sheet .cal-day {
+      width: 44px;
+      height: 44px;
+      max-width: none;
+      aspect-ratio: auto;
+      margin: 0;
+      font-size: 15px;
+    }
+    .picker-panel.is-sheet .cal-nav {
+      width: 40px;
+      height: 40px;
     }
     .btn-search {
       width: 100%;
-      margin-left: 0;
+      min-width: 0;
       padding: 14px;
       font-size: 14px;
     }
@@ -1636,10 +2086,14 @@
     .nav-links { padding: 6px 16px 18px; }
 
     /* Hero typography scales down */
+    .hero-inner { padding-top: 92px; padding-bottom: 28px; }
     .hero-bg-text { -webkit-text-stroke-width: 1px; }
-    .hero-stage { margin-bottom: 12px; }
-    .hero-title-box h1 { font-size: 22px; }
-    .hero-title-box p { font-size: 13px; }
+    .hero-visual { min-height: 220px; }
+    .hero-title-box h1 { font-size: 32px; letter-spacing: -0.8px; }
+    .hero-title-box p { font-size: 13.5px; }
+    .hero-features { flex-direction: column; gap: 12px; }
+    .search-row { gap: 10px; }
+    .datetime-box .search-field .picker-trigger { padding: 0 10px; }
 
     .section-main-heading { font-size: 23px; letter-spacing: -0.4px; }
     .section-subtext { font-size: 13.5px; margin-bottom: 26px; }
@@ -1670,7 +2124,6 @@
     .icon-circle-btn { width: 34px; height: 34px; }
 
     .search-field { flex: 1 1 100%; }
-    .picker-panel.date-panel { width: min(292px, calc(100vw - 48px)); }
     .section-main-heading { font-size: 21px; }
     .vision-icon-halo { width: 38px; height: 38px; border-radius: 12px; font-size: 17px; }
     .faq-badge-tag { display: none; }
@@ -1711,7 +2164,7 @@
 <body>
 
 <!-- HEADER -->
-<header class="site-header">
+<header class="site-header" id="siteHeader">
   <div class="container header-wrap">
     <a href="index.html" class="brand" aria-label="HYRECABS — Home">
       <img src="images/logo-cars.png" alt="HYRECABS" class="brand-logo" />
@@ -1727,16 +2180,14 @@
     </nav>
 
     <div class="header-actions">
+      <button class="icon-circle-btn" aria-label="Support" title="Support">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+      </button>
       <div class="lang-select">
         <span>🇺🇸 EN</span>
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
-      <button class="icon-circle-btn" aria-label="Search">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      </button>
-      <button class="icon-circle-btn" aria-label="Shopping Cart">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-      </button>
+      <a href="#heroSearchForm" class="btn-book-now">Book Now</a>
       <button class="nav-toggle-btn" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="primaryNav">
         <span></span><span></span><span></span>
       </button>
@@ -1748,110 +2199,168 @@
 <!-- MAIN CONTENT -->
 <main>
   
-  <!-- HERO SECTION (PERFECT UNCHANGED HERO BANNER) -->
-  <section class="hero-section container">
+  <!-- HERO SECTION — dark full-bleed VoltHire-style banner -->
+  <section class="hero-section">
+    <div class="container hero-inner">
 
-    <!-- Hero Display Stage -->
-    <div class="hero-stage">
-      <div class="hero-bg-text" id="heroBgText">HYRECABS EXECUTIVE SEDAN</div>
-      
-      <!-- Side preview cars -->
-      <img src="images/car_hatchback.png" class="hero-side-car left" alt="Preview Car Left" />
-      <img src="images/car_sedan.png" class="hero-side-car right" alt="Preview Car Right" />
+      <div class="hero-copy">
+        <div class="hero-kicker">Premium Cab Rentals · Kerala</div>
 
-      <!-- Main Center Cab PNG -->
-      <div class="hero-main-img-wrap">
-        <img id="heroMainImg" src="images/hero_car.png" alt="Norco Fluid HT 1 Cab" />
+        <div class="hero-title-box">
+          <h1>
+            Drive Kerala.
+            <span class="hero-accent">Rent Premium.</span>
+          </h1>
+          <div class="hero-vehicle-label" id="heroTitle">PREMIUM SUV</div>
+          <p id="heroDesc">Spacious premium SUV comfort with powerful performance — ideal for family trips and highway cruising across Kerala.</p>
+        </div>
+
+        <div class="hero-features">
+          <div class="hero-feature">
+            <div class="hero-feature-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17h14v-5l-2-5H7L5 12v5z"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/></svg>
+            </div>
+            <div>
+              <strong>Premium Fleet</strong>
+              <span>Sedans &amp; luxury</span>
+            </div>
+          </div>
+          <div class="hero-feature">
+            <div class="hero-feature-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <strong>Across Kerala</strong>
+              <span>City to coast</span>
+            </div>
+          </div>
+          <div class="hero-feature">
+            <div class="hero-feature-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            </div>
+            <div>
+              <strong>Flexible Plans</strong>
+              <span>Hourly to multi-day</span>
+            </div>
+          </div>
+        </div>
+
       </div>
 
-    </div>
-
-    <!-- Sleek Floating Horizontal Search Form -->
-    <form action="search-results.html" method="GET" class="search-card" id="heroSearchForm">
-      <div class="search-row search-row-locations">
-      <div class="search-field" data-picker="place">
-        <label>Pickup Location</label>
-        <button type="button" class="picker-trigger" aria-haspopup="listbox" aria-expanded="false">
-          <span class="picker-icon" aria-hidden="true">📍</span>
-          <span class="picker-value" data-display>Kochi — Kaloor</span>
-          <svg class="picker-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <input type="hidden" name="pickup" value="Kochi — Kaloor" data-hidden />
-        <div class="picker-panel place-panel" role="listbox" aria-label="Choose pickup location"></div>
+      <div class="hero-visual">
+        <div class="hero-stage">
+          <div class="hero-glow-ring" aria-hidden="true"></div>
+          <div class="hero-bg-text" id="heroBgText">PREMIUM SUV</div>
+          <div class="hero-main-img-wrap">
+            <img id="heroMainImg" src="images/hero_car.png" alt="HyreCabs Premium SUV" />
+          </div>
+        </div>
+        <div class="carousel-dots">
+          <div class="dot active" onclick="switchHero(0)"></div>
+          <div class="dot" onclick="switchHero(1)"></div>
+          <div class="dot" onclick="switchHero(2)"></div>
+        </div>
       </div>
 
-      <div class="search-field" data-picker="place">
-        <label>Drop-off Location</label>
-        <button type="button" class="picker-trigger" aria-haspopup="listbox" aria-expanded="false">
-          <span class="picker-icon" aria-hidden="true">🏁</span>
-          <span class="picker-value" data-display>Kottayam</span>
-          <svg class="picker-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <input type="hidden" name="dropoff" value="Kottayam" data-hidden />
-        <div class="picker-panel place-panel" role="listbox" aria-label="Choose drop-off location"></div>
-      </div>
+      <div class="hero-booking">
+        <form action="search-results.html" method="GET" class="search-card" id="heroSearchForm">
+          <div class="search-body">
+            <div class="search-main">
+              <div class="search-row">
+                <div class="search-field" data-picker="place">
+                  <label>Pick-up Location</label>
+                  <button type="button" class="picker-trigger" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="picker-value" data-display>Kochi — Kaloor</span>
+                    <span class="picker-icon" aria-hidden="true">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </span>
+                    <svg class="picker-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                  </button>
+                  <input type="hidden" name="pickup" value="Kochi — Kaloor" data-hidden />
+                  <div class="picker-panel place-panel" role="listbox" aria-label="Choose pickup location"></div>
+                </div>
+
+                <div class="search-datetime">
+                  <label>Pick-up Date &amp; Time</label>
+                  <div class="datetime-box">
+                    <div class="search-field" data-picker="date">
+                      <button type="button" class="picker-trigger" aria-haspopup="dialog" aria-expanded="false">
+                        <span class="picker-icon" aria-hidden="true">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                        </span>
+                        <span class="picker-value" data-display>10 Sep 2026</span>
+                      </button>
+                      <input type="hidden" name="startDate" value="2026-09-10" data-hidden />
+                      <div class="picker-panel date-panel" role="dialog" aria-label="Choose start date"></div>
+                    </div>
+                    <div class="datetime-divider" aria-hidden="true"></div>
+                    <div class="search-field" data-picker="time">
+                      <button type="button" class="picker-trigger" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="picker-value" data-display>10:00 AM</span>
+                        <svg class="picker-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                      </button>
+                      <input type="hidden" name="startTime" value="10:00 AM" data-hidden />
+                      <div class="picker-panel time-panel" role="listbox" aria-label="Choose start time"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="search-row">
+                <div class="search-field" data-picker="place">
+                  <label>Drop-off Location</label>
+                  <button type="button" class="picker-trigger" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="picker-value" data-display>Kottayam</span>
+                    <span class="picker-icon" aria-hidden="true">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </span>
+                    <svg class="picker-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                  </button>
+                  <input type="hidden" name="dropoff" value="Kottayam" data-hidden />
+                  <div class="picker-panel place-panel" role="listbox" aria-label="Choose drop-off location"></div>
+                </div>
+
+                <div class="search-datetime">
+                  <label>Drop-off Date &amp; Time</label>
+                  <div class="datetime-box">
+                    <div class="search-field" data-picker="date">
+                      <button type="button" class="picker-trigger" aria-haspopup="dialog" aria-expanded="false">
+                        <span class="picker-icon" aria-hidden="true">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                        </span>
+                        <span class="picker-value" data-display>13 Sep 2026</span>
+                      </button>
+                      <input type="hidden" name="endDate" value="2026-09-13" data-hidden />
+                      <div class="picker-panel date-panel" role="dialog" aria-label="Choose end date"></div>
+                    </div>
+                    <div class="datetime-divider" aria-hidden="true"></div>
+                    <div class="search-field" data-picker="time">
+                      <button type="button" class="picker-trigger" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="picker-value" data-display>10:00 AM</span>
+                        <svg class="picker-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                      </button>
+                      <input type="hidden" name="endTime" value="10:00 AM" data-hidden />
+                      <div class="picker-panel time-panel" role="listbox" aria-label="Choose end time"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="search-actions">
+              <button type="submit" class="btn-search">
+                Find My Cab
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </button>
+              <div class="search-note">
+                Driver age: 21+
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
 
-      <div class="search-row search-row-schedule">
-      <div class="search-field" data-picker="date">
-        <label>Start Date</label>
-        <button type="button" class="picker-trigger" aria-haspopup="dialog" aria-expanded="false">
-          <span class="picker-icon" aria-hidden="true">📅</span>
-          <span class="picker-value" data-display>10 Sep 2026</span>
-          <svg class="picker-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <input type="hidden" name="startDate" value="2026-09-10" data-hidden />
-        <div class="picker-panel date-panel" role="dialog" aria-label="Choose start date"></div>
-      </div>
-
-      <div class="search-field" data-picker="time">
-        <label>Start Time</label>
-        <button type="button" class="picker-trigger" aria-haspopup="listbox" aria-expanded="false">
-          <span class="picker-icon" aria-hidden="true">🕒</span>
-          <span class="picker-value" data-display>10:00 AM</span>
-          <svg class="picker-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <input type="hidden" name="startTime" value="10:00 AM" data-hidden />
-        <div class="picker-panel time-panel" role="listbox" aria-label="Choose start time"></div>
-      </div>
-
-      <div class="search-field" data-picker="date">
-        <label>End Date</label>
-        <button type="button" class="picker-trigger" aria-haspopup="dialog" aria-expanded="false">
-          <span class="picker-icon" aria-hidden="true">📅</span>
-          <span class="picker-value" data-display>13 Sep 2026</span>
-          <svg class="picker-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <input type="hidden" name="endDate" value="2026-09-13" data-hidden />
-        <div class="picker-panel date-panel" role="dialog" aria-label="Choose end date"></div>
-      </div>
-
-      <div class="search-field" data-picker="time">
-        <label>End Time</label>
-        <button type="button" class="picker-trigger" aria-haspopup="listbox" aria-expanded="false">
-          <span class="picker-icon" aria-hidden="true">🕒</span>
-          <span class="picker-value" data-display>10:00 AM</span>
-          <svg class="picker-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <input type="hidden" name="endTime" value="10:00 AM" data-hidden />
-        <div class="picker-panel time-panel" role="listbox" aria-label="Choose end time"></div>
-      </div>
-
-      <button type="submit" class="btn-search">Search</button>
-      </div>
-    </form>
-
-    <!-- Hero Title & Subtitle -->
-    <div class="hero-title-box">
-      <h1 id="heroTitle">HYRECABS EXECUTIVE SEDAN</h1>
-      <p id="heroDesc">The HyreCabs Executive Sedan offers executive comfort, powerful performance, and smooth highway cruising across Kerala.</p>
-    </div>
-
-    <!-- Carousel Dots -->
-    <div class="carousel-dots">
-      <div class="dot active" onclick="switchHero(0)"></div>
-      <div class="dot" onclick="switchHero(1)"></div>
-      <div class="dot" onclick="switchHero(2)"></div>
     </div>
   </section>
 
@@ -2261,6 +2770,17 @@
     window.addEventListener('resize', () => { if (window.innerWidth > 900) setOpen(false); });
   })();
 
+  // Sticky dark header after scrolling past hero top
+  (function initHeaderScroll() {
+    const header = document.getElementById('siteHeader');
+    if (!header) return;
+    const onScroll = () => {
+      header.classList.toggle('is-scrolled', window.scrollY > 24);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+
   // Custom date calendar + time dropdown for hero search
   (function initSearchPickers() {
     const TIMES = [
@@ -2297,35 +2817,171 @@
       return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
     }
 
-    function closeAll(except) {
-      document.querySelectorAll('.search-field[data-picker]').forEach((field) => {
-        if (field === except) return;
-        const trigger = field.querySelector('.picker-trigger');
-        const panel = field.querySelector('.picker-panel');
-        if (trigger) trigger.setAttribute('aria-expanded', 'false');
-        if (panel) panel.classList.remove('open');
-      });
+    const sheetQuery = window.matchMedia('(max-width: 860px)');
+    let backdrop = null;
+    let scrollLockY = 0;
+    let pageLocked = false;
+
+    function useSheet() {
+      return sheetQuery.matches;
     }
 
-    function placePanel(field) {
-      const panel = field.querySelector('.picker-panel');
-      if (!panel) return;
-      panel.style.left = '0';
-      panel.style.right = 'auto';
-      requestAnimationFrame(() => {
-        const rect = panel.getBoundingClientRect();
-        if (rect.right > window.innerWidth - 12) {
-          panel.style.left = 'auto';
-          panel.style.right = '0';
+    function ensureBackdrop() {
+      if (backdrop) return backdrop;
+      backdrop = document.createElement('div');
+      backdrop.className = 'picker-backdrop';
+      backdrop.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeAll();
+      });
+      document.body.appendChild(backdrop);
+      return backdrop;
+    }
+
+    function lockPage() {
+      if (pageLocked) return;
+      scrollLockY = window.scrollY || window.pageYOffset || 0;
+      document.body.classList.add('picker-lock');
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollLockY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+      pageLocked = true;
+    }
+
+    function unlockPage() {
+      if (!pageLocked) return;
+      document.body.classList.remove('picker-lock');
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+      pageLocked = false;
+      window.scrollTo(0, scrollLockY);
+    }
+
+    function closeAll() {
+      document.querySelectorAll('.picker-panel.open').forEach((panel) => {
+        panel.classList.remove('open', 'is-sheet');
+        panel.style.left = '';
+        panel.style.top = '';
+        panel.style.width = '';
+        panel.style.maxHeight = '';
+        const field = panel._ownerField;
+        if (field) {
+          const trigger = field.querySelector('.picker-trigger');
+          if (trigger) trigger.setAttribute('aria-expanded', 'false');
         }
       });
+      document.querySelectorAll('.picker-trigger[aria-expanded="true"]').forEach((trigger) => {
+        trigger.setAttribute('aria-expanded', 'false');
+      });
+      if (backdrop) backdrop.classList.remove('show');
+      unlockPage();
+    }
+
+    function mountSheetHead(panel, title) {
+      const head = document.createElement('div');
+      head.className = 'picker-sheet-head';
+      const grab = document.createElement('span');
+      grab.className = 'picker-grab';
+      grab.setAttribute('aria-hidden', 'true');
+      const label = document.createElement('div');
+      label.className = 'picker-sheet-title';
+      label.textContent = title;
+      const closeBtn = document.createElement('button');
+      closeBtn.type = 'button';
+      closeBtn.className = 'picker-sheet-close';
+      closeBtn.setAttribute('aria-label', 'Close');
+      closeBtn.textContent = '×';
+      closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeAll();
+      });
+      head.append(grab, label, closeBtn);
+      panel.prepend(head);
+    }
+
+    function scrollActiveIntoView(panel) {
+      const active = panel.querySelector('.time-option.active');
+      if (!active) return;
+      const head = panel.querySelector('.picker-sheet-head');
+      const headH = head ? head.offsetHeight : 0;
+      const top = active.offsetTop - headH;
+      const bottom = top + active.offsetHeight;
+      if (top < panel.scrollTop) panel.scrollTop = Math.max(0, top);
+      else if (bottom > panel.scrollTop + panel.clientHeight) {
+        panel.scrollTop = bottom - panel.clientHeight;
+      }
+    }
+
+    function positionPanel(field) {
+      const panel = field._panel;
+      const trigger = field.querySelector('.picker-trigger');
+      if (!panel || !trigger) return;
+
+      if (panel.parentElement !== document.body) {
+        document.body.appendChild(panel);
+      }
+
+      if (useSheet()) {
+        panel.classList.add('is-sheet');
+        panel.style.left = '';
+        panel.style.top = '';
+        panel.style.width = '';
+        panel.style.maxHeight = '';
+        ensureBackdrop().classList.add('show');
+        lockPage();
+        requestAnimationFrame(() => scrollActiveIntoView(panel));
+        return;
+      }
+
+      panel.classList.remove('is-sheet');
+      if (backdrop) backdrop.classList.remove('show');
+      unlockPage();
+
+      const type = field.getAttribute('data-picker');
+      const rect = trigger.getBoundingClientRect();
+      const margin = 12;
+      const gap = 8;
+      const width = type === 'date'
+        ? Math.min(300, window.innerWidth - margin * 2)
+        : Math.min(Math.max(Math.round(rect.width), 180), window.innerWidth - margin * 2);
+
+      panel.style.width = width + 'px';
+      panel.style.maxHeight = '';
+
+      const spaceBelow = window.innerHeight - rect.bottom - gap - margin;
+      const spaceAbove = rect.top - gap - margin;
+      const needed = panel.scrollHeight;
+      const minDown = type === 'date' ? 280 : 150;
+      const openBelow = spaceBelow >= Math.min(needed, minDown) || spaceBelow >= spaceAbove;
+      const room = Math.max(160, openBelow ? spaceBelow : spaceAbove);
+      const maxH = Math.min(type === 'date' ? 440 : 320, room);
+      if (needed > maxH) panel.style.maxHeight = maxH + 'px';
+
+      let left = type === 'time' ? rect.right - width : rect.left;
+      left = Math.max(margin, Math.min(left, window.innerWidth - width - margin));
+
+      const visibleH = Math.min(needed, maxH);
+      let top = openBelow ? rect.bottom + gap : rect.top - gap - visibleH;
+      top = Math.max(margin, Math.min(top, window.innerHeight - visibleH - margin));
+
+      panel.style.left = Math.round(left) + 'px';
+      panel.style.top = Math.round(top) + 'px';
+      requestAnimationFrame(() => scrollActiveIntoView(panel));
     }
 
     function buildPlacePanel(field) {
-      const panel = field.querySelector('.picker-panel');
+      const panel = field._panel;
       const hidden = field.querySelector('[data-hidden]');
       const display = field.querySelector('[data-display]');
       panel.innerHTML = '';
+      mountSheetHead(panel, 'Pick-up location');
+      const label = field.querySelector('label');
+      if (label) panel.querySelector('.picker-sheet-title').textContent = label.textContent.trim();
       PLACES.forEach((place) => {
         const btn = document.createElement('button');
         btn.type = 'button';
@@ -2344,10 +3000,12 @@
     }
 
     function buildTimePanel(field) {
-      const panel = field.querySelector('.picker-panel');
+      const panel = field._panel;
       const hidden = field.querySelector('[data-hidden]');
       const display = field.querySelector('[data-display]');
+      const hiddenName = hidden.name || '';
       panel.innerHTML = '';
+      mountSheetHead(panel, hiddenName === 'endTime' ? 'Drop-off Time' : 'Pick-up Time');
       TIMES.forEach((t) => {
         const btn = document.createElement('button');
         btn.type = 'button';
@@ -2366,15 +3024,17 @@
     }
 
     function buildDatePanel(field, viewDate) {
-      const panel = field.querySelector('.picker-panel');
+      const panel = field._panel;
       const hidden = field.querySelector('[data-hidden]');
       const display = field.querySelector('[data-display]');
       const selected = parseISO(hidden.value);
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       const view = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1);
+      const hiddenName = hidden.name || '';
 
       panel.innerHTML = '';
+      mountSheetHead(panel, hiddenName === 'endDate' ? 'Drop-off Date' : 'Pick-up Date');
 
       const header = document.createElement('div');
       header.className = 'cal-header';
@@ -2383,9 +3043,9 @@
       prev.className = 'cal-nav';
       prev.setAttribute('aria-label', 'Previous month');
       prev.textContent = '‹';
-      const title = document.createElement('div');
-      title.className = 'cal-title';
-      title.textContent = `${MONTHS[view.getMonth()]} ${view.getFullYear()}`;
+      const titleEl = document.createElement('div');
+      titleEl.className = 'cal-title';
+      titleEl.textContent = `${MONTHS[view.getMonth()]} ${view.getFullYear()}`;
       const next = document.createElement('button');
       next.type = 'button';
       next.className = 'cal-nav';
@@ -2394,12 +3054,14 @@
       prev.addEventListener('click', (e) => {
         e.stopPropagation();
         buildDatePanel(field, new Date(view.getFullYear(), view.getMonth() - 1, 1));
+        if (panel.classList.contains('open')) positionPanel(field);
       });
       next.addEventListener('click', (e) => {
         e.stopPropagation();
         buildDatePanel(field, new Date(view.getFullYear(), view.getMonth() + 1, 1));
+        if (panel.classList.contains('open')) positionPanel(field);
       });
-      header.append(prev, title, next);
+      header.append(prev, titleEl, next);
       panel.appendChild(header);
 
       const weekdays = document.createElement('div');
@@ -2460,6 +3122,9 @@
       const display = field.querySelector('[data-display]');
       if (!trigger || !panel || !hidden) return;
 
+      field._panel = panel;
+      panel._ownerField = field;
+
       if (type === 'time') {
         display.textContent = hidden.value;
         buildTimePanel(field);
@@ -2479,15 +3144,25 @@
           if (type === 'time') buildTimePanel(field);
           else if (type === 'place') buildPlacePanel(field);
           else buildDatePanel(field, parseISO(hidden.value));
+          if (panel.parentElement !== document.body) document.body.appendChild(panel);
           panel.classList.add('open');
           trigger.setAttribute('aria-expanded', 'true');
-          placePanel(field);
+          positionPanel(field);
         }
       });
 
       panel.addEventListener('click', (e) => e.stopPropagation());
     });
 
+    function onViewportChange(e) {
+      const panel = document.querySelector('.picker-panel.open');
+      if (!panel || !panel._ownerField) return;
+      if (e && e.type === 'scroll' && (e.target === panel || (e.target && panel.contains(e.target)))) return;
+      positionPanel(panel._ownerField);
+    }
+
+    window.addEventListener('resize', onViewportChange);
+    window.addEventListener('scroll', onViewportChange, true);
     document.addEventListener('click', () => closeAll());
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeAll();
@@ -2497,31 +3172,31 @@
   // Hero Carousel logic
   const heroes = [
     {
-      title: "NORCO FLUID HT 1",
-      bgText: "NORCO FLUID HT 1",
+      title: "PREMIUM SUV",
+      bgText: "PREMIUM SUV",
       price: "11.00 €",
-      size: "Medium",
+      size: "Large",
       weight: "195 KG",
       img: "images/hero_car.png",
-      desc: "The HyreCabs Executive Sedan offers executive comfort, powerful performance, and smooth highway cruising across Kerala."
+      desc: "Spacious premium SUV comfort with powerful performance — ideal for family trips and highway cruising across Kerala."
     },
     {
-      title: "SUZUKI V-STROM DL 1050RR",
-      bgText: "V-STROM 1050",
+      title: "EXECUTIVE SEDAN",
+      bgText: "EXECUTIVE SEDAN",
       price: "100.55 €",
       size: "Large",
       weight: "247 KG",
       img: "images/car_luxury.png",
-      desc: "The Suzuki V-Strom DL 1050RR brings master touring ability, long-travel suspension, and ultimate adventure comfort."
+      desc: "The HyreCabs Executive Sedan offers executive comfort, powerful performance, and smooth highway cruising across Kerala."
     },
     {
-      title: "HONDA CBR650R",
-      bgText: "HONDA CBR650R",
+      title: "CITY TAXI",
+      bgText: "CITY TAXI",
       price: "84.28 €",
       size: "Medium",
       weight: "208 KG",
       img: "images/car_sedan.png",
-      desc: "High-revving inline four-cylinder sportcar performance with comfortable ergonomic handlebars for everyday riding."
+      desc: "Reliable premium city cab for airport transfers, daily rides, and seamless travel across Kerala."
     }
   ];
 
@@ -2542,10 +3217,13 @@
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const applyCopy = () => {
-      title.innerText = h.title;
-      bg.innerText = h.bgText;
-      img.src = h.img;
-      desc.innerText = h.desc;
+      if (title) title.innerText = h.title;
+      if (bg) bg.innerText = h.bgText;
+      if (img) {
+        img.src = h.img;
+        img.alt = h.title;
+      }
+      if (desc) desc.innerText = h.desc;
       document.querySelectorAll('.carousel-dots .dot').forEach((dot, i) => {
         dot.classList.toggle('active', i === index);
       });
