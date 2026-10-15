@@ -10,17 +10,23 @@
 <style>
   :root {
     --bg-page: #ffffff;
+    --header-gradient:
+      radial-gradient(480px 140px at 8% -30%, rgba(255, 255, 255, 0.28), transparent 62%),
+      linear-gradient(105deg, #0c3344 0%, #14566c 55%, #1a7a96 100%);
+    --footer-gradient:
+      radial-gradient(640px 240px at 92% -20%, rgba(105, 200, 226, 0.5), transparent 58%),
+      linear-gradient(165deg, #0c3344 0%, #134e63 58%, #1a6f86 100%);
     --bg-card: #ffffff;
     --bg-thumb: #f5f5f5;
     --text-primary: #000000;
     --text-muted: #6b6b6b;
     --text-light: #A7A7A7;
-    --border-color: #e5e5e5;
-    --brand-accent: #203D4F;
-    --brand-cyan: #5AC4E6;
-    --brand-yellow: #5AC4E6; /* Signal Amber */
+    --border-color: #d4eef5;
+    --brand-accent: #1a6f86;
+    --brand-cyan: #69c8e2;
+    --brand-yellow: #69c8e2; /* Signal Amber */
     --brand-dark: #000000;
-    --brand-blue: #5AC4E6; /* Petrol Blue */
+    --brand-blue: #69c8e2; /* Petrol Blue */
     --brand-grey: #A7A7A7; /* Road Dust Grey */
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
     --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
@@ -61,11 +67,18 @@
 
   /* HEADER */
   header.site-header {
-    background: #ffffff;
-    border-bottom: 1px solid var(--border-color);
+    background: var(--header-gradient);
+    border-bottom: none;
+    box-shadow: 0 10px 28px rgba(12, 51, 68, 0.18);
     position: sticky;
     top: 0;
     z-index: 100;
+  }
+  header.site-header::after {
+    content: "";
+    display: block;
+    height: 3px;
+    background: linear-gradient(90deg, #69c8e2 0%, #ffffff 50%, #69c8e2 100%);
   }
   .header-wrap {
     display: flex;
@@ -90,13 +103,16 @@
     gap: 32px;
     font-size: 14px;
     font-weight: 600;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.92);
   }
   .nav-links a {
-    transition: color 0.2s ease;
+    padding: 8px 14px;
+    border-radius: 999px;
+    transition: background 0.2s ease, color 0.2s ease;
   }
   .nav-links a:hover, .nav-links a.active {
-    color: var(--text-primary);
+    color: #0c3344;
+    background: #69c8e2;
   }
   .header-actions {
     display: flex;
@@ -109,22 +125,22 @@
     gap: 6px;
     font-size: 13px;
     font-weight: 600;
-    color: var(--text-primary);
+    color: #ffffff;
     cursor: pointer;
   }
   .icon-circle-btn {
     width: 38px;
     height: 38px;
     border-radius: 50%;
-    border: 1px solid var(--border-color);
+    border: 1px solid rgba(255, 255, 255, 0.45);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-primary);
+    color: #ffffff;
     transition: all 0.2s ease;
   }
   .icon-circle-btn:hover {
-    background: #f1f3f6;
+    background: rgba(255, 255, 255, 0.18);
   }
 
   /* MOBILE NAV TOGGLE (HAMBURGER) */
@@ -133,7 +149,7 @@
     width: 40px;
     height: 40px;
     border-radius: 10px;
-    border: 1px solid var(--border-color);
+    border: 1px solid rgba(255, 255, 255, 0.45);
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -145,7 +161,7 @@
     width: 18px;
     height: 2px;
     border-radius: 2px;
-    background: var(--text-primary);
+    background: #ffffff;
     transition: transform 0.28s ease, opacity 0.18s ease;
   }
   .nav-toggle-btn.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
@@ -181,8 +197,8 @@
     align-items: center;
     gap: 6px;
     background: #F0F9FC;
-    border: 1.5px solid rgba(90, 196, 230, 0.4);
-    color: #203D4F;
+    border: 1.5px solid rgba(105, 200, 226, 0.4);
+    color: var(--brand-accent);
     font-size: 12px;
     font-weight: 700;
     padding: 6px 16px;
@@ -299,8 +315,8 @@
     outline: none;
   }
   .btn-update-search {
-    background: var(--brand-dark);
-    color: #ffffff;
+    background: var(--brand-cyan);
+    color: #203D4F;
     font-weight: 800;
     font-size: 13px;
     padding: 12px 24px;
@@ -308,8 +324,8 @@
     transition: background 0.2s ease;
   }
   .btn-update-search:hover {
-    background: var(--brand-yellow);
-    color: #12151a;
+    background: var(--brand-accent);
+    color: #ffffff;
   }
 
   /* CATEGORY FILTER CHIPS */
@@ -502,8 +518,8 @@
   }
 
   .btn-select-vehicle {
-    background: #203D4F;
-    color: #ffffff;
+    background: var(--brand-cyan);
+    color: #203D4F;
     font-size: 12px;
     font-weight: 800;
     padding: 10px 12px;
@@ -515,10 +531,10 @@
     white-space: nowrap;
     flex-shrink: 0;
     transition: all 0.2s ease;
-    box-shadow: 0 4px 12px rgba(90, 196, 230, 0.3);
+    box-shadow: 0 4px 12px rgba(105, 200, 226, 0.3);
   }
   .btn-select-vehicle:hover {
-    background: #0a0a0a;
+    background: var(--brand-accent);
     color: #ffffff;
     box-shadow: 0 4px 14px rgba(0,0,0,0.2);
     transform: translateY(-1px);
@@ -579,8 +595,8 @@
 
   .btn-confirm-booking {
     width: 100%;
-    background: #203D4F;
-    color: #ffffff;
+    background: var(--brand-cyan);
+    color: #203D4F;
     font-size: 15px;
     font-weight: 800;
     padding: 14px;
@@ -588,14 +604,15 @@
     transition: all 0.2s ease;
   }
   .btn-confirm-booking:hover {
-    background: #0a0a0a;
+    background: var(--brand-accent);
     color: #ffffff;
   }
 
   /* FOOTER */
   footer.site-footer {
-    background: #ffffff;
-    border-top: 1px solid var(--border-color);
+    background: var(--footer-gradient);
+    border-top: 3px solid #69c8e2;
+    color: #f4fcfe;
     padding: 56px 0 24px;
   }
   .footer-bottom {
@@ -606,7 +623,8 @@
     justify-content: space-between;
     align-items: center;
     font-size: 12px;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.86);
+    border-top-color: rgba(255, 255, 255, 0.22);
   }
   .footer-brand-block {
     display: flex;
@@ -617,6 +635,12 @@
     display: flex;
     gap: 16px;
     font-weight: 600;
+  }
+  .footer-links a {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .footer-links a:hover {
+    color: #69c8e2;
   }
   .footer-brand-logo {
     height: 44px;
@@ -650,6 +674,7 @@
       background: #ffffff;
       border-bottom: 1px solid var(--border-color);
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.10);
+      color: #203D4F;
       font-size: 15px;
       max-height: calc(100vh - 86px);
       overflow-y: auto;
@@ -664,7 +689,14 @@
     }
     .nav-links a {
       padding: 15px 4px;
+      border-radius: 0;
+      color: #203D4F;
+      background: transparent;
       border-bottom: 1px solid #f1f5f9;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--brand-accent);
+      background: transparent;
     }
     .nav-links a:last-child { border-bottom: none; }
 
