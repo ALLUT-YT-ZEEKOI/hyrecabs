@@ -929,7 +929,7 @@
               <span>●</span> Available for Instant Reserve
             </div>
             <h2 id="carStageTitle">HYRECABS EXECUTIVE SEDAN</h2>
-            <div class="sub-line">Chauffeur / Self-drive cab rental · Main Station Hub</div>
+            <div class="sub-line">Chauffeur / Self-drive cab rental · <span id="stageRoute">Kochi — Kaloor to Kottayam</span></div>
           </div>
         </div>
 
@@ -1035,7 +1035,7 @@
               </div>
               <div class="ticket-row">
                 <span class="t-label">Pickup Location</span>
-                <span class="t-value">Main Station Hub</span>
+                <span class="t-value" id="ticketPickup">Kochi — Kaloor</span>
               </div>
               <div class="ticket-row">
                 <span class="t-label">Total Paid</span>
@@ -1094,8 +1094,12 @@
 
         <div class="sidebar-detail-list">
           <div class="sidebar-detail-item">
-            <span>Pickup Hub:</span>
-            <strong>Main Station</strong>
+            <span>Pickup:</span>
+            <strong id="sidebarPickup">Kochi — Kaloor</strong>
+          </div>
+          <div class="sidebar-detail-item">
+            <span>Drop-off:</span>
+            <strong id="sidebarDropoff">Kottayam</strong>
           </div>
           <div class="sidebar-detail-item">
             <span>Dates:</span>
@@ -1151,6 +1155,17 @@
     const img = params.get('img');
     const startDate = params.get('startDate') || '2026-09-10';
     const endDate = params.get('endDate') || '2026-09-13';
+    const pickup = params.get('pickup') || 'Kochi — Kaloor';
+    const dropoff = params.get('dropoff') || 'Kottayam';
+
+    const pickupEl = document.getElementById('sidebarPickup');
+    const dropoffEl = document.getElementById('sidebarDropoff');
+    if (pickupEl) pickupEl.textContent = pickup;
+    if (dropoffEl) dropoffEl.textContent = dropoff;
+    const stageRoute = document.getElementById('stageRoute');
+    const ticketPickup = document.getElementById('ticketPickup');
+    if (stageRoute) stageRoute.textContent = `${pickup} to ${dropoff}`;
+    if (ticketPickup) ticketPickup.textContent = `${pickup} → ${dropoff}`;
 
     if (car) {
       document.getElementById('carStageTitle').textContent = car;

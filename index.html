@@ -27,8 +27,7 @@
     --brand-dark: #000000;
     --brand-blue: #69c8e2; /* Petrol Blue */
     --brand-grey: #A7A7A7; /* Road Dust Grey */
-    /* One rhythm for every section: each pads this much top and bottom,
-       so the gap between any two sections is exactly twice this value. */
+
     --section-space: 34px;
     --radius-card: 20px;
     --radius-pill: 30px;
@@ -261,14 +260,25 @@
     box-shadow: 0 10px 32px rgba(0, 0, 0, 0.06);
     border: 1.5px solid var(--border-color);
     display: flex;
-    align-items: center;
-    max-width: 860px;
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 920px;
     margin: 24px auto 32px;
-    padding: 8px 12px;
+    padding: 8px 12px 10px;
     position: relative;
     z-index: 10;
     opacity: 0;
     transform: translateY(24px);
+  }
+  .search-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  .search-row-locations {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 4px;
+    margin-bottom: 4px;
   }
   .search-field {
     flex: 1;
@@ -276,7 +286,10 @@
     text-align: left;
     border-right: 1px solid var(--border-color);
   }
-  .search-field:last-of-type {
+  .search-field:has(.picker-panel.open) {
+    z-index: 30;
+  }
+  .search-row .search-field:last-of-type {
     border-right: none;
   }
   .search-field label {
@@ -341,6 +354,14 @@
     height: 16px;
     color: #737373;
     transition: transform 0.2s ease;
+  }
+  .picker-panel.place-panel {
+    min-width: 240px;
+    padding: 8px;
+  }
+  .place-panel .time-option.active {
+    background: var(--brand-cyan);
+    color: #203D4F;
   }
   .picker-trigger[aria-expanded="true"] .picker-caret {
     transform: rotate(180deg);
@@ -1523,10 +1544,18 @@
 
     /* Search bar becomes a 2-up card stack */
     .search-card {
-      flex-wrap: wrap;
       gap: 8px;
       padding: 12px;
       border-radius: 16px;
+    }
+    .search-row {
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .search-row-locations {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
     }
     .search-field {
       flex: 1 1 calc(50% - 4px);
@@ -1739,6 +1768,31 @@
 
     <!-- Sleek Floating Horizontal Search Form -->
     <form action="search-results.html" method="GET" class="search-card" id="heroSearchForm">
+      <div class="search-row search-row-locations">
+      <div class="search-field" data-picker="place">
+        <label>Pickup Location</label>
+        <button type="button" class="picker-trigger" aria-haspopup="listbox" aria-expanded="false">
+          <span class="picker-icon" aria-hidden="true">📍</span>
+          <span class="picker-value" data-display>Kochi — Kaloor</span>
+          <svg class="picker-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <input type="hidden" name="pickup" value="Kochi — Kaloor" data-hidden />
+        <div class="picker-panel place-panel" role="listbox" aria-label="Choose pickup location"></div>
+      </div>
+
+      <div class="search-field" data-picker="place">
+        <label>Drop-off Location</label>
+        <button type="button" class="picker-trigger" aria-haspopup="listbox" aria-expanded="false">
+          <span class="picker-icon" aria-hidden="true">🏁</span>
+          <span class="picker-value" data-display>Kottayam</span>
+          <svg class="picker-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <input type="hidden" name="dropoff" value="Kottayam" data-hidden />
+        <div class="picker-panel place-panel" role="listbox" aria-label="Choose drop-off location"></div>
+      </div>
+      </div>
+
+      <div class="search-row search-row-schedule">
       <div class="search-field" data-picker="date">
         <label>Start Date</label>
         <button type="button" class="picker-trigger" aria-haspopup="dialog" aria-expanded="false">
@@ -1784,6 +1838,7 @@
       </div>
 
       <button type="submit" class="btn-search">Search</button>
+      </div>
     </form>
 
     <!-- Hero Title & Subtitle -->
@@ -2212,6 +2267,13 @@
       '09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
       '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM', '06:00 PM'
     ];
+    const PLACES = [
+      'Kochi — Kaloor',
+      'Cochin Airport (COK)',
+      'Kottayam',
+      'Kollam',
+      'Adoor'
+    ];
     const WEEKDAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
     const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
       'July', 'August', 'September', 'October', 'November', 'December'];
@@ -2256,6 +2318,28 @@
           panel.style.left = 'auto';
           panel.style.right = '0';
         }
+      });
+    }
+
+    function buildPlacePanel(field) {
+      const panel = field.querySelector('.picker-panel');
+      const hidden = field.querySelector('[data-hidden]');
+      const display = field.querySelector('[data-display]');
+      panel.innerHTML = '';
+      PLACES.forEach((place) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'time-option' + (hidden.value === place ? ' active' : '');
+        btn.setAttribute('role', 'option');
+        btn.setAttribute('aria-selected', hidden.value === place ? 'true' : 'false');
+        btn.textContent = place;
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          hidden.value = place;
+          display.textContent = place;
+          closeAll();
+        });
+        panel.appendChild(btn);
       });
     }
 
@@ -2379,6 +2463,9 @@
       if (type === 'time') {
         display.textContent = hidden.value;
         buildTimePanel(field);
+      } else if (type === 'place') {
+        display.textContent = hidden.value;
+        buildPlacePanel(field);
       } else {
         display.textContent = formatDisplay(hidden.value);
         buildDatePanel(field, parseISO(hidden.value));
@@ -2390,6 +2477,7 @@
         closeAll();
         if (!isOpen) {
           if (type === 'time') buildTimePanel(field);
+          else if (type === 'place') buildPlacePanel(field);
           else buildDatePanel(field, parseISO(hidden.value));
           panel.classList.add('open');
           trigger.setAttribute('aria-expanded', 'true');

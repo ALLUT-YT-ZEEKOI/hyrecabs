@@ -291,9 +291,13 @@
   }
   .edit-search-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr) auto;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
     align-items: end;
+  }
+  .edit-search-grid .btn-update-search {
+    grid-column: 1 / -1;
+    justify-self: start;
   }
   .edit-field label {
     display: block;
@@ -833,6 +837,26 @@
       <form onsubmit="updateSearchSummary(event)">
         <div class="edit-search-grid">
           <div class="edit-field">
+            <label>Pickup Location</label>
+            <select id="inputPickup">
+              <option value="Kochi — Kaloor" selected>Kochi — Kaloor</option>
+              <option value="Cochin Airport (COK)">Cochin Airport (COK)</option>
+              <option value="Kottayam">Kottayam</option>
+              <option value="Kollam">Kollam</option>
+              <option value="Adoor">Adoor</option>
+            </select>
+          </div>
+          <div class="edit-field">
+            <label>Drop-off Location</label>
+            <select id="inputDropoff">
+              <option value="Kochi — Kaloor">Kochi — Kaloor</option>
+              <option value="Cochin Airport (COK)">Cochin Airport (COK)</option>
+              <option value="Kottayam" selected>Kottayam</option>
+              <option value="Kollam">Kollam</option>
+              <option value="Adoor">Adoor</option>
+            </select>
+          </div>
+          <div class="edit-field">
             <label>Start Date</label>
             <input type="date" id="inputStartDate" value="2026-09-10" />
           </div>
@@ -871,12 +895,12 @@
     <div class="search-summary-card">
       <div class="summary-item">
         <span class="label">📍 Pickup:</span>
-        <span class="value" id="valPickup">Main Station (pickup)</span>
+        <span class="value" id="valPickup">Kochi — Kaloor</span>
       </div>
       <div class="summary-divider"></div>
       <div class="summary-item">
         <span class="label">🏁 Drop-off:</span>
-        <span class="value" id="valDropoff">Main Station (dropoff)</span>
+        <span class="value" id="valDropoff">Kottayam</span>
       </div>
       <div class="summary-divider"></div>
       <div class="summary-item">
@@ -1150,6 +1174,15 @@
     const startTime = params.get('startTime');
     const endDate = params.get('endDate');
     const endTime = params.get('endTime');
+    const pickup = params.get('pickup');
+    const dropoff = params.get('dropoff');
+
+    if (pickup) document.getElementById('inputPickup').value = pickup;
+    if (dropoff) document.getElementById('inputDropoff').value = dropoff;
+    renderLocations(
+      document.getElementById('inputPickup').value,
+      document.getElementById('inputDropoff').value
+    );
 
     if (startDate && endDate) {
       document.getElementById('inputStartDate').value = startDate;
@@ -1174,6 +1207,13 @@
       return `${day} ${months[monthIdx] || parts[1]} ${year}`;
     }
     return dateStr;
+  }
+
+  function renderLocations(pickup, dropoff) {
+    const pickupEl = document.getElementById('valPickup');
+    const dropoffEl = document.getElementById('valDropoff');
+    if (pickupEl) pickupEl.textContent = pickup || 'Kochi — Kaloor';
+    if (dropoffEl) dropoffEl.textContent = dropoff || 'Kottayam';
   }
 
   function calculateAndRenderSummary(startDateStr, startTimeStr, endDateStr, endTimeStr) {
@@ -1228,6 +1268,10 @@
     const sTime = document.getElementById('inputStartTime').value;
     const eDate = document.getElementById('inputEndDate').value;
     const eTime = document.getElementById('inputEndTime').value;
+    renderLocations(
+      document.getElementById('inputPickup').value,
+      document.getElementById('inputDropoff').value
+    );
 
     calculateAndRenderSummary(sDate, sTime, eDate, eTime);
     toggleEditDrawer();
@@ -1293,8 +1337,10 @@
     const sTime = document.getElementById('inputStartTime').value || '10:00 AM';
     const eDate = document.getElementById('inputEndDate').value || '2026-09-13';
     const eTime = document.getElementById('inputEndTime').value || '10:00 AM';
+    const pickup = document.getElementById('inputPickup').value || 'Kochi — Kaloor';
+    const dropoff = document.getElementById('inputDropoff').value || 'Kottayam';
 
-    const url = `booking.html?car=${encodeURIComponent(title)}&price=${encodeURIComponent(priceStr)}&img=${encodeURIComponent(imgPath)}&startDate=${encodeURIComponent(sDate)}&startTime=${encodeURIComponent(sTime)}&endDate=${encodeURIComponent(eDate)}&endTime=${encodeURIComponent(eTime)}`;
+    const url = `booking.html?car=${encodeURIComponent(title)}&price=${encodeURIComponent(priceStr)}&img=${encodeURIComponent(imgPath)}&pickup=${encodeURIComponent(pickup)}&dropoff=${encodeURIComponent(dropoff)}&startDate=${encodeURIComponent(sDate)}&startTime=${encodeURIComponent(sTime)}&endDate=${encodeURIComponent(eDate)}&endTime=${encodeURIComponent(eTime)}`;
     window.location.href = url;
   }
 </script>
