@@ -209,20 +209,19 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: #ffffff;
-    border: 1.5px solid var(--border-color);
-    color: var(--text-primary);
+    background: var(--brand-cyan);
+    border: none;
+    color: #0a1628;
     font-size: 13px;
-    font-weight: 700;
-    padding: 8px 18px;
-    border-radius: 24px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    font-weight: 800;
+    padding: 10px 20px;
+    border-radius: 999px;
+    box-shadow: none;
     transition: all 0.2s ease;
   }
   .btn-modify-search:hover {
-    background: #1e232a;
-    color: #ffffff;
-    border-color: #1e232a;
+    background: #7fd4ea;
+    color: #0a1628;
   }
 
   .results-title {
@@ -320,16 +319,18 @@
   }
   .btn-update-search {
     background: var(--brand-cyan);
-    color: #203D4F;
+    color: #0a1628;
     font-weight: 800;
     font-size: 13px;
     padding: 12px 24px;
-    border-radius: 10px;
-    transition: background 0.2s ease;
+    border-radius: 999px;
+    border: none;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
   }
   .btn-update-search:hover {
-    background: var(--brand-accent);
-    color: #ffffff;
+    background: #7fd4ea;
+    color: #0a1628;
+    box-shadow: 0 8px 20px rgba(105, 200, 226, 0.35);
   }
 
   /* CATEGORY FILTER CHIPS */
@@ -383,165 +384,181 @@
     margin-bottom: 60px;
   }
 
-  /* CAR CARD DESIGN */
-  .car-card {
-    background: var(--bg-card);
-    border-radius: var(--radius-card);
+  /* DARK VEHICLE CARD (site-wide card UI) */
+  .car-card,
+  .vc-card {
+    background: #1a1a1a;
+    border-radius: 22px;
     overflow: hidden;
-    border: 1.5px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
-    transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
+    color: #ffffff;
   }
-  .car-card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-xl);
-    border-color: rgba(0, 0, 0, 0.15);
+  .car-card:hover,
+  .vc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
   }
 
-  .card-thumb {
-    background: radial-gradient(circle at 50% 65%, #ffffff 0%, #edf2f7 100%);
-    height: 200px;
+  .vc-media {
+    background: #e8eaed;
+    margin: 12px 12px 0;
+    border-radius: 16px;
+    height: 180px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 16px;
+    padding: 18px;
     position: relative;
   }
-  .card-thumb img {
-    max-height: 85%;
+  .vc-media img {
+    max-height: 90%;
+    max-width: 100%;
     object-fit: contain;
-    filter: drop-shadow(0 10px 14px rgba(0,0,0,0.12));
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: drop-shadow(0 10px 16px rgba(0,0,0,0.2));
+    transition: transform 0.35s ease;
   }
-  .car-card:hover .card-thumb img {
-    transform: scale(1.06) translateY(-4px);
+  .car-card:hover .vc-media img {
+    transform: scale(1.04) translateY(-3px);
   }
-
-  .card-top-tag {
+  .vc-badge {
     position: absolute;
     top: 12px;
-    left: 12px;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(0,0,0,0.06);
-    color: var(--text-primary);
-    border-radius: 20px;
-    padding: 4px 12px;
+    z-index: 2;
+    border-radius: 999px;
+    padding: 5px 12px;
     font-size: 11px;
     font-weight: 700;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    color: #ffffff;
+    backdrop-filter: blur(6px);
   }
-
-  .vendor-badge {
-    position: absolute;
-    top: 12px;
+  .vc-badge--type {
+    left: 12px;
+    background: rgba(30, 30, 30, 0.88);
+  }
+  .vc-badge--status {
     right: 12px;
-    background: #f1f5f9;
-    color: #64748b;
-    border-radius: 6px;
-    padding: 3px 8px;
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
+    background: rgba(55, 70, 90, 0.92);
   }
 
-  .card-body {
-    padding: 20px;
+  .vc-body {
+    padding: 16px 18px 18px;
     display: flex;
     flex-direction: column;
     flex: 1;
+    gap: 10px;
   }
-  .card-cat {
-    font-size: 10.5px;
-    font-weight: 800;
-    letter-spacing: 0.6px;
-    color: var(--brand-accent);
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-  .card-title {
-    font-size: 15px;
-    font-weight: 800;
-    line-height: 1.3;
-    margin-bottom: 12px;
-    color: var(--text-primary);
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .card-specs-box {
-    background: #f8fafc;
-    border-radius: 12px;
-    padding: 10px 12px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 16px;
-    border: 1px solid #f1f5f9;
-  }
-  .spec-chip {
-    font-size: 11px;
-    font-weight: 600;
-    color: #475569;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .card-footer-row {
-    margin-top: auto;
+  .vc-title-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
-    padding-top: 12px;
-    border-top: 1px solid var(--border-color);
   }
-  .price-box {
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
-    min-width: 0;
-  }
-  .price-main {
-    font-size: 15px;
+  .vc-title {
+    margin: 0;
+    font-size: 18px;
     font-weight: 800;
-    color: var(--text-primary);
+    color: #ffffff;
     line-height: 1.2;
-    white-space: nowrap;
-    letter-spacing: -0.02em;
   }
-  .price-unit {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text-muted);
-  }
-
-  .btn-select-vehicle {
-    background: var(--brand-cyan);
-    color: #203D4F;
-    font-size: 12px;
-    font-weight: 800;
-    padding: 10px 12px;
-    border-radius: 10px;
+  .vc-year {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 5px;
+    gap: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+    flex-shrink: 0;
+  }
+  .vc-star { color: #f5c542; }
+  .vc-plate {
+    font-size: 13px;
+    font-weight: 600;
+    color: #9ca3af;
+    margin-top: -4px;
+  }
+  .vc-specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 16px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #9ca3af;
+    padding: 4px 0 6px;
+  }
+  .vc-specs span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .vc-footer {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 8px;
+  }
+  .price-box,
+  .vc-price-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+  }
+  .vc-deposit {
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+    white-space: nowrap;
+  }
+  .price-main,
+  .vc-price-day {
+    font-size: 22px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+  .vc-price-day span,
+  .price-unit {
+    font-size: 13px;
+    font-weight: 600;
+    color: #9ca3af;
+  }
+  .vc-price-total {
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .vc-book,
+  .btn-select-vehicle {
+    background: var(--brand-cyan);
+    color: #0a1628;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 12px 20px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
     white-space: nowrap;
     flex-shrink: 0;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 12px rgba(105, 200, 226, 0.3);
+    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    font-family: inherit;
   }
+  .vc-book:hover,
   .btn-select-vehicle:hover {
-    background: var(--brand-accent);
-    color: #ffffff;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+    background: #7fd4ea;
     transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(105, 200, 226, 0.35);
   }
 
   /* MODAL FOR BOOKING CONFIRMATION */
@@ -600,16 +617,17 @@
   .btn-confirm-booking {
     width: 100%;
     background: var(--brand-cyan);
-    color: #203D4F;
+    color: #0a1628;
     font-size: 15px;
     font-weight: 800;
-    padding: 14px;
-    border-radius: 12px;
+    padding: 14px 24px;
+    border-radius: 999px;
+    border: none;
     transition: all 0.2s ease;
   }
   .btn-confirm-booking:hover {
-    background: var(--brand-accent);
-    color: #ffffff;
+    background: #7fd4ea;
+    color: #0a1628;
   }
 
   /* FOOTER */
@@ -745,13 +763,13 @@
     }
     .filter-chip { padding: 10px 18px; font-size: 13px; }
 
-    .card-thumb { height: 190px; }
-    .card-footer-row {
+    .vc-media { height: 170px; }
+    .vc-footer {
       flex-direction: column;
       align-items: stretch;
       gap: 12px;
     }
-    .btn-select-vehicle { justify-content: center; padding: 13px 16px; }
+    .vc-book { justify-content: center; width: 100%; }
 
     .modal-card { padding: 24px 20px; border-radius: 20px; }
     .modal-title { font-size: 19px; }
@@ -779,7 +797,7 @@
     .header-actions { gap: 8px; }
     .icon-circle-btn { width: 34px; height: 34px; }
     .results-title { font-size: 21px; }
-    .card-thumb { height: 170px; }
+    .vc-media { height: 150px; }
   }
 </style>
 </head>
@@ -930,176 +948,200 @@
     </div>
   </section>
 
-  <!-- VEHICLES GRID (4 CARDS PER ROW WITH PNG CAB CARDS) -->
+  <!-- VEHICLES GRID — dark vehicle cards -->
   <section class="grid-4col" id="carsGrid">
-    
-    <!-- Car Card 1 -->
-    <div class="car-card" data-category="hatchback">
-      <div class="card-thumb">
-        <span class="card-top-tag">⚡ Electric Sport</span>
-        <span class="vendor-badge">HYRECABS</span>
-        <img src="images/car_hatchback.png" alt="Specialized Rockhopper Elite" />
-      </div>
-      <div class="card-body">
-        <div class="card-cat">URBAN & HIGHWAY</div>
-        <h3 class="card-title">HYRECABS URBAN HATCHBACK</h3>
-        <div class="card-footer-row">
-          <div class="price-box" data-daily-rate="11.00">
-            <div class="price-main">€33.00 <span class="price-unit">total</span></div>
-          </div>
-          <button class="btn-select-vehicle" onclick="openBookingModal('HYRECABS URBAN HATCHBACK', '11.00', 'images/car_hatchback.png')">
-            Select Vehicle →
-          </button>
-        </div>
-      </div>
-    </div>
 
-    <!-- Car Card 2 -->
-    <div class="car-card" data-category="sedan">
-      <div class="card-thumb">
-        <span class="card-top-tag">🔥 Popular</span>
-        <span class="vendor-badge">HYRECABS</span>
-        <img src="images/car_sedan.png" alt="Norco Fluid FS 4 Black 29" />
+    <article class="car-card vc-card" data-category="hatchback">
+      <div class="vc-media">
+        <span class="vc-badge vc-badge--type">Car</span>
+        <span class="vc-badge vc-badge--status">Available</span>
+        <img src="images/car_hatchback.png" alt="Urban Hatchback" />
       </div>
-      <div class="card-body">
-        <div class="card-cat">CAFE RACER</div>
-        <h3 class="card-title">HYRECABS EXECUTIVE SEDAN</h3>
-        <div class="card-footer-row">
-          <div class="price-box" data-daily-rate="15.00">
-            <div class="price-main">€45.00 <span class="price-unit">total</span></div>
+      <div class="vc-body">
+        <div class="vc-title-row">
+          <h3 class="vc-title">Urban Hatchback</h3>
+          <span class="vc-year"><span class="vc-star">★</span> 2026</span>
+        </div>
+        <div class="vc-plate">KL07DL1101</div>
+        <div class="vc-specs"><span>👤 5 Seats</span><span>⛽ Petrol</span><span>⚙ Manual</span></div>
+        <div class="vc-footer">
+          <div class="price-box" data-daily-rate="1499" data-deposit="3000">
+            <div class="vc-deposit">Deposit: ₹3,000</div>
+            <div class="price-main vc-price-day">₹1,499 <span>/day</span></div>
+            <div class="vc-price-total">₹4,497 rental for your dates</div>
           </div>
-          <button class="btn-select-vehicle" onclick="openBookingModal('HYRECABS EXECUTIVE SEDAN', '15.00', 'images/car_sedan.png')">
-            Select Vehicle →
-          </button>
+          <button type="button" class="vc-book" onclick="openBookingModal('Urban Hatchback', '1499', 'images/car_hatchback.png')">Book Now</button>
         </div>
       </div>
-    </div>
+    </article>
 
-    <!-- Car Card 3 -->
-    <div class="car-card" data-category="luxury">
-      <div class="card-thumb">
-        <span class="card-top-tag">🏆 Flagship</span>
-        <span class="vendor-badge">HYRECABS</span>
-        <img src="images/car_luxury.png" alt="Ducati Panigale V4 S" />
+    <article class="car-card vc-card" data-category="sedan">
+      <div class="vc-media">
+        <span class="vc-badge vc-badge--type">Car</span>
+        <span class="vc-badge vc-badge--status">Available</span>
+        <img src="images/car_sedan.png" alt="Executive Sedan" />
       </div>
-      <div class="card-body">
-        <div class="card-cat">TRACK LUXURY CAB</div>
-        <h3 class="card-title">HYRECABS LUXURY CHAUFFEUR</h3>
-        <div class="card-footer-row">
-          <div class="price-box" data-daily-rate="45.00">
-            <div class="price-main">€135.00 <span class="price-unit">total</span></div>
+      <div class="vc-body">
+        <div class="vc-title-row">
+          <h3 class="vc-title">Executive Sedan</h3>
+          <span class="vc-year"><span class="vc-star">★</span> 2026</span>
+        </div>
+        <div class="vc-plate">KL07DL2153</div>
+        <div class="vc-specs"><span>👤 5 Seats</span><span>⛽ Petrol</span><span>⚙ Automatic</span></div>
+        <div class="vc-footer">
+          <div class="price-box" data-daily-rate="1999" data-deposit="5000">
+            <div class="vc-deposit">Deposit: ₹5,000</div>
+            <div class="price-main vc-price-day">₹1,999 <span>/day</span></div>
+            <div class="vc-price-total">₹5,997 rental for your dates</div>
           </div>
-          <button class="btn-select-vehicle" onclick="openBookingModal('HYRECABS LUXURY CHAUFFEUR', '45.00', 'images/car_luxury.png')">
-            Select Vehicle →
-          </button>
+          <button type="button" class="vc-book" onclick="openBookingModal('Executive Sedan', '1999', 'images/car_sedan.png')">Book Now</button>
         </div>
       </div>
-    </div>
+    </article>
 
-    <!-- Car Card 4 -->
-    <div class="car-card" data-category="ev">
-      <div class="card-thumb">
-        <span class="card-top-tag">🏁 Sportcar</span>
-        <span class="vendor-badge">HYRECABS</span>
-        <img src="images/car_ev.png" alt="Yamaha YZF-R1M Apex" />
+    <article class="car-card vc-card" data-category="luxury">
+      <div class="vc-media">
+        <span class="vc-badge vc-badge--type">Car</span>
+        <span class="vc-badge vc-badge--status">Available</span>
+        <img src="images/car_luxury.png" alt="Luxury Chauffeur" />
       </div>
-      <div class="card-body">
-        <div class="card-cat">APEX SERIES</div>
-        <h3 class="card-title">HYRECABS ELECTRIC EV CAB</h3>
-        <div class="card-footer-row">
-          <div class="price-box" data-daily-rate="52.00">
-            <div class="price-main">€156.00 <span class="price-unit">total</span></div>
+      <div class="vc-body">
+        <div class="vc-title-row">
+          <h3 class="vc-title">Luxury Chauffeur</h3>
+          <span class="vc-year"><span class="vc-star">★</span> 2026</span>
+        </div>
+        <div class="vc-plate">KL07DL4501</div>
+        <div class="vc-specs"><span>👤 5 Seats</span><span>⛽ Diesel</span><span>⚙ Automatic</span></div>
+        <div class="vc-footer">
+          <div class="price-box" data-daily-rate="4499" data-deposit="10000">
+            <div class="vc-deposit">Deposit: ₹10,000</div>
+            <div class="price-main vc-price-day">₹4,499 <span>/day</span></div>
+            <div class="vc-price-total">₹13,497 rental for your dates</div>
           </div>
-          <button class="btn-select-vehicle" onclick="openBookingModal('HYRECABS ELECTRIC EV CAB', '52.00', 'images/car_ev.png')">
-            Select Vehicle →
-          </button>
+          <button type="button" class="vc-book" onclick="openBookingModal('Luxury Chauffeur', '4499', 'images/car_luxury.png')">Book Now</button>
         </div>
       </div>
-    </div>
+    </article>
 
-    <!-- Car Card 5 -->
-    <div class="car-card" data-category="ev">
-      <div class="card-thumb">
-        <span class="card-top-tag">⭐ Top Rated</span>
-        <span class="vendor-badge">HYRECABS</span>
-        <img src="images/hero_car.png" alt="Yamaha R15 V4 Monster" />
+    <article class="car-card vc-card" data-category="ev">
+      <div class="vc-media">
+        <span class="vc-badge vc-badge--type">Car</span>
+        <span class="vc-badge vc-badge--status">Available</span>
+        <img src="images/car_ev.png" alt="Electric EV Cab" />
       </div>
-      <div class="card-body">
-        <div class="card-cat">SPORT TOURING</div>
-        <h3 class="card-title">HYRECABS PREMIUM SUV CAB</h3>
-        <div class="card-footer-row">
-          <div class="price-box" data-daily-rate="22.00">
-            <div class="price-main">€66.00 <span class="price-unit">total</span></div>
+      <div class="vc-body">
+        <div class="vc-title-row">
+          <h3 class="vc-title">Electric EV Cab</h3>
+          <span class="vc-year"><span class="vc-star">★</span> 2026</span>
+        </div>
+        <div class="vc-plate">KL07DL5202</div>
+        <div class="vc-specs"><span>👤 5 Seats</span><span>⚡ Electric</span><span>⚙ Automatic</span></div>
+        <div class="vc-footer">
+          <div class="price-box" data-daily-rate="2199" data-deposit="5000">
+            <div class="vc-deposit">Deposit: ₹5,000</div>
+            <div class="price-main vc-price-day">₹2,199 <span>/day</span></div>
+            <div class="vc-price-total">₹6,597 rental for your dates</div>
           </div>
-          <button class="btn-select-vehicle" onclick="openBookingModal('HYRECABS PREMIUM SUV CAB', '22.00', 'images/hero_car.png')">
-            Select Vehicle →
-          </button>
+          <button type="button" class="vc-book" onclick="openBookingModal('Electric EV Cab', '2199', 'images/car_ev.png')">Book Now</button>
         </div>
       </div>
-    </div>
+    </article>
 
-    <!-- Car Card 6 -->
-    <div class="car-card" data-category="luxury">
-      <div class="card-thumb">
-        <span class="card-top-tag">🔥 M Series</span>
-        <span class="vendor-badge">HYRECABS</span>
-        <img src="images/car_ev.png" alt="BMW S1000RR M Package" />
+    <article class="car-card vc-card" data-category="suv">
+      <div class="vc-media">
+        <span class="vc-badge vc-badge--type">Car</span>
+        <span class="vc-badge vc-badge--status">Available</span>
+        <img src="images/hero_car.png" alt="Premium SUV" />
       </div>
-      <div class="card-body">
-        <div class="card-cat">HYPER LUXURY CAB</div>
-        <h3 class="card-title">HYRECABS CHAUFFEUR EXECUTIVE</h3>
-        <div class="card-footer-row">
-          <div class="price-box" data-daily-rate="55.00">
-            <div class="price-main">€165.00 <span class="price-unit">total</span></div>
+      <div class="vc-body">
+        <div class="vc-title-row">
+          <h3 class="vc-title">Premium SUV</h3>
+          <span class="vc-year"><span class="vc-star">★</span> 2026</span>
+        </div>
+        <div class="vc-plate">KL07DL2208</div>
+        <div class="vc-specs"><span>👤 5 Seats</span><span>⛽ Diesel</span><span>⚙ Automatic</span></div>
+        <div class="vc-footer">
+          <div class="price-box" data-daily-rate="2499" data-deposit="5000">
+            <div class="vc-deposit">Deposit: ₹5,000</div>
+            <div class="price-main vc-price-day">₹2,499 <span>/day</span></div>
+            <div class="vc-price-total">₹7,497 rental for your dates</div>
           </div>
-          <button class="btn-select-vehicle" onclick="openBookingModal('HYRECABS CHAUFFEUR EXECUTIVE', '55.00', 'images/car_ev.png')">
-            Select Vehicle →
-          </button>
+          <button type="button" class="vc-book" onclick="openBookingModal('Premium SUV', '2499', 'images/hero_car.png')">Book Now</button>
         </div>
       </div>
-    </div>
+    </article>
 
-    <!-- Car Card 7 -->
-    <div class="car-card" data-category="sedan">
-      <div class="card-thumb">
-        <span class="card-top-tag">🛡️ Adventure</span>
-        <span class="vendor-badge">HYRECABS</span>
-        <img src="images/car_luxury.png" alt="Suzuki V-Strom 1050 XT" />
+    <article class="car-card vc-card" data-category="luxury">
+      <div class="vc-media">
+        <span class="vc-badge vc-badge--type">Car</span>
+        <span class="vc-badge vc-badge--status">Available</span>
+        <img src="images/car_luxury.png" alt="Chauffeur Executive" />
       </div>
-      <div class="card-body">
-        <div class="card-cat">TOURING & TRAIL</div>
-        <h3 class="card-title">HYRECABS OUTSTATION SUV</h3>
-        <div class="card-footer-row">
-          <div class="price-box" data-daily-rate="38.00">
-            <div class="price-main">€114.00 <span class="price-unit">total</span></div>
+      <div class="vc-body">
+        <div class="vc-title-row">
+          <h3 class="vc-title">Chauffeur Executive</h3>
+          <span class="vc-year"><span class="vc-star">★</span> 2026</span>
+        </div>
+        <div class="vc-plate">KL07DL5509</div>
+        <div class="vc-specs"><span>👤 5 Seats</span><span>⛽ Petrol</span><span>⚙ Automatic</span></div>
+        <div class="vc-footer">
+          <div class="price-box" data-daily-rate="5499" data-deposit="12000">
+            <div class="vc-deposit">Deposit: ₹12,000</div>
+            <div class="price-main vc-price-day">₹5,499 <span>/day</span></div>
+            <div class="vc-price-total">₹16,497 rental for your dates</div>
           </div>
-          <button class="btn-select-vehicle" onclick="openBookingModal('HYRECABS OUTSTATION SUV', '38.00', 'images/car_luxury.png')">
-            Select Vehicle →
-          </button>
+          <button type="button" class="vc-book" onclick="openBookingModal('Chauffeur Executive', '5499', 'images/car_luxury.png')">Book Now</button>
         </div>
       </div>
-    </div>
+    </article>
 
-    <!-- Car Card 8 -->
-    <div class="car-card" data-category="hatchback">
-      <div class="card-thumb">
-        <span class="card-top-tag">⚡ Eco Sport</span>
-        <span class="vendor-badge">HYRECABS</span>
-        <img src="images/car_hatchback.png" alt="Zero SR/F Electric Super Naked" />
+    <article class="car-card vc-card" data-category="suv">
+      <div class="vc-media">
+        <span class="vc-badge vc-badge--type">Car</span>
+        <span class="vc-badge vc-badge--status">Available</span>
+        <img src="images/car_luxury.png" alt="Outstation SUV" />
       </div>
-      <div class="card-body">
-        <div class="card-cat">ZERO EMISSION</div>
-        <h3 class="card-title">HYRECABS ECO GREEN EV</h3>
-        <div class="card-footer-row">
-          <div class="price-box" data-daily-rate="30.00">
-            <div class="price-main">€90.00 <span class="price-unit">total</span></div>
+      <div class="vc-body">
+        <div class="vc-title-row">
+          <h3 class="vc-title">Outstation SUV</h3>
+          <span class="vc-year"><span class="vc-star">★</span> 2026</span>
+        </div>
+        <div class="vc-plate">KL07DL3807</div>
+        <div class="vc-specs"><span>👤 7 Seats</span><span>⛽ Diesel</span><span>⚙ Manual</span></div>
+        <div class="vc-footer">
+          <div class="price-box" data-daily-rate="3799" data-deposit="8000">
+            <div class="vc-deposit">Deposit: ₹8,000</div>
+            <div class="price-main vc-price-day">₹3,799 <span>/day</span></div>
+            <div class="vc-price-total">₹11,397 rental for your dates</div>
           </div>
-          <button class="btn-select-vehicle" onclick="openBookingModal('HYRECABS ECO GREEN EV', '30.00', 'images/car_hatchback.png')">
-            Select Vehicle →
-          </button>
+          <button type="button" class="vc-book" onclick="openBookingModal('Outstation SUV', '3799', 'images/car_luxury.png')">Book Now</button>
         </div>
       </div>
-    </div>
+    </article>
+
+    <article class="car-card vc-card" data-category="ev">
+      <div class="vc-media">
+        <span class="vc-badge vc-badge--type">Car</span>
+        <span class="vc-badge vc-badge--status">Available</span>
+        <img src="images/car_hatchback.png" alt="Eco Green EV" />
+      </div>
+      <div class="vc-body">
+        <div class="vc-title-row">
+          <h3 class="vc-title">Eco Green EV</h3>
+          <span class="vc-year"><span class="vc-star">★</span> 2026</span>
+        </div>
+        <div class="vc-plate">KL07DL3011</div>
+        <div class="vc-specs"><span>👤 4 Seats</span><span>⚡ Electric</span><span>⚙ Automatic</span></div>
+        <div class="vc-footer">
+          <div class="price-box" data-daily-rate="2099" data-deposit="4000">
+            <div class="vc-deposit">Deposit: ₹4,000</div>
+            <div class="price-main vc-price-day">₹2,099 <span>/day</span></div>
+            <div class="vc-price-total">₹6,297 rental for your dates</div>
+          </div>
+          <button type="button" class="vc-book" onclick="openBookingModal('Eco Green EV', '2099', 'images/car_hatchback.png')">Book Now</button>
+        </div>
+      </div>
+    </article>
 
   </section>
 
@@ -1244,16 +1286,22 @@
     updateCardEstTotals(diffDays);
   }
 
+  function formatINR(n) {
+    return '₹' + Math.round(n).toLocaleString('en-IN');
+  }
+
   function updateCardEstTotals(days) {
     const cards = document.querySelectorAll('.car-card');
     cards.forEach(card => {
       const priceBox = card.querySelector('.price-box');
       const priceElem = card.querySelector('.price-main');
+      const totalElem = card.querySelector('.vc-price-total');
       if (!priceBox || !priceElem) return;
       const rate = parseFloat(priceBox.dataset.dailyRate || '0');
       if (!rate) return;
-      const total = (rate * days).toFixed(2);
-      priceElem.innerHTML = `€${total} <span class="price-unit">total</span>`;
+      const total = rate * days;
+      priceElem.innerHTML = `${formatINR(rate)} <span>/day</span>`;
+      if (totalElem) totalElem.textContent = `${formatINR(total)} rental for your dates`;
     });
   }
 
