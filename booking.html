@@ -12,23 +12,23 @@
     --bg-page: #ffffff;
     --header-gradient:
       radial-gradient(480px 140px at 8% -30%, rgba(255, 255, 255, 0.28), transparent 62%),
-      linear-gradient(105deg, #0c3344 0%, #14566c 55%, #1a7a96 100%);
+      linear-gradient(105deg, #08304a 0%, #0c5688 55%, #1578b8 100%);
     --bg-card: #ffffff;
     --text-primary: #000000;
     --text-muted: #6b6b6b;
     --text-light: #A7A7A7;
-    --border-color: #d4eef5;
-    --brand-accent: #1a6f86;
-    --brand-cyan: #69c8e2;
-    --brand-yellow: #69c8e2; /* Signal Amber */
+    --border-color: #d3eaf8;
+    --brand-accent: #0c6eab;
+    --brand-cyan: #6eb8ee;
+    --brand-yellow: #6eb8ee; /* Signal Amber */
     --brand-dark: #000000;
-    --brand-blue: #69c8e2; /* Petrol Blue */
+    --brand-blue: #6eb8ee; /* Petrol Blue */
     --brand-grey: #A7A7A7; /* Road Dust Grey */
     --brand-dark-card: #171717;
     --success-green: #10b981;
     --radius-card: 20px;
     --shadow-soft: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
-    --shadow-glow: 0 12px 30px rgba(105, 200, 226, 0.35);
+    --shadow-glow: 0 12px 30px rgba(110, 184, 238, 0.35);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -73,7 +73,7 @@
   /* HEADER */
   header.site-header {
     background: #000000;
-    border-bottom: 1px solid rgba(105, 200, 226, 0.12);
+    border-bottom: 1px solid rgba(110, 184, 238, 0.12);
     box-shadow: none;
     position: sticky;
     top: 0;
@@ -111,7 +111,7 @@
     content: "";
     position: absolute;
     left: 12px; right: 12px; bottom: 2px;
-    height: 2px; border-radius: 2px; background: #69c8e2;
+    height: 2px; border-radius: 2px; background: #6eb8ee;
   }
   .header-actions { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
   .lang-select { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #fff; }
@@ -122,7 +122,7 @@
   }
   .btn-book-now {
     display: inline-flex; align-items: center; justify-content: center;
-    background: #69c8e2; color: #0a1628; font-size: 13.5px; font-weight: 800;
+    background: #6eb8ee; color: #06243c; font-size: 13.5px; font-weight: 800;
     padding: 12px 24px; border-radius: 999px; white-space: nowrap;
   }
   .nav-toggle-btn { display: none; }
@@ -139,8 +139,8 @@
     transition: background 0.2s ease, color 0.2s ease;
   }
   .btn-back-link:hover {
-    color: #0c3344;
-    background: #69c8e2;
+    color: #08304a;
+    background: #6eb8ee;
   }
 
   /* STEPPER */
@@ -183,7 +183,7 @@
     background: #0a0a0a;
     border-color: var(--brand-cyan);
     color: #ffffff;
-    box-shadow: 0 0 0 4px rgba(105, 200, 226, 0.35);
+    box-shadow: 0 0 0 4px rgba(110, 184, 238, 0.35);
     transform: scale(1.1);
   }
   .step-node.completed .step-circle {
@@ -334,8 +334,8 @@
   }
   .addon-check-row:has(input:checked) {
     border-color: var(--brand-accent);
-    background: #F0F9FC;
-    box-shadow: 0 4px 14px rgba(105, 200, 226, 0.15);
+    background: #e6f4fc;
+    box-shadow: 0 4px 14px rgba(110, 184, 238, 0.15);
   }
   .addon-check-row input[type="checkbox"] {
     width: 20px;
@@ -402,11 +402,11 @@
   .input-field-next:focus {
     background: #ffffff;
     border-color: var(--brand-accent);
-    box-shadow: 0 0 0 3px rgba(105, 200, 226, 0.25);
+    box-shadow: 0 0 0 3px rgba(110, 184, 238, 0.25);
   }
   .btn-action-inline {
     background: var(--brand-cyan);
-    color: #0a1628;
+    color: #06243c;
     font-weight: 800;
     font-size: 13px;
     padding: 0 22px;
@@ -415,8 +415,8 @@
     white-space: nowrap;
   }
   .btn-action-inline:hover {
-    background: #7fd4ea;
-    color: #0a1628;
+    background: #8ecff6;
+    color: #06243c;
   }
 
   /* ADVANCED STEP 3 CONFIRMATION UI & ANIMATIONS */
@@ -549,8 +549,8 @@
     text-transform: uppercase;
   }
   .ticket-id-badge {
-    background: rgba(105, 200, 226, 0.15);
-    border: 1px solid rgba(105, 200, 226, 0.35);
+    background: rgba(110, 184, 238, 0.15);
+    border: 1px solid rgba(110, 184, 238, 0.35);
     color: var(--brand-cyan);
     font-size: 12px;
     font-weight: 800;
@@ -638,7 +638,7 @@
   .btn-action-secondary {
     background: var(--brand-cyan);
     border: none;
-    color: #0a1628;
+    color: #06243c;
     font-size: 13.5px;
     font-weight: 800;
     padding: 12px 22px;
@@ -650,8 +650,8 @@
     transition: all 0.2s ease;
   }
   .btn-action-secondary:hover {
-    background: #7fd4ea;
-    color: #0a1628;
+    background: #8ecff6;
+    color: #06243c;
   }
 
   /* RIGHT SIDEBAR: ORDER SUMMARY CARD */
@@ -747,8 +747,8 @@
   }
 
   .sidebar-total-row {
-    background: #F0F9FC;
-    border: 1.5px solid rgba(105, 200, 226, 0.4);
+    background: #e6f4fc;
+    border: 1.5px solid rgba(110, 184, 238, 0.4);
     border-radius: 14px;
     padding: 16px;
     display: flex;
@@ -771,7 +771,7 @@
   .btn-next-step-cta {
     width: 100%;
     background: var(--brand-cyan);
-    color: #0a1628;
+    color: #06243c;
     font-size: 15px;
     font-weight: 900;
     padding: 16px 24px;
@@ -784,10 +784,10 @@
     gap: 8px;
   }
   .btn-next-step-cta:hover {
-    background: #7fd4ea;
-    color: #0a1628;
+    background: #8ecff6;
+    color: #06243c;
     transform: translateY(-2px);
-    box-shadow: 0 16px 36px rgba(105, 200, 226, 0.4);
+    box-shadow: 0 16px 36px rgba(110, 184, 238, 0.4);
   }
 
   /* =========================================================
@@ -895,10 +895,10 @@
      HYRECABS UNIFIED LUXURY HEADER
      ========================================================= */
   header.site-header {
-    background: rgba(5, 14, 24, 0.88);
+    background: #08304a;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(105, 200, 226, 0.16);
+    border-bottom: 1px solid rgba(110, 184, 238, 0.16);
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
     position: sticky;
     top: 0;
@@ -908,9 +908,9 @@
     transition: background 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
   }
   header.site-header.is-scrolled {
-    background: rgba(4, 10, 18, 0.96);
-    border-bottom: 1px solid rgba(105, 200, 226, 0.26);
-    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(105, 200, 226, 0.08);
+    background: #06243c;
+    border-bottom: 1px solid rgba(110, 184, 238, 0.26);
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(110, 184, 238, 0.08);
   }
   .header-wrap {
     display: flex;
@@ -953,8 +953,8 @@
     color: rgba(255, 255, 255, 0.86);
   }
   .nav-links a:hover {
-    color: #69c8e2;
-    background: rgba(105, 200, 226, 0.08);
+    color: #6eb8ee;
+    background: rgba(110, 184, 238, 0.08);
   }
   .nav-links a.active {
     color: #ffffff;
@@ -968,8 +968,8 @@
     bottom: -2px;
     height: 2.5px;
     border-radius: 2px;
-    background: linear-gradient(90deg, #69c8e2, #7fd4ea);
-    box-shadow: 0 0 10px rgba(105, 200, 226, 0.65);
+    background: linear-gradient(90deg, #6eb8ee, #8ecff6);
+    box-shadow: 0 0 10px rgba(110, 184, 238, 0.65);
   }
   .header-actions {
     display: flex;
@@ -982,21 +982,21 @@
     align-items: center;
     gap: 7px;
     padding: 7px 14px;
-    background: rgba(105, 200, 226, 0.08);
-    border: 1px solid rgba(105, 200, 226, 0.25);
+    background: rgba(110, 184, 238, 0.08);
+    border: 1px solid rgba(110, 184, 238, 0.25);
     border-radius: 999px;
-    color: #e2f4f8;
+    color: #e4f3fc;
     font-size: 12.5px;
     font-weight: 600;
     text-decoration: none;
     transition: all 0.2s ease;
   }
   .header-phone-badge:hover {
-    background: rgba(105, 200, 226, 0.18);
-    border-color: #69c8e2;
-    color: #69c8e2;
+    background: rgba(110, 184, 238, 0.18);
+    border-color: #6eb8ee;
+    color: #6eb8ee;
     transform: translateY(-1px);
-    box-shadow: 0 4px 14px rgba(105, 200, 226, 0.25);
+    box-shadow: 0 4px 14px rgba(110, 184, 238, 0.25);
   }
   .phone-pulse-dot {
     width: 7px;
@@ -1048,21 +1048,21 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    background: linear-gradient(135deg, #69c8e2 0%, #4fb2cd 100%);
-    color: #050e18;
+    background: linear-gradient(135deg, #6eb8ee 0%, #3aa6e6 100%);
+    color: #07263f;
     font-size: 13.5px;
     font-weight: 700;
     padding: 10px 22px;
     border-radius: 999px;
     border: none;
-    box-shadow: 0 4px 16px rgba(105, 200, 226, 0.32);
+    box-shadow: 0 4px 16px rgba(110, 184, 238, 0.32);
     transition: all 0.22s ease;
     white-space: nowrap;
     text-decoration: none;
   }
   .btn-book-now:hover {
-    background: linear-gradient(135deg, #7fd4ea 0%, #5ec3de 100%);
-    box-shadow: 0 6px 24px rgba(105, 200, 226, 0.55);
+    background: linear-gradient(135deg, #8ecff6 0%, #5ec3de 100%);
+    box-shadow: 0 6px 24px rgba(110, 184, 238, 0.55);
     transform: translateY(-1px);
     color: #040a12;
   }
@@ -1084,8 +1084,8 @@
     transition: all 0.2s ease;
   }
   .nav-toggle-btn:hover {
-    background: rgba(105, 200, 226, 0.14);
-    border-color: #69c8e2;
+    background: rgba(110, 184, 238, 0.14);
+    border-color: #6eb8ee;
   }
   .nav-toggle-btn span {
     display: block;
@@ -1102,7 +1102,7 @@
   .nav-backdrop {
     position: fixed;
     inset: 78px 0 0;
-    background: rgba(4, 10, 18, 0.65);
+    background: rgba(6, 36, 60, 0.72);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     z-index: 998;
@@ -1122,9 +1122,9 @@
      HYRECABS UNIFIED LUXURY FOOTER
      ========================================================= */
   footer.site-footer {
-    background: radial-gradient(900px 340px at 50% 0%, rgba(105, 200, 226, 0.09), transparent 70%), linear-gradient(180deg, #050e18 0%, #03080e 100%);
-    border-top: 1px solid rgba(105, 200, 226, 0.18);
-    color: #e2f4f8;
+    background: radial-gradient(900px 340px at 50% 0%, rgba(110, 184, 238, 0.09), transparent 70%), linear-gradient(180deg, #07263f 0%, #041628 100%);
+    border-top: 1px solid rgba(110, 184, 238, 0.18);
+    color: #e4f3fc;
     padding-top: 56px;
     padding-bottom: 28px;
     position: relative;
@@ -1138,7 +1138,7 @@
     left: 10%;
     right: 10%;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(105, 200, 226, 0.6), transparent);
+    background: linear-gradient(90deg, transparent, rgba(110, 184, 238, 0.6), transparent);
   }
   .footer-grid-top {
     display: grid;
@@ -1173,12 +1173,12 @@
     align-items: center;
     gap: 4px;
     padding: 4px 10px;
-    background: rgba(105, 200, 226, 0.08);
-    border: 1px solid rgba(105, 200, 226, 0.2);
+    background: rgba(110, 184, 238, 0.08);
+    border: 1px solid rgba(110, 184, 238, 0.2);
     border-radius: 999px;
     font-size: 11px;
     font-weight: 600;
-    color: #69c8e2;
+    color: #6eb8ee;
   }
   .footer-social-links {
     display: flex;
@@ -1199,16 +1199,16 @@
     text-decoration: none;
   }
   .footer-social-links a:hover {
-    background: rgba(105, 200, 226, 0.18);
-    border-color: #69c8e2;
-    color: #69c8e2;
+    background: rgba(110, 184, 238, 0.18);
+    border-color: #6eb8ee;
+    color: #6eb8ee;
     transform: translateY(-2px);
-    box-shadow: 0 4px 14px rgba(105, 200, 226, 0.25);
+    box-shadow: 0 4px 14px rgba(110, 184, 238, 0.25);
   }
   .footer-col-h {
     font-size: 13px;
     font-weight: 800;
-    color: #69c8e2;
+    color: #6eb8ee;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     margin-bottom: 18px;
@@ -1235,7 +1235,7 @@
     display: inline-block;
   }
   .footer-links-list a:hover {
-    color: #69c8e2;
+    color: #6eb8ee;
     transform: translateX(3px);
   }
   .footer-contact-list li {
@@ -1293,7 +1293,7 @@
     transition: color 0.18s ease;
   }
   .footer-legal-links a:hover {
-    color: #69c8e2;
+    color: #6eb8ee;
   }
 
   /* Responsive Rules */
@@ -1318,10 +1318,10 @@
       align-items: stretch;
       gap: 0;
       padding: 12px 24px 24px;
-      background: rgba(5, 14, 24, 0.98);
+      background: #08304a;
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(105, 200, 226, 0.22);
+      border-bottom: 1px solid rgba(110, 184, 238, 0.22);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
       color: #ffffff;
       font-size: 15px;
@@ -1344,7 +1344,7 @@
       font-size: 15px;
     }
     .nav-links a:hover, .nav-links a.active {
-      color: #69c8e2;
+      color: #6eb8ee;
       background: transparent;
     }
     .nav-links a.active::after { display: none; }
@@ -1362,9 +1362,9 @@
       gap: 8px;
       padding: 12px !important;
       border-radius: 12px !important;
-      background: rgba(105, 200, 226, 0.1) !important;
-      border: 1px solid rgba(105, 200, 226, 0.3) !important;
-      color: #69c8e2 !important;
+      background: rgba(110, 184, 238, 0.1) !important;
+      border: 1px solid rgba(110, 184, 238, 0.3) !important;
+      color: #6eb8ee !important;
       font-weight: 600;
     }
     .mobile-nav-wa {
@@ -1385,8 +1385,8 @@
       gap: 8px;
       padding: 12px !important;
       border-radius: 12px !important;
-      background: linear-gradient(135deg, #69c8e2 0%, #4fb2cd 100%) !important;
-      color: #050e18 !important;
+      background: linear-gradient(135deg, #6eb8ee 0%, #3aa6e6 100%) !important;
+      color: #07263f !important;
       font-weight: 700;
     }
   }
@@ -1783,19 +1783,19 @@
         <div class="footer-col-h">24/7 Kerala HQ</div>
         <ul class="footer-links-list footer-contact-list">
           <li>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#69c8e2" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6eb8ee" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             <span>JNI Stadium Complex, Kaloor, Kochi, Kerala — 682017</span>
           </li>
           <li>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#69c8e2" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6eb8ee" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             <a href="tel:+917034060000">+91 70340 60000</a>
           </li>
           <li>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#69c8e2" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6eb8ee" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
             <a href="mailto:info@hyrecabs.com">info@hyrecabs.com</a>
           </li>
           <li>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#69c8e2" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6eb8ee" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></svg>
             <a href="https://hyrecabs.com">www.hyrecabs.com</a>
           </li>
         </ul>
@@ -1991,7 +1991,7 @@
     canvas.height = window.innerHeight;
 
     const particles = [];
-    const colors = ['#1a6f86', '#69c8e2', '#000000', '#ffffff', '#69c8e2', '#A7A7A7'];
+    const colors = ['#0c6eab', '#6eb8ee', '#000000', '#ffffff', '#6eb8ee', '#A7A7A7'];
 
     for (let i = 0; i < 120; i++) {
       particles.push({
