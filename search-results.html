@@ -404,183 +404,193 @@
     margin-bottom: 60px;
   }
 
-  /* Light vehicle card — teal/cyan blend with the rest of the site */
+  /* Photo vehicle card */
   .car-card,
   .vc-card {
-    background: #ffffff;
-    border-radius: 22px;
+    position: relative;
+    align-self: start;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    border-radius: 24px;
     overflow: hidden;
-    border: 1px solid #d3eaf8;
-    box-shadow: 0 10px 28px rgba(12, 51, 68, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    color: #111827;
+    color: #fff;
+    background: linear-gradient(160deg, #3b5560 0%, #16242b 100%);
+    box-shadow: 0 18px 36px -14px rgba(0,0,0,.45);
+    isolation: isolate;
+    transition: transform .3s ease, box-shadow .3s ease;
   }
   .car-card:hover,
   .vc-card:hover {
     transform: translateY(-4px);
-    border-color: #b5dff6;
-    box-shadow: 0 16px 36px rgba(12, 51, 68, 0.12);
+    box-shadow: 0 22px 40px -12px rgba(0,0,0,.5);
   }
-
-  .vc-media {
-    background: linear-gradient(180deg, #f4faff 0%, #e4f3fb 100%);
-    margin: 12px 12px 0;
-    border-radius: 16px;
-    height: 180px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 18px;
-    position: relative;
-  }
-  .vc-media img {
-    max-height: 90%;
-    max-width: 100%;
-    object-fit: contain;
-    filter: drop-shadow(0 10px 16px rgba(0,0,0,0.2));
-    transition: transform 0.35s ease;
-  }
-  .car-card:hover .vc-media img {
-    transform: scale(1.04) translateY(-3px);
-  }
-  .vc-badge {
+  .vc-card > img {
     position: absolute;
-    top: 12px;
+    z-index: 0;
+    left: 4%;
+    right: 4%;
+    top: 17%;
+    width: 92%;
+    height: 30%;
+    object-fit: contain;
+    object-position: center;
+    filter: drop-shadow(0 16px 18px rgba(0,0,0,.45));
+    pointer-events: none;
+    transition: transform .35s ease;
+  }
+  .vc-card:hover > img { transform: scale(1.04); }
+  .vc-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      linear-gradient(to bottom, rgba(0,0,0,.45) 0%, rgba(0,0,0,0) 30%),
+      linear-gradient(to top, rgba(0,0,0,.82) 0%, rgba(0,0,0,.45) 38%, rgba(0,0,0,0) 62%);
+  }
+  .vc-top {
+    position: absolute;
     z-index: 2;
-    border-radius: 999px;
-    padding: 5px 12px;
-    font-size: 11px;
-    font-weight: 700;
-    color: #ffffff;
-    backdrop-filter: blur(6px);
-  }
-  .vc-badge--type {
-    left: 12px;
-    background: #0c5688;
-  }
-  .vc-badge--status {
-    right: 12px;
-    background: #0c6eab;
-  }
-
-  .vc-body {
-    padding: 16px 18px 18px;
+    top: 18px;
+    left: 20px;
+    right: 18px;
     display: flex;
-    flex-direction: column;
-    flex: 1;
-    gap: 10px;
-  }
-  .vc-title-row {
-    display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: flex-start;
     gap: 10px;
   }
   .vc-title {
     margin: 0;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 800;
-    color: #08304a;
-    line-height: 1.2;
+    letter-spacing: -.01em;
+    line-height: 1.15;
+    color: #fff;
   }
   .vc-year {
+    margin: 3px 0 0;
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+    opacity: .85;
+  }
+  .vc-avail {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    font-size: 13px;
-    font-weight: 700;
-    color: #0c6eab;
+    gap: 6px;
     flex-shrink: 0;
-  }
-  .vc-star { color: #e0a106; }
-  .vc-plate {
-    font-size: 13px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.18);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font-size: 12px;
     font-weight: 600;
-    color: #6b7280;
-    margin-top: -4px;
+    color: #fff;
+  }
+  .vc-avail::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4fe39a;
+  }
+  .vc-details {
+    position: absolute;
+    z-index: 2;
+    left: 20px;
+    right: 84px;
+    bottom: 20px;
+  }
+  .vc-plate {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 5px;
+    background: rgba(255,255,255,.92);
+    color: #111;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: .08em;
   }
   .vc-specs {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px 16px;
-    font-size: 12.5px;
-    font-weight: 600;
-    color: #6b7280;
-    padding: 4px 0 6px;
+    gap: 4px 12px;
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+    opacity: .92;
   }
-  .vc-specs span {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+  .price-box { min-width: 0; }
+  .vc-price,
+  .price-main {
+    margin: 10px 0 0;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -.02em;
+    line-height: 1;
+    color: #fff;
+    white-space: nowrap;
   }
-  .vc-footer {
-    margin-top: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding-top: 8px;
-  }
-  .price-box,
-  .vc-price-col {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    flex: 1;
-    min-width: 0;
+  .vc-price small,
+  .vc-price span,
+  .price-main small,
+  .price-main span {
+    font-size: 13px;
+    font-weight: 500;
+    opacity: .8;
+    letter-spacing: 0;
   }
   .vc-deposit {
+    margin: 5px 0 0;
     font-size: 12px;
-    font-weight: 600;
-    color: #6b7280;
-    white-space: nowrap;
-  }
-  .price-main,
-  .vc-price-day {
-    font-size: 22px;
-    font-weight: 800;
-    color: #08304a;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    white-space: nowrap;
-  }
-  .vc-price-day span,
-  .price-unit {
-    font-size: 13px;
-    font-weight: 600;
-    color: #6b7280;
+    font-weight: 500;
+    color: #fff;
+    opacity: .75;
   }
   .vc-price-total {
-    font-size: 12px;
+    margin: 4px 0 0;
+    font-size: 11.5px;
     font-weight: 600;
-    color: #6b7280;
+    color: #fff;
+    opacity: .82;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .vc-book,
-  .btn-select-vehicle {
-    background: var(--brand-cyan);
-    color: #06243c;
-    font-size: 13px;
-    font-weight: 800;
-    padding: 12px 20px;
-    border-radius: 999px;
-    border: none;
+  .vc-go {
+    position: absolute;
+    z-index: 2;
+    right: 18px;
+    bottom: 18px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    border: 0;
     cursor: pointer;
-    white-space: nowrap;
-    flex-shrink: 0;
-    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
-    font-family: inherit;
+    background: linear-gradient(135deg, #6eb8ee 0%, #3aa6e6 100%);
+    color: #07263f;
+    box-shadow: 0 8px 18px -4px rgba(110, 184, 238, .65);
+    transition: transform .2s, background .15s;
   }
-  .vc-book:hover,
-  .btn-select-vehicle:hover {
-    background: #8ecff6;
-    transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(110, 184, 238, 0.35);
+  .vc-go svg {
+    width: 22px;
+    height: 22px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform .2s;
   }
+  .vc-go:hover { background: linear-gradient(135deg, #8ecff6 0%, #5ec3de 100%); }
+  .vc-go:hover svg { transform: translate(2px, -2px); }
+  .vc-go:active { transform: scale(.94); }
+  .vc-go:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 
   /* MODAL FOR BOOKING CONFIRMATION */
   .modal-overlay {
@@ -786,13 +796,8 @@
     }
     .filter-chip { padding: 10px 18px; font-size: 13px; }
 
-    .vc-media { height: 170px; }
-    .vc-footer {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 12px;
-    }
-    .vc-book { justify-content: center; width: 100%; }
+    .vc-card { max-width: 420px; justify-self: center; }
+    .vc-title { font-size: 22px; }
 
     .modal-card { padding: 24px 20px; border-radius: 20px; }
     .modal-title { font-size: 19px; }
@@ -820,7 +825,6 @@
     .header-actions { gap: 8px; }
     .icon-circle-btn { width: 34px; height: 34px; }
     .results-title { font-size: 21px; }
-    .vc-media { height: 150px; }
   }
 
   /* =========================================================
@@ -1514,195 +1518,187 @@
   <section class="grid-4col" id="carsGrid">
 
     <article class="car-card vc-card" data-category="hatchback">
-      <div class="vc-media">
-        <span class="vc-badge vc-badge--type">Car</span>
-        <span class="vc-badge vc-badge--status">Available</span>
-        <img src="images/car_hatchback.png" alt="Urban Hatchback" />
-      </div>
-      <div class="vc-body">
-        <div class="vc-title-row">
+      <img src="images/car_hatchback.png" alt="Urban Hatchback" />
+      <div class="vc-top">
+        <div>
           <h3 class="vc-title">Urban Hatchback</h3>
-          <span class="vc-year"><span class="vc-star">★</span> 2026</span>
+          <p class="vc-year">2026</p>
         </div>
-        <div class="vc-plate">KL07DL1101</div>
-        <div class="vc-specs"><span>👤 5 Seats</span><span>⛽ Petrol</span><span>⚙ Manual</span></div>
-        <div class="vc-footer">
-          <div class="price-box" data-daily-rate="1499" data-deposit="3000">
-            <div class="vc-deposit">Deposit: ₹3,000</div>
-            <div class="price-main vc-price-day">₹1,499 <span>/day</span></div>
-            <div class="vc-price-total">₹4,497 rental for your dates</div>
-          </div>
-          <button type="button" class="vc-book" onclick="openBookingModal('Urban Hatchback', '1499', 'images/car_hatchback.png')">Book Now</button>
+        <span class="vc-avail">Available</span>
+      </div>
+      <div class="vc-details">
+        <span class="vc-plate">KL07 DL 1101</span>
+        <div class="vc-specs"><span>5 seats</span><span>Petrol</span><span>Manual</span></div>
+        <div class="price-box" data-daily-rate="1499" data-deposit="3000">
+          <p class="vc-price price-main">₹1,499 <span>/ day</span></p>
+          <p class="vc-deposit">Deposit ₹3,000</p>
+          <p class="vc-price-total">₹4,497 rental for your dates</p>
         </div>
       </div>
+      <button type="button" class="vc-go" aria-label="Book Urban Hatchback" onclick="openBookingModal('Urban Hatchback', '1499', 'images/car_hatchback.png')">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+      </button>
     </article>
 
     <article class="car-card vc-card" data-category="sedan">
-      <div class="vc-media">
-        <span class="vc-badge vc-badge--type">Car</span>
-        <span class="vc-badge vc-badge--status">Available</span>
-        <img src="images/car_sedan.png" alt="Executive Sedan" />
-      </div>
-      <div class="vc-body">
-        <div class="vc-title-row">
+      <img src="images/car_sedan.png" alt="Executive Sedan" />
+      <div class="vc-top">
+        <div>
           <h3 class="vc-title">Executive Sedan</h3>
-          <span class="vc-year"><span class="vc-star">★</span> 2026</span>
+          <p class="vc-year">2026</p>
         </div>
-        <div class="vc-plate">KL07DL2153</div>
-        <div class="vc-specs"><span>👤 5 Seats</span><span>⛽ Petrol</span><span>⚙ Automatic</span></div>
-        <div class="vc-footer">
-          <div class="price-box" data-daily-rate="1999" data-deposit="5000">
-            <div class="vc-deposit">Deposit: ₹5,000</div>
-            <div class="price-main vc-price-day">₹1,999 <span>/day</span></div>
-            <div class="vc-price-total">₹5,997 rental for your dates</div>
-          </div>
-          <button type="button" class="vc-book" onclick="openBookingModal('Executive Sedan', '1999', 'images/car_sedan.png')">Book Now</button>
+        <span class="vc-avail">Available</span>
+      </div>
+      <div class="vc-details">
+        <span class="vc-plate">KL07 DL 2153</span>
+        <div class="vc-specs"><span>5 seats</span><span>Petrol</span><span>Automatic</span></div>
+        <div class="price-box" data-daily-rate="1999" data-deposit="5000">
+          <p class="vc-price price-main">₹1,999 <span>/ day</span></p>
+          <p class="vc-deposit">Deposit ₹5,000</p>
+          <p class="vc-price-total">₹5,997 rental for your dates</p>
         </div>
       </div>
+      <button type="button" class="vc-go" aria-label="Book Executive Sedan" onclick="openBookingModal('Executive Sedan', '1999', 'images/car_sedan.png')">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+      </button>
     </article>
 
     <article class="car-card vc-card" data-category="luxury">
-      <div class="vc-media">
-        <span class="vc-badge vc-badge--type">Car</span>
-        <span class="vc-badge vc-badge--status">Available</span>
-        <img src="images/car_luxury.png" alt="Luxury Chauffeur" />
-      </div>
-      <div class="vc-body">
-        <div class="vc-title-row">
+      <img src="images/car_luxury.png" alt="Luxury Chauffeur" />
+      <div class="vc-top">
+        <div>
           <h3 class="vc-title">Luxury Chauffeur</h3>
-          <span class="vc-year"><span class="vc-star">★</span> 2026</span>
+          <p class="vc-year">2026</p>
         </div>
-        <div class="vc-plate">KL07DL4501</div>
-        <div class="vc-specs"><span>👤 5 Seats</span><span>⛽ Diesel</span><span>⚙ Automatic</span></div>
-        <div class="vc-footer">
-          <div class="price-box" data-daily-rate="4499" data-deposit="10000">
-            <div class="vc-deposit">Deposit: ₹10,000</div>
-            <div class="price-main vc-price-day">₹4,499 <span>/day</span></div>
-            <div class="vc-price-total">₹13,497 rental for your dates</div>
-          </div>
-          <button type="button" class="vc-book" onclick="openBookingModal('Luxury Chauffeur', '4499', 'images/car_luxury.png')">Book Now</button>
+        <span class="vc-avail">Available</span>
+      </div>
+      <div class="vc-details">
+        <span class="vc-plate">KL07 DL 4501</span>
+        <div class="vc-specs"><span>5 seats</span><span>Diesel</span><span>Automatic</span></div>
+        <div class="price-box" data-daily-rate="4499" data-deposit="10000">
+          <p class="vc-price price-main">₹4,499 <span>/ day</span></p>
+          <p class="vc-deposit">Deposit ₹10,000</p>
+          <p class="vc-price-total">₹13,497 rental for your dates</p>
         </div>
       </div>
+      <button type="button" class="vc-go" aria-label="Book Luxury Chauffeur" onclick="openBookingModal('Luxury Chauffeur', '4499', 'images/car_luxury.png')">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+      </button>
     </article>
 
     <article class="car-card vc-card" data-category="ev">
-      <div class="vc-media">
-        <span class="vc-badge vc-badge--type">Car</span>
-        <span class="vc-badge vc-badge--status">Available</span>
-        <img src="images/car_ev.png" alt="Electric EV Cab" />
-      </div>
-      <div class="vc-body">
-        <div class="vc-title-row">
+      <img src="images/car_ev.png" alt="Electric EV Cab" />
+      <div class="vc-top">
+        <div>
           <h3 class="vc-title">Electric EV Cab</h3>
-          <span class="vc-year"><span class="vc-star">★</span> 2026</span>
+          <p class="vc-year">2026</p>
         </div>
-        <div class="vc-plate">KL07DL5202</div>
-        <div class="vc-specs"><span>👤 5 Seats</span><span>⚡ Electric</span><span>⚙ Automatic</span></div>
-        <div class="vc-footer">
-          <div class="price-box" data-daily-rate="2199" data-deposit="5000">
-            <div class="vc-deposit">Deposit: ₹5,000</div>
-            <div class="price-main vc-price-day">₹2,199 <span>/day</span></div>
-            <div class="vc-price-total">₹6,597 rental for your dates</div>
-          </div>
-          <button type="button" class="vc-book" onclick="openBookingModal('Electric EV Cab', '2199', 'images/car_ev.png')">Book Now</button>
+        <span class="vc-avail">Available</span>
+      </div>
+      <div class="vc-details">
+        <span class="vc-plate">KL07 DL 5202</span>
+        <div class="vc-specs"><span>5 seats</span><span>Electric</span><span>Automatic</span></div>
+        <div class="price-box" data-daily-rate="2199" data-deposit="5000">
+          <p class="vc-price price-main">₹2,199 <span>/ day</span></p>
+          <p class="vc-deposit">Deposit ₹5,000</p>
+          <p class="vc-price-total">₹6,597 rental for your dates</p>
         </div>
       </div>
+      <button type="button" class="vc-go" aria-label="Book Electric EV Cab" onclick="openBookingModal('Electric EV Cab', '2199', 'images/car_ev.png')">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+      </button>
     </article>
 
     <article class="car-card vc-card" data-category="suv">
-      <div class="vc-media">
-        <span class="vc-badge vc-badge--type">Car</span>
-        <span class="vc-badge vc-badge--status">Available</span>
-        <img src="images/hero_car.png" alt="Premium SUV" />
-      </div>
-      <div class="vc-body">
-        <div class="vc-title-row">
+      <img src="images/hero_car.png" alt="Premium SUV" />
+      <div class="vc-top">
+        <div>
           <h3 class="vc-title">Premium SUV</h3>
-          <span class="vc-year"><span class="vc-star">★</span> 2026</span>
+          <p class="vc-year">2026</p>
         </div>
-        <div class="vc-plate">KL07DL2208</div>
-        <div class="vc-specs"><span>👤 5 Seats</span><span>⛽ Diesel</span><span>⚙ Automatic</span></div>
-        <div class="vc-footer">
-          <div class="price-box" data-daily-rate="2499" data-deposit="5000">
-            <div class="vc-deposit">Deposit: ₹5,000</div>
-            <div class="price-main vc-price-day">₹2,499 <span>/day</span></div>
-            <div class="vc-price-total">₹7,497 rental for your dates</div>
-          </div>
-          <button type="button" class="vc-book" onclick="openBookingModal('Premium SUV', '2499', 'images/hero_car.png')">Book Now</button>
+        <span class="vc-avail">Available</span>
+      </div>
+      <div class="vc-details">
+        <span class="vc-plate">KL07 DL 2208</span>
+        <div class="vc-specs"><span>5 seats</span><span>Diesel</span><span>Automatic</span></div>
+        <div class="price-box" data-daily-rate="2499" data-deposit="5000">
+          <p class="vc-price price-main">₹2,499 <span>/ day</span></p>
+          <p class="vc-deposit">Deposit ₹5,000</p>
+          <p class="vc-price-total">₹7,497 rental for your dates</p>
         </div>
       </div>
+      <button type="button" class="vc-go" aria-label="Book Premium SUV" onclick="openBookingModal('Premium SUV', '2499', 'images/hero_car.png')">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+      </button>
     </article>
 
     <article class="car-card vc-card" data-category="luxury">
-      <div class="vc-media">
-        <span class="vc-badge vc-badge--type">Car</span>
-        <span class="vc-badge vc-badge--status">Available</span>
-        <img src="images/car_luxury.png" alt="Chauffeur Executive" />
-      </div>
-      <div class="vc-body">
-        <div class="vc-title-row">
+      <img src="images/car_luxury.png" alt="Chauffeur Executive" />
+      <div class="vc-top">
+        <div>
           <h3 class="vc-title">Chauffeur Executive</h3>
-          <span class="vc-year"><span class="vc-star">★</span> 2026</span>
+          <p class="vc-year">2026</p>
         </div>
-        <div class="vc-plate">KL07DL5509</div>
-        <div class="vc-specs"><span>👤 5 Seats</span><span>⛽ Petrol</span><span>⚙ Automatic</span></div>
-        <div class="vc-footer">
-          <div class="price-box" data-daily-rate="5499" data-deposit="12000">
-            <div class="vc-deposit">Deposit: ₹12,000</div>
-            <div class="price-main vc-price-day">₹5,499 <span>/day</span></div>
-            <div class="vc-price-total">₹16,497 rental for your dates</div>
-          </div>
-          <button type="button" class="vc-book" onclick="openBookingModal('Chauffeur Executive', '5499', 'images/car_luxury.png')">Book Now</button>
+        <span class="vc-avail">Available</span>
+      </div>
+      <div class="vc-details">
+        <span class="vc-plate">KL07 DL 5509</span>
+        <div class="vc-specs"><span>5 seats</span><span>Petrol</span><span>Automatic</span></div>
+        <div class="price-box" data-daily-rate="5499" data-deposit="12000">
+          <p class="vc-price price-main">₹5,499 <span>/ day</span></p>
+          <p class="vc-deposit">Deposit ₹12,000</p>
+          <p class="vc-price-total">₹16,497 rental for your dates</p>
         </div>
       </div>
+      <button type="button" class="vc-go" aria-label="Book Chauffeur Executive" onclick="openBookingModal('Chauffeur Executive', '5499', 'images/car_luxury.png')">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+      </button>
     </article>
 
     <article class="car-card vc-card" data-category="suv">
-      <div class="vc-media">
-        <span class="vc-badge vc-badge--type">Car</span>
-        <span class="vc-badge vc-badge--status">Available</span>
-        <img src="images/car_luxury.png" alt="Outstation SUV" />
-      </div>
-      <div class="vc-body">
-        <div class="vc-title-row">
+      <img src="images/car_luxury.png" alt="Outstation SUV" />
+      <div class="vc-top">
+        <div>
           <h3 class="vc-title">Outstation SUV</h3>
-          <span class="vc-year"><span class="vc-star">★</span> 2026</span>
+          <p class="vc-year">2026</p>
         </div>
-        <div class="vc-plate">KL07DL3807</div>
-        <div class="vc-specs"><span>👤 7 Seats</span><span>⛽ Diesel</span><span>⚙ Manual</span></div>
-        <div class="vc-footer">
-          <div class="price-box" data-daily-rate="3799" data-deposit="8000">
-            <div class="vc-deposit">Deposit: ₹8,000</div>
-            <div class="price-main vc-price-day">₹3,799 <span>/day</span></div>
-            <div class="vc-price-total">₹11,397 rental for your dates</div>
-          </div>
-          <button type="button" class="vc-book" onclick="openBookingModal('Outstation SUV', '3799', 'images/car_luxury.png')">Book Now</button>
+        <span class="vc-avail">Available</span>
+      </div>
+      <div class="vc-details">
+        <span class="vc-plate">KL07 DL 3807</span>
+        <div class="vc-specs"><span>7 seats</span><span>Diesel</span><span>Manual</span></div>
+        <div class="price-box" data-daily-rate="3799" data-deposit="8000">
+          <p class="vc-price price-main">₹3,799 <span>/ day</span></p>
+          <p class="vc-deposit">Deposit ₹8,000</p>
+          <p class="vc-price-total">₹11,397 rental for your dates</p>
         </div>
       </div>
+      <button type="button" class="vc-go" aria-label="Book Outstation SUV" onclick="openBookingModal('Outstation SUV', '3799', 'images/car_luxury.png')">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+      </button>
     </article>
 
     <article class="car-card vc-card" data-category="ev">
-      <div class="vc-media">
-        <span class="vc-badge vc-badge--type">Car</span>
-        <span class="vc-badge vc-badge--status">Available</span>
-        <img src="images/car_hatchback.png" alt="Eco Green EV" />
-      </div>
-      <div class="vc-body">
-        <div class="vc-title-row">
+      <img src="images/car_hatchback.png" alt="Eco Green EV" />
+      <div class="vc-top">
+        <div>
           <h3 class="vc-title">Eco Green EV</h3>
-          <span class="vc-year"><span class="vc-star">★</span> 2026</span>
+          <p class="vc-year">2026</p>
         </div>
-        <div class="vc-plate">KL07DL3011</div>
-        <div class="vc-specs"><span>👤 4 Seats</span><span>⚡ Electric</span><span>⚙ Automatic</span></div>
-        <div class="vc-footer">
-          <div class="price-box" data-daily-rate="2099" data-deposit="4000">
-            <div class="vc-deposit">Deposit: ₹4,000</div>
-            <div class="price-main vc-price-day">₹2,099 <span>/day</span></div>
-            <div class="vc-price-total">₹6,297 rental for your dates</div>
-          </div>
-          <button type="button" class="vc-book" onclick="openBookingModal('Eco Green EV', '2099', 'images/car_hatchback.png')">Book Now</button>
+        <span class="vc-avail">Available</span>
+      </div>
+      <div class="vc-details">
+        <span class="vc-plate">KL07 DL 3011</span>
+        <div class="vc-specs"><span>4 seats</span><span>Electric</span><span>Automatic</span></div>
+        <div class="price-box" data-daily-rate="2099" data-deposit="4000">
+          <p class="vc-price price-main">₹2,099 <span>/ day</span></p>
+          <p class="vc-deposit">Deposit ₹4,000</p>
+          <p class="vc-price-total">₹6,297 rental for your dates</p>
         </div>
       </div>
+      <button type="button" class="vc-go" aria-label="Book Eco Green EV" onclick="openBookingModal('Eco Green EV', '2099', 'images/car_hatchback.png')">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+      </button>
     </article>
 
   </section>
@@ -1991,11 +1987,7 @@
 
     const cards = document.querySelectorAll('.car-card');
     cards.forEach(card => {
-      if (category === 'all' || card.dataset.category === category) {
-        card.style.display = 'flex';
-      } else {
-        card.style.display = 'none';
-      }
+      card.style.display = (category === 'all' || card.dataset.category === category) ? '' : 'none';
     });
   }
 

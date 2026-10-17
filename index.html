@@ -3602,168 +3602,180 @@
   }
   .vh-fleet-track::-webkit-scrollbar { display: none; }
 
-  /* Light vehicle card — teal/cyan blend with the rest of the site */
+  /* Photo vehicle card */
   .vc-card,
   .vh-fleet-card {
+    position: relative;
     scroll-snap-align: start;
-    background: #ffffff;
-    border-radius: 22px;
+    align-self: start;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    border-radius: 24px;
     overflow: hidden;
-    border: 1px solid #d3eaf8;
-    box-shadow: 0 10px 28px rgba(12, 51, 68, 0.08);
-    display: flex;
-    flex-direction: column;
-    color: #111827;
-    min-height: 100%;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    color: #fff;
+    background: linear-gradient(160deg, #3b5560 0%, #16242b 100%);
+    box-shadow: 0 18px 36px -14px rgba(0,0,0,.45);
+    isolation: isolate;
+    transition: transform .3s ease, box-shadow .3s ease;
   }
   .vc-card:hover,
   .vh-fleet-card:hover {
     transform: translateY(-4px);
-    border-color: #b5dff6;
-    box-shadow: 0 16px 36px rgba(12, 51, 68, 0.12);
+    box-shadow: 0 22px 40px -12px rgba(0,0,0,.5);
   }
-  .vc-media {
-    background: linear-gradient(180deg, #f4faff 0%, #e4f3fb 100%);
-    margin: 12px 12px 0;
-    border-radius: 16px;
-    height: 160px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    position: relative;
-  }
-  .vc-media img {
-    max-height: 90%;
-    max-width: 100%;
-    object-fit: contain;
-    filter: drop-shadow(0 10px 16px rgba(0,0,0,0.2));
-  }
-  .vc-badge {
+  .vc-card > img {
     position: absolute;
-    top: 12px;
+    z-index: 0;
+    left: 4%;
+    right: 4%;
+    top: 23%;
+    width: 92%;
+    height: 40%;
+    object-fit: contain;
+    object-position: center;
+    filter: drop-shadow(0 16px 18px rgba(0,0,0,.45));
+    pointer-events: none;
+    transition: transform .35s ease;
+  }
+  .vc-card:hover > img { transform: scale(1.04); }
+  .vc-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      linear-gradient(to bottom, rgba(0,0,0,.45) 0%, rgba(0,0,0,0) 30%),
+      linear-gradient(to top, rgba(0,0,0,.82) 0%, rgba(0,0,0,.45) 38%, rgba(0,0,0,0) 62%);
+  }
+  .vc-top {
+    position: absolute;
     z-index: 2;
-    border-radius: 999px;
-    padding: 5px 12px;
-    font-size: 11px;
-    font-weight: 700;
-    color: #ffffff;
-  }
-  .vc-badge--type { left: 12px; background: #0c5688; }
-  .vc-badge--status { right: 12px; background: #0c6eab; }
-  .vc-body {
-    padding: 16px 18px 18px;
+    top: 18px;
+    left: 20px;
+    right: 18px;
     display: flex;
-    flex-direction: column;
-    flex: 1;
-    gap: 10px;
-  }
-  .vc-title-row {
-    display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: flex-start;
     gap: 10px;
   }
   .vc-title {
     margin: 0;
-    font-size: 17px;
+    font-size: 20px;
     font-weight: 800;
-    color: #08304a;
-    line-height: 1.2;
+    letter-spacing: -.01em;
+    line-height: 1.15;
+    color: #fff;
   }
   .vc-year {
+    margin: 3px 0 0;
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+    opacity: .85;
+  }
+  .vc-avail {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    font-size: 13px;
-    font-weight: 700;
-    color: #0c6eab;
+    gap: 6px;
     flex-shrink: 0;
-  }
-  .vc-star { color: #e0a106; }
-  .vc-plate {
-    font-size: 13px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.18);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font-size: 12px;
     font-weight: 600;
-    color: #6b7280;
-    margin-top: -4px;
+    color: #fff;
+  }
+  .vc-avail::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4fe39a;
+  }
+  .vc-details {
+    position: absolute;
+    z-index: 2;
+    left: 20px;
+    right: 84px;
+    bottom: 20px;
+  }
+  .vc-plate {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 5px;
+    background: rgba(255,255,255,.92);
+    color: #111;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: .08em;
   }
   .vc-specs {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px 14px;
-    font-size: 12.5px;
-    font-weight: 600;
-    color: #6b7280;
+    gap: 4px 12px;
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+    opacity: .92;
   }
-  .vc-specs span {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+  .vc-price {
+    margin: 10px 0 0;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -.02em;
+    line-height: 1;
+    color: #fff;
+    white-space: nowrap;
   }
-  .vc-footer {
-    margin-top: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding-top: 8px;
-  }
-  .vc-price-col {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+  .vc-price small {
+    font-size: 13px;
+    font-weight: 500;
+    opacity: .8;
+    letter-spacing: 0;
   }
   .vc-deposit {
+    margin: 5px 0 0;
     font-size: 12px;
-    font-weight: 600;
-    color: #6b7280;
-    white-space: nowrap;
+    font-weight: 500;
+    color: #fff;
+    opacity: .75;
   }
-  .vc-price-day {
-    font-size: 20px;
-    font-weight: 800;
-    color: #08304a;
-    line-height: 1.2;
-    white-space: nowrap;
-  }
-  .vc-price-day span {
-    font-size: 13px;
-    font-weight: 600;
-    color: #6b7280;
-  }
-  .vc-price-total {
-    font-size: 12px;
-    font-weight: 600;
-    color: #6b7280;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .vc-book {
-    background: var(--brand-cyan);
-    color: #06243c;
-    font-size: 13px;
-    font-weight: 800;
-    padding: 12px 20px;
-    border-radius: 999px;
-    border: none;
+  .vc-go {
+    position: absolute;
+    z-index: 2;
+    right: 18px;
+    bottom: 18px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    border: 0;
     cursor: pointer;
-    white-space: nowrap;
+    background: linear-gradient(135deg, #6eb8ee 0%, #3aa6e6 100%);
+    color: #07263f;
     text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-family: inherit;
-    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    box-shadow: 0 8px 18px -4px rgba(110, 184, 238, .65);
+    transition: transform .2s, background .15s;
   }
-  .vc-book:hover {
-    background: #8ecff6;
-    transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(110, 184, 238, 0.35);
+  .vc-go svg {
+    width: 22px;
+    height: 22px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform .2s;
   }
+  .vc-go:hover { background: linear-gradient(135deg, #8ecff6 0%, #5ec3de 100%); }
+  .vc-go:hover svg { transform: translate(2px, -2px); }
+  .vc-go:active { transform: scale(.94); }
+  .vc-go:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 
   /* Travel Kerala banner */
   .vh-promo {
@@ -4700,96 +4712,80 @@
       </div>
       <div class="vh-fleet-track" id="fleetTrack">
         <article class="vc-card vh-fleet-card">
-          <div class="vc-media">
-            <span class="vc-badge vc-badge--type">Car</span>
-            <span class="vc-badge vc-badge--status">Available</span>
-            <img src="images/hero_car.png" alt="Premium SUV" />
-          </div>
-          <div class="vc-body">
-            <div class="vc-title-row">
+          <img src="images/hero_car.png" alt="Premium SUV" />
+          <div class="vc-top">
+            <div>
               <h3 class="vc-title">Premium SUV</h3>
-              <span class="vc-year"><span class="vc-star">★</span> 2026</span>
+              <p class="vc-year">2026</p>
             </div>
-            <div class="vc-plate">KL07DL2208</div>
-            <div class="vc-specs"><span>👤 5 Seats</span><span>⛽ Diesel</span><span>⚙ Automatic</span></div>
-            <div class="vc-footer">
-              <div class="vc-price-col">
-                <div class="vc-deposit">Deposit: ₹5,000</div>
-                <div class="vc-price-day">₹2,499 <span>/day</span></div>
-                <div class="vc-price-total">Family &amp; highway</div>
-              </div>
-              <a href="search-results.html" class="vc-book">Book Now</a>
-            </div>
+            <span class="vc-avail">Available</span>
           </div>
+          <div class="vc-details">
+            <span class="vc-plate">KL07 DL 2208</span>
+            <div class="vc-specs"><span>5 seats</span><span>Diesel</span><span>Automatic</span></div>
+            <p class="vc-price">₹2,499 <small>/ day</small></p>
+            <p class="vc-deposit">Deposit ₹5,000</p>
+          </div>
+          <a href="search-results.html" class="vc-go" aria-label="Book Premium SUV">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+          </a>
         </article>
         <article class="vc-card vh-fleet-card">
-          <div class="vc-media">
-            <span class="vc-badge vc-badge--type">Car</span>
-            <span class="vc-badge vc-badge--status">Available</span>
-            <img src="images/car_luxury.png" alt="Executive Sedan" />
-          </div>
-          <div class="vc-body">
-            <div class="vc-title-row">
+          <img src="images/car_luxury.png" alt="Executive Sedan" />
+          <div class="vc-top">
+            <div>
               <h3 class="vc-title">Executive Sedan</h3>
-              <span class="vc-year"><span class="vc-star">★</span> 2026</span>
+              <p class="vc-year">2026</p>
             </div>
-            <div class="vc-plate">KL07DL2153</div>
-            <div class="vc-specs"><span>👤 5 Seats</span><span>⛽ Petrol</span><span>⚙ Automatic</span></div>
-            <div class="vc-footer">
-              <div class="vc-price-col">
-                <div class="vc-deposit">Deposit: ₹5,000</div>
-                <div class="vc-price-day">₹1,999 <span>/day</span></div>
-                <div class="vc-price-total">City &amp; coast</div>
-              </div>
-              <a href="search-results.html" class="vc-book">Book Now</a>
-            </div>
+            <span class="vc-avail">Available</span>
           </div>
+          <div class="vc-details">
+            <span class="vc-plate">KL07 DL 2153</span>
+            <div class="vc-specs"><span>5 seats</span><span>Petrol</span><span>Automatic</span></div>
+            <p class="vc-price">₹1,999 <small>/ day</small></p>
+            <p class="vc-deposit">Deposit ₹5,000</p>
+          </div>
+          <a href="search-results.html" class="vc-go" aria-label="Book Executive Sedan">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+          </a>
         </article>
         <article class="vc-card vh-fleet-card">
-          <div class="vc-media">
-            <span class="vc-badge vc-badge--type">Car</span>
-            <span class="vc-badge vc-badge--status">Available</span>
-            <img src="images/car_sedan.png" alt="City Taxi" />
-          </div>
-          <div class="vc-body">
-            <div class="vc-title-row">
+          <img src="images/car_sedan.png" alt="City Taxi" />
+          <div class="vc-top">
+            <div>
               <h3 class="vc-title">City Taxi</h3>
-              <span class="vc-year"><span class="vc-star">★</span> 2026</span>
+              <p class="vc-year">2026</p>
             </div>
-            <div class="vc-plate">KL07DL1490</div>
-            <div class="vc-specs"><span>👤 4 Seats</span><span>⛽ Petrol</span><span>⚙ Manual</span></div>
-            <div class="vc-footer">
-              <div class="vc-price-col">
-                <div class="vc-deposit">Deposit: ₹3,000</div>
-                <div class="vc-price-day">₹1,499 <span>/day</span></div>
-                <div class="vc-price-total">Airport &amp; daily</div>
-              </div>
-              <a href="search-results.html" class="vc-book">Book Now</a>
-            </div>
+            <span class="vc-avail">Available</span>
           </div>
+          <div class="vc-details">
+            <span class="vc-plate">KL07 DL 1490</span>
+            <div class="vc-specs"><span>4 seats</span><span>Petrol</span><span>Manual</span></div>
+            <p class="vc-price">₹1,499 <small>/ day</small></p>
+            <p class="vc-deposit">Deposit ₹3,000</p>
+          </div>
+          <a href="search-results.html" class="vc-go" aria-label="Book City Taxi">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+          </a>
         </article>
         <article class="vc-card vh-fleet-card">
-          <div class="vc-media">
-            <span class="vc-badge vc-badge--type">Car</span>
-            <span class="vc-badge vc-badge--status">Available</span>
-            <img src="images/car_ev.png" alt="E-EV Green Cruiser" />
-          </div>
-          <div class="vc-body">
-            <div class="vc-title-row">
+          <img src="images/car_ev.png" alt="E-EV Green Cruiser" />
+          <div class="vc-top">
+            <div>
               <h3 class="vc-title">E-EV Green Cruiser</h3>
-              <span class="vc-year"><span class="vc-star">★</span> 2026</span>
+              <p class="vc-year">2026</p>
             </div>
-            <div class="vc-plate">KL07DL5202</div>
-            <div class="vc-specs"><span>👤 5 Seats</span><span>⚡ Electric</span><span>⚙ Automatic</span></div>
-            <div class="vc-footer">
-              <div class="vc-price-col">
-                <div class="vc-deposit">Deposit: ₹5,000</div>
-                <div class="vc-price-day">₹2,199 <span>/day</span></div>
-                <div class="vc-price-total">Quiet electric</div>
-              </div>
-              <a href="search-results.html" class="vc-book">Book Now</a>
-            </div>
+            <span class="vc-avail">Available</span>
           </div>
+          <div class="vc-details">
+            <span class="vc-plate">KL07 DL 5202</span>
+            <div class="vc-specs"><span>5 seats</span><span>Electric</span><span>Automatic</span></div>
+            <p class="vc-price">₹2,199 <small>/ day</small></p>
+            <p class="vc-deposit">Deposit ₹5,000</p>
+          </div>
+          <a href="search-results.html" class="vc-go" aria-label="Book E-EV Green Cruiser">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+          </a>
         </article>
       </div>
     </div>
