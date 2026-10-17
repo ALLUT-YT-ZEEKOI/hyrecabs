@@ -80,11 +80,11 @@
      HYRECABS UNIFIED LUXURY HEADER
      ========================================================= */
   header.site-header {
-    background: #08304a;
+    background: #0b4f86;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(110, 184, 238, 0.16);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -93,9 +93,9 @@
     transition: background 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
   }
   header.site-header.is-scrolled {
-    background: #06243c;
-    border-bottom: 1px solid rgba(110, 184, 238, 0.26);
-    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(110, 184, 238, 0.08);
+    background: #084272;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 24px rgba(6, 30, 58, 0.28);
   }
   .header-wrap {
     display: flex;
@@ -165,22 +165,22 @@
     display: inline-flex;
     align-items: center;
     gap: 7px;
-    padding: 7px 14px;
-    background: rgba(110, 184, 238, 0.08);
-    border: 1px solid rgba(110, 184, 238, 0.25);
+    padding: 8px 14px;
+    background: #1c8fd4;
+    border: none;
     border-radius: 999px;
-    color: #e4f3fc;
+    color: #ffffff;
     font-size: 12.5px;
-    font-weight: 600;
+    font-weight: 700;
     text-decoration: none;
     transition: all 0.2s ease;
   }
   .header-phone-badge:hover {
-    background: rgba(110, 184, 238, 0.18);
-    border-color: #6eb8ee;
-    color: #6eb8ee;
+    background: #3aa6e8;
+    border-color: transparent;
+    color: #ffffff;
     transform: translateY(-1px);
-    box-shadow: 0 4px 14px rgba(110, 184, 238, 0.25);
+    box-shadow: 0 6px 16px rgba(28, 143, 212, 0.35);
   }
   .phone-pulse-dot {
     width: 7px;
@@ -346,18 +346,14 @@
   .std-hero {
     position: relative;
     margin-top: 78px;
-    background: none;
-    color: #ffffff;
-    padding: 42px 0 56px;
+    background: #f4f8fb;
+    color: #102a43;
+    padding: 42px 0 28px;
     overflow: visible;
     isolation: isolate;
   }
   .std-hero-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    overflow: hidden;
+    display: none;
   }
   .std-hero-bg-photo {
     position: absolute;
@@ -365,11 +361,20 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 36%;
+    object-position: center top;
+    transform: none;
     opacity: 1;
-    filter: none;
+    filter: saturate(1.06) contrast(1.02);
     mask-image: none;
     -webkit-mask-image: none;
+  }
+  .std-hero-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(100deg, rgba(5, 32, 64, 0.62) 0%, rgba(6, 44, 82, 0.28) 34%, rgba(8, 40, 70, 0.04) 62%, rgba(6, 28, 48, 0.08) 100%),
+      linear-gradient(180deg, rgba(4, 24, 48, 0.12) 0%, transparent 22%, rgba(4, 28, 52, 0.18) 100%);
   }
   .std-hero-bg-glow-1 {
     position: absolute;
@@ -392,14 +397,7 @@
     filter: blur(60px);
   }
   .std-hero-grid-lines {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-    background-size: 52px 52px;
-    mask-image: radial-gradient(ellipse 75% 65% at 50% 45%, black 25%, transparent 75%);
-    -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 45%, black 25%, transparent 75%);
+    display: none;
   }
 
   .std-hero-inner {
@@ -407,14 +405,14 @@
     z-index: 2;
     display: flex;
     flex-direction: column;
-    gap: 36px;
+    gap: 0;
   }
 
-  /* --- Top Stage: Story on Left, Car Podium on Right --- */
+  /* Left: page content. Right: pickup / drop-off booking. */
   .std-stage {
     display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(460px, 1fr);
-    gap: 40px 52px;
+    grid-template-columns: minmax(0, 1fr) minmax(380px, 460px);
+    gap: 40px 56px;
     align-items: center;
   }
 
@@ -429,9 +427,9 @@
     gap: 8px;
     padding: 6px 14px;
     border-radius: 999px;
-    background: rgba(110, 184, 238, 0.12);
-    border: 1px solid rgba(110, 184, 238, 0.32);
-    color: #8ecff6;
+    background: rgba(12, 110, 171, 0.1);
+    border: 1px solid rgba(12, 110, 171, 0.22);
+    color: #0c5688;
     font-size: 11.5px;
     font-weight: 800;
     letter-spacing: 1.6px;
@@ -453,17 +451,15 @@
 
   .std-title {
     margin: 0 0 16px;
-    font-size: clamp(34px, 4.4vw, 54px);
+    font-size: clamp(34px, 4.4vw, 52px);
     font-weight: 850;
     letter-spacing: -1.3px;
     line-height: 1.08;
-    color: #ffffff;
+    color: #102a43;
     text-wrap: balance;
   }
   .std-title-cyan {
-    background: linear-gradient(135deg, #ffffff 15%, #92def1 50%, #6eb8ee 85%, #2f9ee4 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #0c6eab;
     display: inline-block;
   }
 
@@ -471,8 +467,8 @@
     margin: 0 0 24px;
     font-size: 15.5px;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.82);
-    max-width: 530px;
+    color: #5c6e80;
+    max-width: 520px;
   }
 
   .std-cta-group {
@@ -490,12 +486,12 @@
     min-height: 48px;
     padding: 0 26px;
     border-radius: 999px;
-    background: linear-gradient(135deg, #8fe0f5 0%, #6eb8ee 48%, #36b0ce 100%);
-    color: #06111e;
+    background: #8fd4f2;
+    color: #07304d;
     font-size: 14.5px;
     font-weight: 800;
     line-height: 1;
-    box-shadow: 0 10px 24px rgba(110, 184, 238, 0.32);
+    box-shadow: 0 8px 20px rgba(8, 40, 70, 0.18);
     transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
     text-decoration: none;
   }
@@ -507,29 +503,28 @@
   .std-link-btn {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     min-height: 48px;
-    padding: 0 20px;
+    padding: 0 6px;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 14px;
-    font-weight: 700;
+    background: transparent;
+    border: none;
+    color: #0c5688;
+    font-size: 14.5px;
+    font-weight: 600;
     text-decoration: none;
-    transition: background 0.18s, border-color 0.18s, color 0.18s;
+    transition: color 0.18s;
   }
   .std-link-btn:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(110, 184, 238, 0.4);
-    color: #8ecff6;
+    background: transparent;
+    color: #084272;
   }
 
   .std-social-proof {
     display: flex;
     align-items: center;
     gap: 12px;
-    color: rgba(255, 255, 255, 0.72);
+    color: #5c6e80;
     font-size: 13px;
   }
 
@@ -547,7 +542,7 @@
   }
 
   .std-proof-text strong {
-    color: #ffffff;
+    color: #102a43;
   }
 
   /* --- Right Stage: Showcase Vehicle --- */
@@ -571,8 +566,8 @@
     font-family: 'Great Vibes', cursive;
     font-size: clamp(38px, 4.4vw, 56px);
     line-height: 1.1;
-    color: #7ec8e8;
-    text-shadow: 0 4px 20px rgba(4, 20, 32, 0.4);
+    color: #f3fbff;
+    text-shadow: 0 6px 18px rgba(4, 20, 40, 0.35);
   }
   
   .std-script-sub {
@@ -590,8 +585,8 @@
   .std-car-podium {
     position: relative;
     width: 100%;
-    max-width: 530px;
-    min-height: 250px;
+    max-width: 620px;
+    min-height: 280px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -618,9 +613,9 @@
   }
   .std-car-img {
     width: 100%;
-    max-height: 240px;
+    max-height: 300px;
     object-fit: contain;
-    filter: drop-shadow(0 20px 24px rgba(0, 0, 0, 0.45));
+    filter: drop-shadow(0 22px 28px rgba(0, 0, 0, 0.38));
     transition: opacity 0.25s ease, transform 0.25s ease;
   }
   .std-car-shadow {
@@ -702,33 +697,37 @@
   .std-vehicle-switcher {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 4px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    margin-top: 6px;
+    gap: 8px;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    border: none;
+    margin-top: 8px;
     z-index: 2;
   }
   .std-switch-btn {
-    border: none;
-    background: transparent;
-    color: rgba(255, 255, 255, 0.68);
-    font-size: 11.5px;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+    font-size: 12px;
     font-weight: 700;
-    padding: 6px 14px;
+    padding: 7px 14px;
     border-radius: 999px;
     cursor: pointer;
     font-family: inherit;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     transition: background 0.18s, color 0.18s, box-shadow 0.18s;
   }
   .std-switch-btn:hover {
-    color: #ffffff;
+    color: #0b3d66;
+    background: rgba(255, 255, 255, 0.88);
   }
   .std-switch-btn.active {
-    background: rgba(110, 184, 238, 0.18);
-    color: #8ecff6;
-    box-shadow: inset 0 0 0 1px rgba(110, 184, 238, 0.4);
+    background: #ffffff;
+    color: #0b3d66;
+    border-color: #ffffff;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
   }
 
   /* --- COMMAND BOOKING CONSOLE (Horizontal Sleek Bar) --- */
@@ -738,13 +737,13 @@
     z-index: 10;
   }
   .std-booking-form {
-    background: #086a9f33;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1.5px solid rgba(110, 184, 238, 0.28);
+    background: linear-gradient(180deg, #0d629e 0%, #0a5086 100%);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
     border-radius: 22px;
-    padding: 18px 22px 16px;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    padding: 22px 26px 14px;
+    box-shadow: 0 18px 40px rgba(6, 28, 56, 0.28);
   }
 
   .std-tabs-bar {
@@ -784,30 +783,31 @@
   /* Form Grid: 4 fields + 1 search button */
   .std-search-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.32fr) auto minmax(0, 1.12fr) auto minmax(0, 1.55fr) auto minmax(0, 1.55fr) auto;
-    align-items: center;
-    gap: 10px;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    gap: 4px;
   }
 
   .std-booking-console .std-cell {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
-    gap: 10px !important;
-    padding: 8px 12px !important;
-    background: rgba(255, 255, 255, 0.14) !important;
-    border: 1.5px solid rgba(255, 255, 255, 0.28) !important;
-    border-radius: 14px !important;
-    min-height: 56px !important;
-    transition: border-color 0.18s, background 0.18s, box-shadow 0.18s;
+    gap: 12px !important;
+    padding: 12px 8px !important;
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    min-height: 52px !important;
+    transition: background 0.18s;
     position: relative;
     cursor: pointer;
   }
   .std-booking-console .std-cell:hover,
   .std-booking-console .std-cell:focus-within {
-    border-color: #6eb8ee !important;
-    background: rgba(110, 184, 238, 0.08) !important;
-    box-shadow: 0 0 0 3px rgba(110, 184, 238, 0.15) !important;
+    border-color: transparent !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    box-shadow: none !important;
   }
   .std-booking-console .std-cell-icon {
     width: 32px !important;
@@ -901,7 +901,9 @@
   .std-booking-console .std-cell-datetime .datetime-box {
     display: flex !important;
     align-items: center !important;
-    gap: 4px !important;
+    justify-content: flex-start !important;
+    gap: 0 !important;
+    width: auto !important;
     min-width: 0 !important;
     background: transparent !important;
     border: none !important;
@@ -922,7 +924,7 @@
     background: transparent !important;
     padding: 0 !important;
     margin: 0 !important;
-    flex: 1 1 auto !important;
+    flex: 0 0 auto !important;
     min-width: 0 !important;
     display: flex !important;
     flex-direction: row !important;
@@ -963,22 +965,25 @@
   }
 
   .std-cell-divider {
-    width: 1px;
-    height: 36px;
-    background: rgba(255, 255, 255, 0.1);
+    display: none;
   }
 
   .std-search-action {
+    grid-column: 1 / -1;
     display: flex;
     align-items: center;
+    justify-content: center;
+    margin-top: 2px;
   }
   .std-search-submit {
-    min-height: 56px;
-    padding: 0 28px;
+    min-height: 48px;
+    width: 100%;
+    min-width: 0;
+    padding: 0 32px;
     border: none;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #8fe0f5 0%, #6eb8ee 50%, #36b0ce 100%);
-    color: #06111e;
+    border-radius: 999px;
+    background: #e8f4fb;
+    color: #0b3d66;
     font-family: inherit;
     font-size: 15.5px;
     font-weight: 800;
@@ -988,21 +993,22 @@
     gap: 10px;
     white-space: nowrap;
     cursor: pointer;
-    box-shadow: 0 8px 24px rgba(110, 184, 238, 0.38);
+    box-shadow: 0 8px 18px rgba(4, 24, 48, 0.16);
     transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
   }
   .std-search-submit:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(110, 184, 238, 0.5);
-    background: linear-gradient(135deg, #a4e7f8 0%, #8ecff6 50%, #46bcd9 100%);
+    box-shadow: 0 12px 24px rgba(4, 24, 48, 0.22);
+    background: #ffffff;
   }
 
   /* Booking footer note strip */
   .std-booking-footer {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 8px;
     margin-top: 14px;
     padding-top: 12px;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -1024,37 +1030,41 @@
   }
 
   /* --- 4 VALUE PILLARS (Clean Standard Cards) --- */
+  .hx-features {
+    background: #f5f8fb;
+    padding: 28px 0 8px;
+  }
   .std-features-row {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
     width: 100%;
   }
   .std-feat-card {
     display: flex;
     align-items: flex-start;
     gap: 14px;
-    padding: 18px 20px;
-    border-radius: 18px;
-    background: #086a9f33;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    padding: 20px 18px;
+    border-radius: 16px;
+    background: #ffffff;
+    border: 1px solid #e7eef5;
+    box-shadow: 0 8px 22px rgba(15, 45, 75, 0.05);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   }
   .std-feat-card:hover {
     transform: translateY(-3px);
-    border-color: rgba(110, 184, 238, 0.35);
-    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.32);
+    border-color: #c5dff3;
+    box-shadow: 0 14px 28px rgba(15, 45, 75, 0.08);
   }
   .std-feat-icon {
     width: 44px;
     height: 44px;
     border-radius: 12px;
-    background: linear-gradient(135deg, rgba(110, 184, 238, 0.22) 0%, rgba(14, 110, 176, 0.35) 100%);
-    border: 1px solid rgba(110, 184, 238, 0.28);
-    color: #8ecff6;
+    background: #e7f3fb;
+    border: none;
+    color: #1a7fbe;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1065,39 +1075,36 @@
   }
   .std-feat-body strong {
     display: block;
-    font-size: 14.5px;
+    font-size: 15px;
     font-weight: 800;
-    color: #ffffff;
+    color: #102a43;
     line-height: 1.2;
     margin-bottom: 2px;
   }
   .std-feat-body span {
     display: block;
-    font-size: 11.5px;
+    font-size: 11px;
     font-weight: 700;
-    color: #6eb8ee;
+    color: #1a7fbe;
     margin-bottom: 4px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
   }
   .std-feat-body p {
     margin: 0;
-    font-size: 12px;
+    font-size: 12.5px;
     line-height: 1.45;
-    color: rgba(255, 255, 255, 0.65);
+    color: #6b7c8d;
   }
 
   /* --- RESPONSIVE BREAKPOINTS --- */
   @media (max-width: 1160px) {
     .std-search-grid {
-      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-      row-gap: 12px;
-    }
-    .std-cell-divider:nth-of-type(2) {
-      display: none;
+      grid-template-columns: 1fr;
+      gap: 4px;
     }
     .std-search-action {
-      grid-column: span 3;
+      grid-column: 1 / -1;
     }
     .std-search-submit {
       width: 100%;
@@ -1110,7 +1117,10 @@
   @media (max-width: 960px) {
     .std-stage {
       grid-template-columns: 1fr;
-      gap: 24px;
+      gap: 22px;
+    }
+    .std-booking-console {
+      order: -1;
     }
     .std-showcase {
       align-items: center;
@@ -1167,7 +1177,7 @@
       display: none;
     }
     .std-search-action {
-      grid-column: span 1;
+      grid-column: 1 / -1;
     }
     .std-search-submit {
       width: 100%;
@@ -3468,9 +3478,9 @@
      VOLTHIRE-STYLE PAGE SECTIONS (HyreCabs content)
      ========================================================= */
   :root {
-    --vh-green: #7acb2e;
-    --vh-green-dark: #62a822;
-    --vh-ink: #111827;
+    --vh-green: #1a7fbe;
+    --vh-green-dark: #0d5f96;
+    --vh-ink: #102a43;
     --vh-muted: #6b7280;
     --vh-soft: #f3f4f6;
     --vh-dark: #0f1720;
@@ -3479,7 +3489,7 @@
   .vh-section {
     padding: 72px 0;
   }
-  .vh-section--soft { background: #f3f8fd; }
+  .vh-section--soft { background: #f5f8fb; }
   .vh-section--white { background: #ffffff; }
   .vh-center { text-align: center; }
   .vh-heading {
@@ -3572,10 +3582,23 @@
     gap: 12px;
     text-align: left;
   }
+  .vh-benefits { counter-reset: hxstep; }
   .vh-benefit-icon {
-    width: 44px;
-    height: 44px;
-    color: var(--vh-green);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #1a7fbe;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 800;
+  }
+  .vh-benefit-icon svg { display: none; }
+  .vh-benefit-icon::before {
+    counter-increment: hxstep;
+    content: counter(hxstep);
   }
   .vh-benefit strong {
     display: block;
@@ -3776,6 +3799,173 @@
   .vc-go:hover svg { transform: translate(2px, -2px); }
   .vc-go:active { transform: scale(.94); }
   .vc-go:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+  /* Homepage fleet — white cards in the reference layout */
+  .vh-fleet-track {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: stretch;
+  }
+  .vh-fleet-card {
+    aspect-ratio: auto;
+    background: #ffffff;
+    color: #102a43;
+    border: 1px solid #e6edf4;
+    border-radius: 26px;
+    box-shadow: 0 16px 36px rgba(15, 45, 75, 0.08);
+    overflow: hidden;
+  }
+  .vh-fleet-card::before { display: none; }
+  .vh-fleet-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(15, 45, 75, 0.12);
+  }
+  .hx-fleet-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 420px;
+    padding: 18px 18px 16px;
+    color: inherit;
+    text-decoration: none;
+  }
+  .hx-fleet-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .hx-fleet-top h3 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+    line-height: 1.1;
+    color: #102a43;
+  }
+  .hx-fleet-year {
+    margin: 4px 0 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #8b97a6;
+  }
+  .hx-fleet-flag {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #0c6eab;
+  }
+  .hx-fleet-avail {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #f3f6f8;
+    color: #5c6b7a;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .hx-fleet-avail i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.16);
+  }
+  .hx-fleet-media {
+    position: relative;
+    flex: 1;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    padding: 8px 4px;
+  }
+  .hx-fleet-media img {
+    position: relative;
+    width: 100%;
+    height: 140px;
+    object-fit: contain;
+    filter: drop-shadow(0 14px 16px rgba(15, 40, 70, 0.16));
+    transition: transform 0.3s ease;
+  }
+  .vh-fleet-card:hover .hx-fleet-media img { transform: scale(1.04); }
+  .hx-fleet-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .hx-fleet-plate {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: #f2f4f7;
+    color: #1f2933;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+  }
+  .hx-fleet-specs {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #667588;
+  }
+  .hx-fleet-foot {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 2px;
+  }
+  .hx-fleet-price {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+    line-height: 1;
+    color: #102a43;
+  }
+  .hx-fleet-price span {
+    font-size: 14px;
+    font-weight: 600;
+    color: #8b97a6;
+    letter-spacing: 0;
+  }
+  .hx-fleet-deposit {
+    margin: 5px 0 0;
+    font-size: 13px;
+    font-weight: 500;
+    color: #8b97a6;
+  }
+  .hx-fleet-go {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, #6eb8ee 0%, #3aa6e6 100%);
+    color: #07263f;
+    box-shadow: 0 8px 18px rgba(58, 166, 230, 0.4);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .hx-fleet-go svg {
+    width: 20px;
+    height: 20px;
+  }
+  .vh-fleet-card:hover .hx-fleet-go {
+    background: linear-gradient(135deg, #8ecff6 0%, #5ec3de 100%);
+    transform: translate(2px, -2px);
+  }
 
   /* Travel Kerala banner */
   .vh-promo {
@@ -4379,17 +4569,9 @@
 <!-- MAIN CONTENT -->
 <main>
   
-    <!-- HERO BANNER (Standard Luxury UI/UX) -->
+    <!-- Opening: content on the left, pickup and drop-off on the right -->
   <section class="std-hero" aria-label="HyreCabs Kerala Cab Rentals">
-    <div class="std-hero-bg" aria-hidden="true">
-      <img src="images/hero-kerala-scenic.jpg" alt="" class="std-hero-bg-photo" />
-      <div class="std-hero-bg-glow-1"></div>
-      <div class="std-hero-bg-glow-2"></div>
-      <div class="std-hero-grid-lines"></div>
-    </div>
-
     <div class="container std-hero-inner">
-      <!-- TOP STAGE: Headline & Story on Left + Car Showcase on Right -->
       <div class="std-stage">
         <div class="std-copy">
           <div class="std-pill">
@@ -4407,7 +4589,7 @@
           </p>
 
           <div class="std-cta-group">
-            <a href="#heroSearchForm" class="std-cta-btn">
+            <a href="#howitworks" class="std-cta-btn">
               <span>Explore Our Services</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </a>
@@ -4427,57 +4609,7 @@
           </div>
         </div>
 
-        <!-- CAR SHOWCASE ON RIGHT -->
-        <div class="std-showcase">
-          <div class="std-script" aria-hidden="true">
-            <span class="std-script-title">Kerala Awaits</span>
-            <span class="std-script-sub">TRAVEL WITH HYRECABS</span>
-          </div>
-
-          <div class="std-car-podium">
-            <div class="std-podium-glow" aria-hidden="true"></div>
-            <div class="std-car-img-wrap">
-              <img src="images/hero_car.png" alt="HyreCabs Premium SUV" id="stdCarImg" class="std-car-img" />
-            </div>
-            <div class="std-car-shadow" aria-hidden="true"></div>
-
-            <!-- Floating Trust Badges on Vehicle -->
-            <div class="std-float-badge std-float-left">
-              <div class="std-badge-icon" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
-              </div>
-              <div>
-                <strong>Verified Chauffeur</strong>
-                <span>Sanitized &amp; GPS Tracked</span>
-              </div>
-            </div>
-
-            <div class="std-float-badge std-float-right">
-              <div class="std-badge-dot" aria-hidden="true"></div>
-              <div>
-                <strong id="stdCarTitle">Toyota Innova Hycross</strong>
-                <span id="stdCarPrice">From ₹2,499/day</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Vehicle switcher pills -->
-          <div class="std-vehicle-switcher" role="tablist" aria-label="Select vehicle preview">
-            <button type="button" class="std-switch-btn active" data-car="suv" onclick="selectStdCar('suv')">
-              <span>Premium SUV</span>
-            </button>
-            <button type="button" class="std-switch-btn" data-car="sedan" onclick="selectStdCar('sedan')">
-              <span>Executive Sedan</span>
-            </button>
-            <button type="button" class="std-switch-btn" data-car="taxi" onclick="selectStdCar('taxi')">
-              <span>City Taxi</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- COMMAND BOOKING ENGINE BAR -->
-      <div class="std-booking-console">
+        <div class="std-booking-console">
         <form action="search-results.html" method="GET" class="std-booking-form" id="heroSearchForm">
           <!-- The 4 Search Field Blocks + CTA in horizontal bar -->
           <div class="std-search-grid">
@@ -4595,14 +4727,18 @@
               <span>Free cancellation up to 6 hours before pickup</span>
             </div>
             <div class="std-foot-item std-foot-right">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" color="#6eb8ee" aria-hidden="true"><path d="M12 21c-.4 0-4-2.2-5.8-6.1C4.7 11.6 5.2 8.4 7 7.2c1.1-.7 2.4-.4 3.2.4.3-.9 1-2.3 2.4-3.1 1.7-1 3.5-.3 4.4 1.1.8 1.2.8 2.9.1 4.5 1.5-.1 2.7.7 3.1 2 .6 1.9-.5 4.1-2.9 5.4C15.2 19.5 12.4 21 12 21z"/><path d="M12 10v11" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" color="#8fd4f2" aria-hidden="true"><path d="M12 21c-.4 0-4-2.2-5.8-6.1C4.7 11.6 5.2 8.4 7 7.2c1.1-.7 2.4-.4 3.2.4.3-.9 1-2.3 2.4-3.1 1.7-1 3.5-.3 4.4 1.1.8 1.2.8 2.9.1 4.5 1.5-.1 2.7.7 3.1 2 .6 1.9-.5 4.1-2.9 5.4C15.2 19.5 12.4 21 12 21z"/><path d="M12 10v11" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
               <span>Trusted by thousands across Kerala</span>
             </div>
           </div>
         </form>
       </div>
+      </div>
+    </div>
+  </section>
 
-      <!-- THE 4 VALUE PILLARS (Clean Standard Cards) -->
+  <section class="hx-features" aria-label="Why travellers choose HyreCabs">
+    <div class="container">
       <div class="std-features-row">
         <div class="std-feat-card">
           <div class="std-feat-icon" aria-hidden="true">
@@ -4645,6 +4781,28 @@
             <strong>Across Kerala</strong>
             <span>Major Cities &amp; Towns</span>
             <p>Cochin Airport, Kottayam, Kollam, Munnar &amp; all 14 districts.</p>
+          </div>
+        </div>
+
+        <div class="std-feat-card">
+          <div class="std-feat-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="std-feat-body">
+            <strong>24/7 Support</strong>
+            <span>Always Here</span>
+            <p>Call, chat or WhatsApp +91 70340 60000 for instant help.</p>
+          </div>
+        </div>
+
+        <div class="std-feat-card">
+          <div class="std-feat-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg>
+          </div>
+          <div class="std-feat-body">
+            <strong>Flexible Booking</strong>
+            <span>Easy &amp; Secure</span>
+            <p>Modify or cancel your booking with ease. Free cancellation up to 6 hours before pickup.</p>
           </div>
         </div>
       </div>
@@ -4705,98 +4863,115 @@
           <p class="vh-sub">Browse the cars available across our Kerala depots.</p>
         </div>
         <div class="vh-actions">
-          <a href="search-results.html" class="vh-btn vh-btn--outline">View All Vehicles</a>
+          <a href="search-results.html" class="vh-btn vh-btn--outline">View All Vehicles →</a>
           <button type="button" class="vh-icon-btn" onclick="scrollFleet(-1)" aria-label="Previous">‹</button>
           <button type="button" class="vh-icon-btn" onclick="scrollFleet(1)" aria-label="Next">›</button>
         </div>
       </div>
       <div class="vh-fleet-track" id="fleetTrack">
-        <article class="vc-card vh-fleet-card">
-          <img src="images/hero_car.png" alt="Premium SUV" />
-          <div class="vc-top">
-            <div>
-              <h3 class="vc-title">Premium SUV</h3>
-              <p class="vc-year">2026</p>
+        <article class="vh-fleet-card">
+          <a href="search-results.html" class="hx-fleet-link" aria-label="Book Premium SUV">
+            <div class="hx-fleet-top">
+              <div>
+                <h3>Premium SUV</h3>
+                <p class="hx-fleet-year">2026</p>
+              </div>
+              <span class="hx-fleet-avail"><i></i>Available</span>
             </div>
-            <span class="vc-avail">Available</span>
-          </div>
-          <div class="vc-details">
-            <span class="vc-plate">KL07 DL 2208</span>
-            <div class="vc-specs"><span>5 seats</span><span>Diesel</span><span>Automatic</span></div>
-            <p class="vc-price">₹2,499 <small>/ day</small></p>
-            <p class="vc-deposit">Deposit ₹5,000</p>
-          </div>
-          <a href="search-results.html" class="vc-go" aria-label="Book Premium SUV">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+            <div class="hx-fleet-media">
+              <img src="images/hero_car.png" alt="Premium SUV" />
+            </div>
+            <div class="hx-fleet-body">
+              <span class="hx-fleet-plate">KL07 DL 2208</span>
+              <p class="hx-fleet-specs"><span>5 seats</span><span>Diesel</span><span>Automatic</span></p>
+              <div class="hx-fleet-foot">
+                <div>
+                  <p class="hx-fleet-price">₹2,499 <span>/ day</span></p>
+                  <p class="hx-fleet-deposit">Deposit ₹5,000</p>
+                </div>
+                <span class="hx-fleet-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></span>
+              </div>
+            </div>
           </a>
         </article>
-        <article class="vc-card vh-fleet-card">
-          <img src="images/car_luxury.png" alt="Executive Sedan" />
-          <div class="vc-top">
-            <div>
-              <h3 class="vc-title">Executive Sedan</h3>
-              <p class="vc-year">2026</p>
+        <article class="vh-fleet-card">
+          <a href="search-results.html" class="hx-fleet-link" aria-label="Book Executive Sedan">
+            <div class="hx-fleet-top">
+              <div>
+                <h3>Executive Sedan</h3>
+                <p class="hx-fleet-year">2026</p>
+                <span class="hx-fleet-flag">Best Value</span>
+              </div>
+              <span class="hx-fleet-avail"><i></i>Available</span>
             </div>
-            <span class="vc-avail">Available</span>
-          </div>
-          <div class="vc-details">
-            <span class="vc-plate">KL07 DL 2153</span>
-            <div class="vc-specs"><span>5 seats</span><span>Petrol</span><span>Automatic</span></div>
-            <p class="vc-price">₹1,999 <small>/ day</small></p>
-            <p class="vc-deposit">Deposit ₹5,000</p>
-          </div>
-          <a href="search-results.html" class="vc-go" aria-label="Book Executive Sedan">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+            <div class="hx-fleet-media">
+              <img src="images/car_luxury.png" alt="Executive Sedan" />
+            </div>
+            <div class="hx-fleet-body">
+              <span class="hx-fleet-plate">KL07 DL 2153</span>
+              <p class="hx-fleet-specs"><span>5 seats</span><span>Petrol</span><span>Automatic</span></p>
+              <div class="hx-fleet-foot">
+                <div>
+                  <p class="hx-fleet-price">₹1,999 <span>/ day</span></p>
+                  <p class="hx-fleet-deposit">Deposit ₹5,000</p>
+                </div>
+                <span class="hx-fleet-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></span>
+              </div>
+            </div>
           </a>
         </article>
-        <article class="vc-card vh-fleet-card">
-          <img src="images/car_sedan.png" alt="City Taxi" />
-          <div class="vc-top">
-            <div>
-              <h3 class="vc-title">City Taxi</h3>
-              <p class="vc-year">2026</p>
+        <article class="vh-fleet-card">
+          <a href="search-results.html" class="hx-fleet-link" aria-label="Book City Taxi">
+            <div class="hx-fleet-top">
+              <div>
+                <h3>City Taxi</h3>
+                <p class="hx-fleet-year">2026</p>
+              </div>
+              <span class="hx-fleet-avail"><i></i>Available</span>
             </div>
-            <span class="vc-avail">Available</span>
-          </div>
-          <div class="vc-details">
-            <span class="vc-plate">KL07 DL 1490</span>
-            <div class="vc-specs"><span>4 seats</span><span>Petrol</span><span>Manual</span></div>
-            <p class="vc-price">₹1,499 <small>/ day</small></p>
-            <p class="vc-deposit">Deposit ₹3,000</p>
-          </div>
-          <a href="search-results.html" class="vc-go" aria-label="Book City Taxi">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+            <div class="hx-fleet-media">
+              <img src="images/car_sedan.png" alt="City Taxi" />
+            </div>
+            <div class="hx-fleet-body">
+              <span class="hx-fleet-plate">KL07 DL 1490</span>
+              <p class="hx-fleet-specs"><span>4 seats</span><span>Petrol</span><span>Manual</span></p>
+              <div class="hx-fleet-foot">
+                <div>
+                  <p class="hx-fleet-price">₹1,499 <span>/ day</span></p>
+                  <p class="hx-fleet-deposit">Deposit ₹3,000</p>
+                </div>
+                <span class="hx-fleet-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></span>
+              </div>
+            </div>
           </a>
         </article>
-        <article class="vc-card vh-fleet-card">
-          <img src="images/car_ev.png" alt="E-EV Green Cruiser" />
-          <div class="vc-top">
-            <div>
-              <h3 class="vc-title">E-EV Green Cruiser</h3>
-              <p class="vc-year">2026</p>
+        <article class="vh-fleet-card">
+          <a href="search-results.html" class="hx-fleet-link" aria-label="Book E-EV Green Cruiser">
+            <div class="hx-fleet-top">
+              <div>
+                <h3>E-EV Green Cruiser</h3>
+                <p class="hx-fleet-year">2026</p>
+              </div>
+              <span class="hx-fleet-avail"><i></i>Available</span>
             </div>
-            <span class="vc-avail">Available</span>
-          </div>
-          <div class="vc-details">
-            <span class="vc-plate">KL07 DL 5202</span>
-            <div class="vc-specs"><span>5 seats</span><span>Electric</span><span>Automatic</span></div>
-            <p class="vc-price">₹2,199 <small>/ day</small></p>
-            <p class="vc-deposit">Deposit ₹5,000</p>
-          </div>
-          <a href="search-results.html" class="vc-go" aria-label="Book E-EV Green Cruiser">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+            <div class="hx-fleet-media">
+              <img src="images/car_ev.png" alt="E-EV Green Cruiser" />
+            </div>
+            <div class="hx-fleet-body">
+              <span class="hx-fleet-plate">KL07 DL 5202</span>
+              <p class="hx-fleet-specs"><span>5 seats</span><span>Electric</span><span>Automatic</span></p>
+              <div class="hx-fleet-foot">
+                <div>
+                  <p class="hx-fleet-price">₹2,199 <span>/ day</span></p>
+                  <p class="hx-fleet-deposit">Deposit ₹5,000</p>
+                </div>
+                <span class="hx-fleet-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></span>
+              </div>
+            </div>
           </a>
         </article>
       </div>
     </div>
-  </section>
-
-  <!-- Travel Kerala banner -->
-  <section class="vh-promo" id="vision">
-    <a class="vh-promo-banner" href="search-results.html">
-      <img src="WhatsApp%20Image%202026-10-15%20at%206.46.29%20PM.jpeg" alt="Your journey, our priority. Travel Kerala Your Way. Reliable rides. Transparent fares. Comfortable journeys." />
-      <span class="vh-promo-cta" aria-label="Explore Our Services"></span>
-    </a>
   </section>
 
   <!-- Stats from existing policies -->
@@ -5964,5 +6139,4 @@
   }
 </script>
 </body>
-</html>
 </html>

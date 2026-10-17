@@ -404,57 +404,57 @@
     margin-bottom: 60px;
   }
 
-  /* Photo vehicle card */
+  /* White vehicle cards */
   .car-card,
   .vc-card {
     position: relative;
+    display: flex;
+    flex-direction: column;
     align-self: start;
     width: 100%;
-    aspect-ratio: 3 / 4;
-    border-radius: 24px;
+    aspect-ratio: auto;
+    min-height: 430px;
+    padding: 18px 18px 16px;
+    border-radius: 26px;
     overflow: hidden;
-    color: #fff;
-    background: linear-gradient(160deg, #3b5560 0%, #16242b 100%);
-    box-shadow: 0 18px 36px -14px rgba(0,0,0,.45);
+    color: #102a43;
+    background: #ffffff;
+    border: 1px solid #e6edf4;
+    box-shadow: 0 16px 36px rgba(15, 45, 75, 0.08);
     isolation: isolate;
     transition: transform .3s ease, box-shadow .3s ease;
   }
   .car-card:hover,
   .vc-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 22px 40px -12px rgba(0,0,0,.5);
+    box-shadow: 0 20px 40px rgba(15, 45, 75, 0.12);
   }
   .vc-card > img {
-    position: absolute;
+    position: relative;
+    order: 2;
     z-index: 0;
-    left: 4%;
-    right: 4%;
-    top: 17%;
-    width: 92%;
-    height: 30%;
+    left: auto;
+    right: auto;
+    top: auto;
+    width: 100%;
+    height: 140px;
+    flex: 1;
+    margin: 6px 0;
     object-fit: contain;
     object-position: center;
-    filter: drop-shadow(0 16px 18px rgba(0,0,0,.45));
+    filter: drop-shadow(0 14px 16px rgba(15, 40, 70, 0.16));
     pointer-events: none;
     transition: transform .35s ease;
   }
   .vc-card:hover > img { transform: scale(1.04); }
-  .vc-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    background:
-      linear-gradient(to bottom, rgba(0,0,0,.45) 0%, rgba(0,0,0,0) 30%),
-      linear-gradient(to top, rgba(0,0,0,.82) 0%, rgba(0,0,0,.45) 38%, rgba(0,0,0,0) 62%);
-  }
+  .vc-card::before { display: none; }
   .vc-top {
-    position: absolute;
+    position: relative;
+    order: 1;
     z-index: 2;
-    top: 18px;
-    left: 20px;
-    right: 18px;
+    top: auto;
+    left: auto;
+    right: auto;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -466,62 +466,65 @@
     font-weight: 800;
     letter-spacing: -.01em;
     line-height: 1.15;
-    color: #fff;
+    color: #102a43;
   }
   .vc-year {
-    margin: 3px 0 0;
-    font-size: 13px;
+    margin: 4px 0 0;
+    font-size: 14px;
     font-weight: 500;
-    color: #fff;
-    opacity: .85;
+    color: #8b97a6;
+    opacity: 1;
   }
   .vc-avail {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     flex-shrink: 0;
-    padding: 5px 10px;
+    padding: 6px 10px;
     border-radius: 999px;
-    background: rgba(255,255,255,.18);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: #f3f6f8;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     font-size: 12px;
-    font-weight: 600;
-    color: #fff;
+    font-weight: 700;
+    color: #5c6b7a;
   }
   .vc-avail::before {
     content: "";
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #4fe39a;
+    background: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.16);
   }
   .vc-details {
-    position: absolute;
+    position: relative;
+    order: 3;
     z-index: 2;
-    left: 20px;
-    right: 84px;
-    bottom: 20px;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    padding-right: 64px;
   }
   .vc-plate {
     display: inline-block;
-    padding: 2px 8px;
-    border-radius: 5px;
-    background: rgba(255,255,255,.92);
-    color: #111;
-    font-size: 11.5px;
-    font-weight: 700;
-    letter-spacing: .08em;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: #f2f4f7;
+    color: #1f2933;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .06em;
   }
   .vc-specs {
     display: flex;
     flex-wrap: wrap;
-    gap: 4px 12px;
-    margin-top: 10px;
-    font-size: 13px;
-    font-weight: 500;
-    color: #fff;
-    opacity: .92;
+    gap: 6px 14px;
+    margin-top: 8px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #667588;
+    opacity: 1;
   }
   .price-box { min-width: 0; }
   .vc-price,
@@ -531,31 +534,32 @@
     font-weight: 800;
     letter-spacing: -.02em;
     line-height: 1;
-    color: #fff;
+    color: #102a43;
     white-space: nowrap;
   }
   .vc-price small,
   .vc-price span,
   .price-main small,
   .price-main span {
-    font-size: 13px;
-    font-weight: 500;
-    opacity: .8;
+    font-size: 14px;
+    font-weight: 600;
+    color: #8b97a6;
+    opacity: 1;
     letter-spacing: 0;
   }
   .vc-deposit {
     margin: 5px 0 0;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
-    color: #fff;
-    opacity: .75;
+    color: #8b97a6;
+    opacity: 1;
   }
   .vc-price-total {
     margin: 4px 0 0;
-    font-size: 11.5px;
+    font-size: 12px;
     font-weight: 600;
-    color: #fff;
-    opacity: .82;
+    color: #0c6eab;
+    opacity: 1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -563,8 +567,8 @@
   .vc-go {
     position: absolute;
     z-index: 2;
-    right: 18px;
-    bottom: 18px;
+    right: 16px;
+    bottom: 16px;
     width: 52px;
     height: 52px;
     border-radius: 50%;
@@ -1514,7 +1518,7 @@
     </div>
   </section>
 
-  <!-- VEHICLES GRID — dark vehicle cards -->
+  <!-- VEHICLES GRID -->
   <section class="grid-4col" id="carsGrid">
 
     <article class="car-card vc-card" data-category="hatchback">
